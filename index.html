@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam Khan Navarro - CV</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <style>
+    /* Base body styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #374151; /* gray-700 */
+      background-color: #f3f4f6; /* gray-100 */
+      overflow-x: hidden; /* Prevent horizontal scrollbars caused by animations */
+    }
+
+    /* Container styling */
+    .cv-container {
+        max-width: 800px; /* Adjusted max-width */
+        margin: 2rem auto; /* Added margin */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        border-radius: 0.5rem; /* rounded-lg */
+    }
+
+    /* Icon colors */
+    .icon-colored { color: #3b82f6 !important; } /* blue-500 */
+    .python { color: #3776AB !important; }
+    .r-lang { color: #276DC3 !important; }
+    .brain { color: #8E44AD !important; }
+    .laptop { color: #16A085 !important; }
+    .chart { color: #F39C12 !important; }
+    .calc { color: #D35400 !important; }
+    .ull-purple { color: #6d28d9; } /* violet-700 */
+
+    /* Icon sizing and alignment */
+    .fa, .fab, .fas {
+        width: 1.2em;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    /* Link wrapping */
+    a {
+        word-break: break-word;
+    }
+
+    /* Styling for elements before animation */
+    .js-animate-on-scroll {
+      opacity: 0; /* Start hidden */
+    }
+
+    /* Subtle hover effect for skill items */
+    #skills ul li:hover {
+        transform: translateX(5px);
+        transition: transform 0.2s ease-out;
+    }
+    /* Subtle hover effect for publication/presentation items */
+     #publications ul li:hover, #presentations ul li:hover {
+        background-color: #f9fafb; /* gray-50 */
+        transition: background-color 0.2s ease-out;
+        border-radius: 0.25rem; /* rounded */
+    }
+
+    /* Photo placeholder specific styles */
+    .photo-placeholder {
+        overflow: hidden; /* Ensures the image stays within the rounded bounds */
+    }
+    .photo-placeholder img {
+        display: block; /* Removes extra space below image if it's an inline element */
+    }
+
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="cv-container max-w-4xl mx-auto px-6 sm:px-8 py-10 bg-white">
+    <header class="flex flex-col md:flex-row justify-start items-start gap-8 mb-10 js-animate-on-scroll" data-animation="animate__fadeInDown">
+      <div class="flex flex-col items-center md:items-start text-sm text-gray-600 w-full md:w-auto">
+        <div class="photo-placeholder w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 text-5xl mb-4 flex-shrink-0 js-animate-on-scroll" data-animation="animate__zoomIn" style="animation-delay: 0.2s;">
+          <img 
+            src="IMG_1443.jpeg" 
+            alt="Adam Khan Navarro" 
+            class="w-full h-full object-cover rounded-full"
+            onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/969696?text=Image+Error';">
+        </div>
+        <div class="space-y-1.5 text-center md:text-left js-animate-on-scroll" data-animation="animate__fadeInLeft" style="animation-delay: 0.4s;">
+          <div class="flex items-center justify-center md:justify-start"><i class="fab fa-linkedin icon-colored mr-2"></i><a href="https://www.linkedin.com/feed/" class="hover:underline text-blue-600 break-all">linkedin.com/in/AdamKhanBM</a></div>
+          <div class="flex items-center justify-center md:justify-start"><i class="fab fa-github icon-colored mr-2"></i><a href="https://github.com/AdamKhanBM" class="hover:underline text-blue-600 break-all">github.com/AdamKhanBM</a></div>
+          <div class="flex items-center justify-center md:justify-start"><i class="fas fa-envelope icon-colored mr-2"></i> adamkhan.navarro@gmail.com</div>
+          <div class="flex items-center justify-center md:justify-start"><i class="fas fa-phone icon-colored mr-2"></i> +34 609418872</div>
+          <div class="flex items-center justify-center md:justify-start"><i class="fas fa-map-marker-alt icon-colored mr-2"></i> Spain</div>
+        </div>
+      </div>
+      <div class="mt-4 md:mt-0 text-center md:text-left w-full js-animate-on-scroll" data-animation="animate__fadeInRight" style="animation-delay: 0.6s;">
+        <h1 class="text-4xl font-bold mb-1 text-ull-purple">Adam Khan Navarro</h1>
+        <p class="text-xl text-gray-700 font-medium">Ph.D. Candidate | Bioinformatics & Computational Biology</p>
+      </div>
+    </header>
+
+    <section class="mb-10 js-animate-on-scroll" id="summary" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-5 flex items-center"><i class="fas fa-user icon-colored mr-3"></i> Summary</h2>
+      <p class="text-gray-700 text-justify leading-relaxed">
+        Highly motivated Ph.D. Candidate in Health Sciences specializing in bioinformatics and computational biology, with hands-on experience in drug discovery research, including phenotypic profiling. Proficient in Python, R, machine learning, and deep learning for analyzing complex biological datasets and developing predictive algorithms. Proven ability to design and implement computational tools for cell analysis and perform experimental validation using cell culture, microscopy, and molecular assays. Collaborative team player with strong communication skills (bilingual Spanish/English), seeking to leverage analytical and experimental expertise to drive innovation and improve health outcomes in the biotech sector.
+      </p>
+    </section>
+
+    <section class="mb-10 js-animate-on-scroll" id="experience" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-briefcase icon-colored mr-3"></i> Academic Research Experience</h2>
+      <div class="space-y-6">
+        <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.1s">
+          <h3 class="text-lg font-semibold text-gray-800">Ph.D. Candidate in Health Sciences</h3>
+          <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
+            <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
+            <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
+            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2023 - Present</span>
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
+            <li>Development of Python-based deep learning models for compound efficacy prediction and mode of action identification.</li>
+            <li>Automated image analysis using custom cell counting and DAPI cell cycle classification algorithms.</li>
+            <li>Experimental validation using fluorescence microscopy, molecular assays, and cancer cell lines.</li>
+          </ul>
+        </div>
+        <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
+          <h3 class="text-lg font-semibold text-gray-800">Master's Degree Thesis in Biomedicine (Drug Discovery)</h3>
+           <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
+            <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
+            <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
+            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2022 - 2023</span>
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
+            <li>Developed predictive R-based models using live cell imaging data to infer compound mode of action.</li>
+            <li>Hands-on work in cancer cell culture and drug screening pipelines.</li>
+          </ul>
+        </div>
+        <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.3s">
+          <h3 class="text-lg font-semibold text-gray-800">Bachelor's Degree Thesis in Genetics</h3>
+           <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
+            <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
+            <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
+            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2021 - 2022</span>
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
+            <li>Analyzed ancient DNA samples using R to perform PCA, admixture, and DNA damage analysis.</li>
+            <li>Explored paleogenetic techniques for historical population inference.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-10 js-animate-on-scroll" id="skills" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-cogs icon-colored mr-3"></i> Technical Skills</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 items-start ">
+        <div class="flex flex-col h-full js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s">
+          <h3 class="font-semibold text-lg text-gray-800 mb-3">Programming & Data Science</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fab fa-python python mr-2"></i>Python (Pandas, NumPy, Scikit-learn, TensorFlow/Keras)</li>
+            <li class="flex items-center"><i class="fab fa-r-project r-lang mr-2"></i> R (Tidyverse, Bioconductor)</li>
+            <li class="flex items-center"><i class="fas fa-brain brain mr-2"></i> Machine Learning & Deep Learning</li>
+            <li class="flex items-center"><i class="fas fa-laptop-code laptop mr-2"></i> Algorithm Design & Implementation</li>
+            <li class="flex items-center"><i class="fas fa-chart-bar chart mr-2"></i> Data Analysis & Visualization</li>
+            <li class="flex items-center"><i class="fas fa-calculator calc mr-2"></i> Statistical Modeling</li>
+          </ul>
+        </div>
+        <div class="flex flex-col justify-between h-full js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
+          <h3 class="font-semibold text-lg text-gray-800 mb-3">Bioinformatics & Biology</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-dna icon-colored mr-2"></i> Genetic & Paleogenetic Analysis</li>
+            <li class="flex items-center"><i class="fas fa-flask icon-colored mr-2"></i> Drug Discovery Informatics</li>
+            <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i> Cell Imaging Analysis (Computational)</li>
+            <li class="flex items-center"><i class="fas fa-vial icon-colored mr-2"></i> Cell Culture (Mammalian)</li>
+            <li class="flex items-center"><i class="fas fa-atom icon-colored mr-2"></i> Molecular Assays (IF, Protein Quant., DNA Damage, ROS)</li>
+            <li class="flex items-center"><i class="fas fa-seedling icon-colored mr-2"></i> Cancer Biology Research Context</li>
+            <li class="flex items-center"><i class="fas fa-vials icon-colored mr-2"></i> Phenotypic Profiling</li>
+            <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i> Microscopy (Fluorescence)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-10 js-animate-on-scroll" id="courses" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
+        <i class="fas fa-certificate icon-colored mr-3"></i> Courses & Additional Qualifications
+      </h2>
+      <ul class="list-none space-y-2 pl-5 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s">
+        <li class="flex items-center"><i class="fas fa-robot text-blue-600 mr-2.5"></i>2024 · Google: Artificial Intelligence and Productivity</li>
+        <li class="flex items-center"><i class="fas fa-flask text-blue-600 mr-2.5"></i>2023 · Computational Chemistry (20 hours)</li>
+        <li class="flex items-center"><i class="fas fa-microphone-alt text-blue-600 mr-2.5"></i>2022 · How to Speak in Public: Oratory, Argumentation, and Debate</li>
+        <li class="flex items-center"><i class="fas fa-id-card text-blue-600 mr-2.5"></i>2022 · Driving Licence B1</li>
+        <li class="flex items-center"><i class="fas fa-dumbbell text-blue-600 mr-2.5"></i>2021 · Sports Nutrition (20 hours)</li>
+        <li class="flex items-center"><i class="fas fa-water text-blue-600 mr-2.5"></i>2021 · FEDECAS Course: One-Star Diver</li>
+      </ul>
+    </section>
+
+    <section class="mb-10 js-animate-on-scroll" id="publications" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
+        <i class="fas fa-book-open icon-colored mr-3"></i> Publications
+      </h2>
+      <ul class="list-none space-y-3 pl-5">
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.1s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Vala, D. P., ..., <em>Khan, A. N.</em></strong> (2024). Click-chemistry mediated synthesis of OTBN-1,2,3-Triazole derivatives exhibiting STK33 inhibition with diverse anti-cancer activities. <em>Bioorganic Chemistry</em>, 149, 107485.</div></li>
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Quintana, V., ..., <em>Khan, A. N.</em></strong> (2024). Novel Tetrahydropyran-Triazole Hybrids with Antiproliferative Activity against Human Tumor Cells. <em>Archiv Der Pharmazie</em>, e2400431.</div></li>
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.3s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Parmar, M. P., ..., <em>Khan, A. N.</em></strong> (2025). QSAR, Antimicrobial, and Antiproliferative Study of (R/S)-2-Thioxo-3,4-dihydropyrimidine-5-carboxanilides. <em>ACS Omega</em>, 10(6), 1234–1245.</div></li>
+      </ul>
+    </section>
+
+    <section class="mb-10 js-animate-on-scroll" id="presentations" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
+        <i class="fas fa-chalkboard-teacher icon-colored mr-3"></i> Presentations & Event Organization
+      </h2>
+      <ul class="list-none space-y-3 pl-5">
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s"><i class="fas fa-users mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Organizer:</strong> ECIC BIOR 2024 Conference</div></li>
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.2s"><i class="fas fa-microphone-alt mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Oral Presentation:</strong> <em>From Phenotype to Target: Advanced Imaging and Machine Learning in Cancer Drug Discovery</em> — Presented at PAMM International Congress</div></li>
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.3s"><i class="fas fa-desktop mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Presentation:</strong> Development and Application of Cell Counting and Cycle Classification Algorithms in Cancer Research. <em>ECIC BIOR Conference</em> (Year TBC).</div></li>
+        <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.4s"><i class="fas fa-award mr-2.5 text-yellow-500 mt-1 flex-shrink-0"></i><div><strong>Award:</strong> 2nd Prize for Oral Presentation. <em>XI Congress of Students of the Biology Section</em>, ULL (2023).</div></li>
+      </ul>
+    </section>
+
+    <footer class="text-center text-sm text-gray-500 mt-12 border-t pt-6 js-animate-on-scroll" data-animation="animate__fadeInUp">
+      © 2025 Adam Khan Navarro · <a href="https://github.com/AdamKhanBM" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i>GitHub</a> · <a href="https://www.linkedin.com/feed/" class="text-blue-600 hover:underline"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Select all elements intended for animation
+      const elementsToAnimate = document.querySelectorAll('.js-animate-on-scroll');
+
+      // Check if IntersectionObserver is supported
+      if ('IntersectionObserver' in window) {
+        // Create an observer instance
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+          entries.forEach(entry => {
+            // If the element is intersecting (visible)
+            if (entry.isIntersecting) {
+              const element = entry.target;
+              // Get animation class and delay from data attributes
+              const animationClass = element.dataset.animation || 'animate__fadeInUp'; // Default animation
+              const animationDelay = element.dataset.delay || '0s'; // Default delay
+
+              // Add base Animate.css class and the specific animation class
+              element.classList.add('animate__animated', animationClass);
+              element.style.animationDelay = animationDelay; // Apply delay if specified
+              element.style.opacity = 1; // Make element visible
+
+              // Stop observing the element after animation is triggered once
+              observerInstance.unobserve(element);
+            }
+          });
+        }, {
+          threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        // Observe each target element
+        elementsToAnimate.forEach(el => {
+          observer.observe(el);
+        });
+
+      } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        // Simply make all elements visible without animation
+        console.warn('IntersectionObserver not supported, animations disabled.');
+        elementsToAnimate.forEach(el => {
+          el.style.opacity = 1;
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
