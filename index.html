@@ -1,16 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adam Khan Navarro – CV</title>
-
-  <!-- Tailwind CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adam Khan Navarro - CV</title>
-<script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Google Fonts → Inter -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -18,9 +12,9 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -34,8 +28,6 @@
       overflow-x: hidden; /* Prevent horizontal scrollbars caused by animations */
     }
 
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     /* Container styling */
     .cv-container {
         max-width: 800px; /* Adjusted max-width */
@@ -44,32 +36,6 @@
         border-radius: 0.5rem; /* rounded-lg */
     }
 
-  <style>
-    /* ------------------ BASE (SCREEN) ------------------ */
-    body{font-family:'Inter',sans-serif;color:#374151;background:#f3f4f6;overflow-x:hidden}
-    .cv-container{max-width:800px;margin:2rem auto;padding:2.5rem 2rem;background:#fff;border-radius:0.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)}
-
-    /* Icon colours */
-    .icon-colored{color:#3b82f6!important}.python{color:#3776AB!important}.r-lang{color:#276DC3!important}.brain{color:#8E44AD!important}.laptop{color:#16A085!important}.chart{color:#F39C12!important}.calc{color:#D35400!important}.ull-purple{color:#6d28d9}
-
-    .fa,.fab,.fas{width:1.2em;text-align:center;flex-shrink:0}
-    a{word-break:break-word}
-    .js-animate-on-scroll{opacity:0}
-    #skills ul li:hover{transform:translateX(5px);transition:transform .2s ease-out}
-    #publications ul li:hover,#presentations ul li:hover{background:#f9fafb;border-radius:.25rem;transition:background .2s}
-    .photo-placeholder{overflow:hidden}.photo-placeholder img{display:block}
-
-    /* ------------------ PRINT ------------------ */
-    @media print{
-      html{zoom:.85;-webkit-print-color-adjust:exact}
-      body{background:#fff!important}
-      .cv-container{box-shadow:none!important;margin:0!important;padding:.5in .75in .75in}
-      header{margin-bottom:.4in}
-      header img{width:3.5cm;height:3.5cm}
-      h1{font-size:22pt}
-      p,li{font-size:10pt}
-      section{page-break-inside:avoid}
-      #downloadBtn,a[href^="https://adamkhanbm.github.io"]{display:none!important}
     /* Icon colors */
     .icon-colored { color: #3b82f6 !important; } /* blue-500 */
     .python { color: #3776AB !important; }
@@ -115,158 +81,102 @@
     }
     .photo-placeholder img {
         display: block; /* Removes extra space below image if it's an inline element */
-}
+    }
 
-</style>
+  </style>
 </head>
 <body class="bg-gray-100">
-  <div class="cv-container max-w-4xl mx-auto bg-white">
-
-    <!-- ============================ HEADER ============================ -->
-    <header class="flex flex-col md:flex-row gap-8 mb-10 js-animate-on-scroll" data-animation="animate__fadeInDown">
   <div class="cv-container max-w-4xl mx-auto px-6 sm:px-8 py-10 bg-white">
     <header class="flex flex-col md:flex-row justify-start items-start gap-8 mb-10 js-animate-on-scroll" data-animation="animate__fadeInDown">
-<div class="flex flex-col items-center md:items-start text-sm text-gray-600 w-full md:w-auto">
-        <div class="photo-placeholder w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center mb-4 js-animate-on-scroll" data-animation="animate__zoomIn" style="animation-delay:.2s">
-          <img src="IMG_1443.jpeg" alt="Adam Khan Navarro" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/969696?text=Image+Error';">
+      <div class="flex flex-col items-center md:items-start text-sm text-gray-600 w-full md:w-auto">
         <div class="photo-placeholder w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 text-5xl mb-4 flex-shrink-0 js-animate-on-scroll" data-animation="animate__zoomIn" style="animation-delay: 0.2s;">
           <img 
             src="IMG_1443.jpeg" 
             alt="Adam Khan Navarro" 
             class="w-full h-full object-cover rounded-full"
             onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/969696?text=Image+Error';">
-</div>
-        <div class="space-y-1.5 text-center md:text-left js-animate-on-scroll" data-animation="animate__fadeInLeft" style="animation-delay:.4s">
-          <div class="flex items-center justify-center md:justify-start"><i class="fab fa-linkedin icon-colored mr-2"></i><a href="https://www.linkedin.com/in/AdamKhanBM" class="hover:underline text-blue-600 break-all">linkedin.com/in/AdamKhanBM</a></div>
+        </div>
         <div class="space-y-1.5 text-center md:text-left js-animate-on-scroll" data-animation="animate__fadeInLeft" style="animation-delay: 0.4s;">
           <div class="flex items-center justify-center md:justify-start"><i class="fab fa-linkedin icon-colored mr-2"></i><a href="https://www.linkedin.com/feed/" class="hover:underline text-blue-600 break-all">linkedin.com/in/AdamKhanBM</a></div>
-<div class="flex items-center justify-center md:justify-start"><i class="fab fa-github icon-colored mr-2"></i><a href="https://github.com/AdamKhanBM" class="hover:underline text-blue-600 break-all">github.com/AdamKhanBM</a></div>
-<div class="flex items-center justify-center md:justify-start"><i class="fas fa-envelope icon-colored mr-2"></i> adamkhan.navarro@gmail.com</div>
-          <div class="flex items-center justify-center md:justify-start"><i class="fas fa-phone icon-colored mr-2"></i> +34 609 418 872</div>
+          <div class="flex items-center justify-center md:justify-start"><i class="fab fa-github icon-colored mr-2"></i><a href="https://github.com/AdamKhanBM" class="hover:underline text-blue-600 break-all">github.com/AdamKhanBM</a></div>
+          <div class="flex items-center justify-center md:justify-start"><i class="fas fa-envelope icon-colored mr-2"></i> adamkhan.navarro@gmail.com</div>
           <div class="flex items-center justify-center md:justify-start"><i class="fas fa-phone icon-colored mr-2"></i> +34 609418872</div>
-<div class="flex items-center justify-center md:justify-start"><i class="fas fa-map-marker-alt icon-colored mr-2"></i> Spain</div>
-</div>
-</div>
-      <div class="mt-4 md:mt-0 text-center md:text-left w-full js-animate-on-scroll" data-animation="animate__fadeInRight" style="animation-delay:.6s">
+          <div class="flex items-center justify-center md:justify-start"><i class="fas fa-map-marker-alt icon-colored mr-2"></i> Spain</div>
+        </div>
+      </div>
       <div class="mt-4 md:mt-0 text-center md:text-left w-full js-animate-on-scroll" data-animation="animate__fadeInRight" style="animation-delay: 0.6s;">
-<h1 class="text-4xl font-bold mb-1 text-ull-purple">Adam Khan Navarro</h1>
-        <p class="text-xl text-gray-700 font-medium">Ph.D. Candidate · Bioinformatics & Computational Biology</p>
+        <h1 class="text-4xl font-bold mb-1 text-ull-purple">Adam Khan Navarro</h1>
         <p class="text-xl text-gray-700 font-medium">Ph.D. Candidate | Bioinformatics & Computational Biology</p>
-</div>
-</header>
+      </div>
+    </header>
 
-    <!-- ============================ SUMMARY ============================ -->
-<section class="mb-10 js-animate-on-scroll" id="summary" data-animation="animate__fadeInUp">
-<h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-5 flex items-center"><i class="fas fa-user icon-colored mr-3"></i> Summary</h2>
-<p class="text-gray-700 text-justify leading-relaxed">
-        Highly motivated Ph.D. Candidate in Health Sciences specializing in bioinformatics and computational biology, with hands‑on experience in drug discovery research, including phenotypic profiling. Proficient in Python, R, machine learning, and deep learning for analysing complex biological datasets and developing predictive algorithms. Proven ability to design and implement computational tools for cell analysis and perform experimental validation using cell culture, microscopy, and molecular assays. Collaborative team player with strong communication skills (bilingual Spanish/English), seeking to leverage analytical and experimental expertise to drive innovation and improve health outcomes in the biotech sector.
+    <section class="mb-10 js-animate-on-scroll" id="summary" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-5 flex items-center"><i class="fas fa-user icon-colored mr-3"></i> Summary</h2>
+      <p class="text-gray-700 text-justify leading-relaxed">
         Highly motivated Ph.D. Candidate in Health Sciences specializing in bioinformatics and computational biology, with hands-on experience in drug discovery research, including phenotypic profiling. Proficient in Python, R, machine learning, and deep learning for analyzing complex biological datasets and developing predictive algorithms. Proven ability to design and implement computational tools for cell analysis and perform experimental validation using cell culture, microscopy, and molecular assays. Collaborative team player with strong communication skills (bilingual Spanish/English), seeking to leverage analytical and experimental expertise to drive innovation and improve health outcomes in the biotech sector.
-</p>
-</section>
+      </p>
+    </section>
 
-    <!-- ======================= EXPERIENCE ============================== -->
-    <!-- (rest of your Experience, Skills, Courses, Publications, etc.) -->
-    <!-- ✱  Copied exactamente de tu versión anterior ✱                   -->
-
-    <!-- Academic Research Experience -->
-<section class="mb-10 js-animate-on-scroll" id="experience" data-animation="animate__fadeInUp">
-<h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-briefcase icon-colored mr-3"></i> Academic Research Experience</h2>
-<div class="space-y-6">
-        <!-- PhD -->
-<div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.1s">
-<h3 class="text-lg font-semibold text-gray-800">Ph.D. Candidate in Health Sciences</h3>
-<p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
-<span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
-<span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
-            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2023 – Present</span>
+    <section class="mb-10 js-animate-on-scroll" id="experience" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-briefcase icon-colored mr-3"></i> Academic Research Experience</h2>
+      <div class="space-y-6">
+        <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.1s">
+          <h3 class="text-lg font-semibold text-gray-800">Ph.D. Candidate in Health Sciences</h3>
+          <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
+            <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
+            <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
             <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2023 - Present</span>
-</p>
-<ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
-            <li>Development of Python‑based deep learning models for compound efficacy prediction and mechanism‑of‑action identification.</li>
-            <li>Automated image analysis using custom cell counting and DAPI cell‑cycle classification algorithms.</li>
-            <li>Experimental validation using fluorescence microscopy, molecular assays and cancer cell lines.</li>
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
             <li>Development of Python-based deep learning models for compound efficacy prediction and mode of action identification.</li>
             <li>Automated image analysis using custom cell counting and DAPI cell cycle classification algorithms.</li>
             <li>Experimental validation using fluorescence microscopy, molecular assays, and cancer cell lines.</li>
-</ul>
-</div>
-        <!-- MSc -->
-<div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
-          <h3 class="text-lg font-semibold text-gray-800">Master’s Thesis in Biomedicine (Drug Discovery)</h3>
-          <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
+          </ul>
+        </div>
+        <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
           <h3 class="text-lg font-semibold text-gray-800">Master's Degree Thesis in Biomedicine (Drug Discovery)</h3>
            <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
-<span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
-<span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
-            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2022 – 2023</span>
+            <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
+            <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
             <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2022 - 2023</span>
-</p>
-<ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
-            <li>Developed predictive R‑based models using live‑cell imaging data to infer compound mechanism of action.</li>
-            <li>Hands‑on work in cancer cell culture and drug screening pipelines.</li>
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
             <li>Developed predictive R-based models using live cell imaging data to infer compound mode of action.</li>
             <li>Hands-on work in cancer cell culture and drug screening pipelines.</li>
-</ul>
-</div>
-        <!-- BSc -->
-<div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.3s">
-          <h3 class="text-lg font-semibold text-gray-800">Bachelor’s Thesis in Genetics</h3>
-          <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
+          </ul>
+        </div>
+        <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.3s">
           <h3 class="text-lg font-semibold text-gray-800">Bachelor's Degree Thesis in Genetics</h3>
            <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
-<span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
-<span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
-            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2021 – 2022</span>
+            <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
+            <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
             <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2021 - 2022</span>
-</p>
-<ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
-            <li>Analysed ancient DNA samples using R to perform PCA, admixture and DNA‑damage analysis.</li>
-            <li>Explored palaeogenetic techniques for historical population inference.</li>
+          </p>
+          <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
             <li>Analyzed ancient DNA samples using R to perform PCA, admixture, and DNA damage analysis.</li>
             <li>Explored paleogenetic techniques for historical population inference.</li>
-</ul>
-</div>
-</div>
-</section>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <!-- ======================== SKILLS ================================ -->
-    <!-- (Skills section kept exactly as provided) -->
-<section class="mb-10 js-animate-on-scroll" id="skills" data-animation="animate__fadeInUp">
-<h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-cogs icon-colored mr-3"></i> Technical Skills</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 items-start">
-        <!-- Programming -->
-        <div class="flex flex-col js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s">
+    <section class="mb-10 js-animate-on-scroll" id="skills" data-animation="animate__fadeInUp">
+      <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-cogs icon-colored mr-3"></i> Technical Skills</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 items-start ">
         <div class="flex flex-col h-full js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s">
-<h3 class="font-semibold text-lg text-gray-800 mb-3">Programming & Data Science</h3>
-<ul class="space-y-2">
-            <li class="flex items-center"><i class="fab fa-python python mr-2"></i>Python (Pandas, NumPy, Scikit‑learn, TensorFlow/Keras)</li>
-            <li class="flex items-center"><i class="fab fa-r-project r-lang mr-2"></i>R (Tidyverse, Bioconductor)</li>
-            <li class="flex items-center"><i class="fas fa-brain brain mr-2"></i>Machine Learning & Deep Learning</li>
-            <li class="flex items-center"><i class="fas fa-laptop-code laptop mr-2"></i>Algorithm Design & Implementation</li>
-            <li class="flex items-center"><i class="fas fa-chart-bar chart mr-2"></i>Data Analysis & Visualisation</li>
-            <li class="flex items-center"><i class="fas fa-calculator calc mr-2"></i>Statistical Modelling</li>
+          <h3 class="font-semibold text-lg text-gray-800 mb-3">Programming & Data Science</h3>
+          <ul class="space-y-2">
             <li class="flex items-center"><i class="fab fa-python python mr-2"></i>Python (Pandas, NumPy, Scikit-learn, TensorFlow/Keras)</li>
             <li class="flex items-center"><i class="fab fa-r-project r-lang mr-2"></i> R (Tidyverse, Bioconductor)</li>
             <li class="flex items-center"><i class="fas fa-brain brain mr-2"></i> Machine Learning & Deep Learning</li>
             <li class="flex items-center"><i class="fas fa-laptop-code laptop mr-2"></i> Algorithm Design & Implementation</li>
             <li class="flex items-center"><i class="fas fa-chart-bar chart mr-2"></i> Data Analysis & Visualization</li>
             <li class="flex items-center"><i class="fas fa-calculator calc mr-2"></i> Statistical Modeling</li>
-</ul>
-</div>
-        <!-- Bioinformatics -->
-        <div class="flex flex-col js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
+          </ul>
+        </div>
         <div class="flex flex-col justify-between h-full js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
-<h3 class="font-semibold text-lg text-gray-800 mb-3">Bioinformatics & Biology</h3>
-<ul class="space-y-2">
-            <li class="flex items-center"><i class="fas fa-flask icon-colored mr-2"></i>Drug Discovery Informatics</li>
-            <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i>Cell Imaging Analysis (Computational)</li>
-            <li class="flex items-center"><i class="fas fa-vial icon-colored mr-2"></i>Cell Culture (Mammalian)</li>
-            <li class="flex items-center"><i class="fas fa-atom icon-colored mr-2"></i>Molecular Assays (IF, Protein Quant., DNA Damage, ROS)</li>
-            <li class="flex items-center"><i class="fas fa-seedling icon-colored mr-2"></i>Cancer Biology Research Context</li>
-            <li class="flex items-center"><i class="fas fa-vials icon-colored mr-2"></i>Phenotypic Profiling</li>
-            <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i>Microscopy (Fluorescence)</li>
-            <li class="flex items-center"><i class="fas fa-dna icon-colored mr-2"></i>Genetics Analysis</li>
+          <h3 class="font-semibold text-lg text-gray-800 mb-3">Bioinformatics & Biology</h3>
+          <ul class="space-y-2">
                 <li class="flex items-center"><i class="fas fa-flask icon-colored mr-2"></i> Drug Discovery Informatics</li>
             <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i> Cell Imaging Analysis (Computational)</li>
             <li class="flex items-center"><i class="fas fa-vial icon-colored mr-2"></i> Cell Culture (Mammalian)</li>
@@ -276,14 +186,11 @@
             <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i> Microscopy (Fluorescence)</li>
             <li class="flex items-center"><i class="fas fa-dna icon-colored mr-2"></i> GeneticS Analysis</li>
         
-</ul>
-</div>
-</div>
-</section>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <!-- ====================== COURSES & PUBLICATIONS ================== -->
-    <!-- (Courses, Publications, Presentations – kept as‑is) -->
-    <!--  …  (omitted here for brevity but present in full code)  … -->
     <section class="mb-10 js-animate-on-scroll" id="courses" data-animation="animate__fadeInUp">
       <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
         <i class="fas fa-certificate icon-colored mr-3"></i> Courses & Additional Qualifications
@@ -321,24 +228,12 @@
       </ul>
     </section>
 
-    <!-- FOOTER -->
-<footer class="text-center text-sm text-gray-500 mt-12 border-t pt-6 js-animate-on-scroll" data-animation="animate__fadeInUp">
-      © 2025 Adam Khan Navarro · <a href="https://github.com/AdamKhanBM" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i>GitHub</a> · <a href="https://www.linkedin.com/in/AdamKhanBM" class="text-blue-600 hover:underline"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a>
+    <footer class="text-center text-sm text-gray-500 mt-12 border-t pt-6 js-animate-on-scroll" data-animation="animate__fadeInUp">
       © 2025 Adam Khan Navarro · <a href="https://github.com/AdamKhanBM" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i>GitHub</a> · <a href="https://www.linkedin.com/feed/" class="text-blue-600 hover:underline"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a>
-</footer>
+    </footer>
+  </div>
 
-</div>
-
-  <!-- ============================= JS ================================ -->
-<script>
-    document.addEventListener('DOMContentLoaded',()=>{
-      const items=document.querySelectorAll('.js-animate-on-scroll');
-      if(!('IntersectionObserver'in window)){items.forEach(el=>el.style.opacity=1);return;}
-      const io=new IntersectionObserver(entries=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){const el=entry.target;el.classList.add('animate__animated',el.dataset.animation||'animate__fadeInUp');el.style.animationDelay=el.dataset.delay||'0s';el.style.opacity=1;io.unobserve(el);}}
-      },{threshold:0.1});
-      items.forEach(el=>io.observe(el));
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Select all elements intended for animation
       const elementsToAnimate = document.querySelectorAll('.js-animate-on-scroll');
@@ -381,8 +276,8 @@
           el.style.opacity = 1;
         });
       }
-});
-</script>
+    });
+  </script>
 
 </body>
 </html>
