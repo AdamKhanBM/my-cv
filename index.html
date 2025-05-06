@@ -280,4 +280,74 @@
   </script>
 
 </body>
+  <!-- ▸ Interactive Banner · Adam Khan Navarro  ------------------------- -->
+<!--  Needs: Tailwind (already in your page) + FontAwesome CDN          -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+<style>
+  /* =========  keyframes  ========= */
+  @keyframes floatPhoto {        /* suave “bounce” vertical */
+    0%,100% { transform: translateY(0);   }
+    50%     { transform: translateY(-8px);}
+  }
+  @keyframes glowLink  {         /* brillo pulsante en enlaces */
+    0%,100% { color: #b5d4ff; }
+    50%     { color: #ffffff; }
+  }
+
+  /* =========  banner wrapper  ========= */
+  .ak-banner { background:#062743; color:#fff; }
+  .ak-banner a { text-decoration:none; }
+  .ak-banner img.photo {
+      width:220px; height:220px;
+      border-radius:9999px;            /* full circle */
+      animation: floatPhoto 4s ease-in-out infinite;
+  }
+
+  /* Responsive tweaks (↓ opcional) */
+  @media(max-width: 720px){
+     .ak-banner h1 { font-size:1.75rem; }
+     .ak-banner p  { font-size:1rem; }
+  }
+</style>
+
+<div class="ak-banner flex flex-col md:flex-row items-center gap-8 px-10 py-6">
+  <!-- ▶︎ Photo -->
+  <img src="IMG_1443.jpeg" alt="Adam Khan Navarro" class="photo shadow-lg" />
+
+  <!-- ▶︎ Text block -->
+  <div class="flex-1">
+    <h1 class="font-bold text-3xl md:text-4xl mb-1">Adam Khan Navarro</h1>
+    <p  class="text-lg md:text-xl text-blue-200 mb-4">
+      Ph.D. Candidate&nbsp;|&nbsp;Bioinformatics & Computational Biology
+    </p>
+
+    <!-- ▶︎ Links w/ icons + glow -->
+    <ul class="space-y-1 text-sm md:text-base">
+      <li class="flex items-center gap-2">
+        <i class="fab fa-linkedin text-blue-400"></i>
+        <a href="https://www.linkedin.com/in/AdamKhanBM" target="_blank" rel="noopener"
+           style="animation: glowLink 5s ease-in-out infinite 0s;">linkedin.com/in/AdamKhanBM</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <i class="fab fa-github text-blue-400"></i>
+        <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener"
+           style="animation: glowLink 5s ease-in-out infinite .4s;">github.com/AdamKhanBM</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <i class="fas fa-envelope text-blue-400"></i>
+        <a href="mailto:adamkhan.navarro@gmail.com"
+           style="animation: glowLink 5s ease-in-out infinite .8s;">adamkhan.navarro@gmail.com</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <i class="fas fa-phone text-blue-400"></i>
+        <span style="animation: glowLink 5s ease-in-out infinite 1.2s;">+34 609 418 872 · Spain</span>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- ▸ End banner ------------------------------------------------------- -->
 </html>
