@@ -8,7 +8,7 @@
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
@@ -35,9 +35,10 @@
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
         border-radius: 0.5rem; /* rounded-lg */
         background-color: #fff; /* Ensure white background for the card */
+        overflow: hidden; /* Ensures banner corners are clipped */
     }
 
-    /* General Icon colors (can be overridden by banner styles) */
+    /* General Icon colors */
     .icon-colored { color: #3b82f6 !important; } /* blue-500 */
     .python { color: #3776AB !important; }
     .r-lang { color: #276DC3 !important; }
@@ -64,108 +65,132 @@
       opacity: 0; /* Start hidden */
     }
 
-    /* Subtle hover effect for skill items */
+    /* Subtle hover effects */
     #skills ul li:hover {
         transform: translateX(5px);
         transition: transform 0.2s ease-out;
     }
-    /* Subtle hover effect for publication/presentation items */
-     #publications ul li:hover, #presentations ul li:hover {
+    #publications ul li:hover, #presentations ul li:hover {
         background-color: #f9fafb; /* gray-50 */
         transition: background-color 0.2s ease-out;
         border-radius: 0.25rem; /* rounded */
     }
 
     /* ========= Banner Keyframes ========= */
-    @keyframes floatPhoto { /* suave “bounce” vertical */
+    @keyframes floatPhoto {
       0%,100% { transform: translateY(0);  }
       50%     { transform: translateY(-8px);}
     }
-    @keyframes glowLink  { /* brillo pulsante en enlaces */
-      0%,100% { color: #b5d4ff; } /* Lighter blue for glow */
-      50%     { color: #ffffff; } /* White at peak glow */
+    @keyframes glowLink  {
+      0%,100% { color: #b5d4ff; }
+      50%     { color: #ffffff; }
     }
 
     /* ========= Banner Wrapper ========= */
     .ak-banner {
-      background:#062743; /* Dark blue background for banner */
-      color:#fff; /* White text for banner */
-      /* The cv-container provides border-radius, so the banner itself doesn't need it if it's the first child */
-      /* If you want the banner to have rounded corners *inside* a square cv-container, add border-radius here */
-      /* For example: border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; */
+      position: relative; /* Needed to position the video and content */
+      color:#fff;
+      overflow: hidden; /* Hide parts of the video that overflow */
+    }
+    .ak-banner-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* This makes the video cover the area without distortion */
+      transform: translate(-50%, -50%);
+      z-index: 1; /* Place video in the background */
+    }
+    .ak-banner-content {
+        position: relative; /* Ensure content is on top of the video */
+        z-index: 2;
+        /* Removed the background-color overlay to remove the blueish filter */
     }
     .ak-banner a {
       text-decoration:none;
-      color: #e0f2fe; /* Light blue for links, will be animated by glowLink */
+      color: #e0f2fe;
       transition: color 0.3s ease;
     }
     .ak-banner a:hover {
-        color: #ffffff; /* Brighter white on hover */
+        color: #ffffff;
+    }
+    .ak-banner h1, .ak-banner p, .ak-banner a, .ak-banner span {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.7); /* Increased shadow for readability */
     }
     .ak-banner img.photo {
-      width:180px; /* Slightly reduced size to fit better */
-      height:180px; /* Slightly reduced size */
-      border-radius:9999px;     /* full circle */
-      border: 4px solid #ffffff; /* Optional: white border around photo */
-      animation: floatPhoto 4s ease-in-out infinite;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Add some shadow to the photo */
+      width:180px;
+      height:180px;
+      border-radius:9999px;
+      border: 4px solid #ffffff;
+      object-fit: cover; /* Ensures the image aspect ratio is maintained */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     /* Responsive tweaks for banner */
-    @media(max-width: 768px){ /* Adjusted breakpoint to md */
-       .ak-banner {
-           padding-left: 1.5rem; /* Equivalent to px-6 */
-           padding-right: 1.5rem; /* Equivalent to px-6 */
-       }
-       .ak-banner img.photo {
-           width: 150px;
-           height: 150px;
-       }
-       .ak-banner h1 { font-size:1.75rem; line-height: 2.25rem; } /* Tailwind text-2xl */
-       .ak-banner p  { font-size:1rem; line-height: 1.5rem; } /* Tailwind text-base */
-       .ak-banner ul { font-size: 0.875rem; line-height: 1.25rem; } /* Tailwind text-sm */
-    }
-    @media(max-width: 480px){ /* Smaller screens */
+    @media(max-width: 768px){
+        .ak-banner-content {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
         .ak-banner img.photo {
-           width: 120px;
-           height: 120px;
-       }
-       .ak-banner h1 { font-size:1.5rem; line-height: 2rem; } /* Tailwind text-xl */
+            width: 150px;
+            height: 150px;
+        }
+        .ak-banner h1 { font-size:1.75rem; line-height: 2.25rem; }
+        .ak-banner p  { font-size:1rem; line-height: 1.5rem; }
+        .ak-banner ul { font-size: 0.875rem; line-height: 1.25rem; }
+    }
+    @media(max-width: 480px){
+         .ak-banner img.photo {
+            width: 120px;
+            height: 120px;
+        }
+        .ak-banner h1 { font-size:1.5rem; line-height: 2rem; }
     }
 
   </style>
 </head>
 <body class="bg-gray-100">
-  <div class="cv-container"> <div class="ak-banner flex flex-col md:flex-row items-center text-center md:text-left gap-6 md:gap-8 px-6 py-8 md:px-10 md:py-6 js-animate-on-scroll" data-animation="animate__fadeIn">
-      <img src="IMG_1443.jpeg" alt="Adam Khan Navarro" class="photo" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/969696?text=Image+Error';" />
+  <div class="cv-container">
+    <!-- The banner now contains a video background and the content on top -->
+    <div class="ak-banner js-animate-on-scroll" data-animation="animate__fadeIn">
+      <video autoplay loop muted playsinline class="ak-banner-video">
+        <!-- Make sure you have a 'banner-video.mp4' file in the same folder -->
+        <source src="banner-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="ak-banner-content flex flex-col md:flex-row items-center text-center md:text-left gap-6 md:gap-8 px-6 py-8 md:px-10 md:py-6">
+          <img src="IMG_1443.jpeg" alt="Adam Khan Navarro" class="photo" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/969696?text=Image+Error';" />
 
-      <div class="flex-1">
-        <h1 class="font-bold text-3xl md:text-4xl mb-1">Adam Khan Navarro</h1>
-        <p  class="text-lg md:text-xl text-blue-200 mb-4">
-          Ph.D. Candidate&nbsp;|&nbsp;Bioinformatics & Computational Biology
-        </p>
+          <div class="flex-1">
+            <h1 class="font-bold text-3xl md:text-4xl mb-1">Adam Khan Navarro</h1>
+            <p  class="text-lg md:text-xl text-blue-200 mb-4">
+              Ph.D. Candidate&nbsp;|&nbsp;Bioinformatics & Computational Biology
+            </p>
 
-        <ul class="space-y-2 text-sm md:text-base">
-          <li class="flex items-center justify-center md:justify-start gap-2">
-            <i class="fab fa-linkedin text-blue-400 w-5 h-5"></i>
-            <a href="https://www.linkedin.com/in/AdamKhanBM" target="_blank" rel="noopener noreferrer"
-               style="animation: glowLink 5s ease-in-out infinite 0s;">linkedin.com/in/AdamKhanBM</a>
-          </li>
-          <li class="flex items-center justify-center md:justify-start gap-2">
-            <i class="fab fa-github text-blue-400 w-5 h-5"></i>
-            <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener noreferrer"
-               style="animation: glowLink 5s ease-in-out infinite .4s;">github.com/AdamKhanBM</a>
-          </li>
-          <li class="flex items-center justify-center md:justify-start gap-2">
-            <i class="fas fa-envelope text-blue-400 w-5 h-5"></i>
-            <a href="mailto:adamkhan.navarro@gmail.com"
-               style="animation: glowLink 5s ease-in-out infinite .8s;">adamkhan.navarro@gmail.com</a>
-          </li>
-          <li class="flex items-center justify-center md:justify-start gap-2">
-            <i class="fas fa-phone text-blue-400 w-5 h-5"></i>
-            <span style="animation: glowLink 5s ease-in-out infinite 1.2s;">+34 609 418 872 · Spain</span>
-          </li>
-        </ul>
+            <ul class="space-y-2 text-sm md:text-base">
+              <li class="flex items-center justify-center md:justify-start gap-2">
+                <i class="fab fa-linkedin text-blue-400 w-5 h-5"></i>
+                <a href="https://www.linkedin.com/in/AdamKhanBM" target="_blank" rel="noopener noreferrer"
+                   style="animation: glowLink 5s ease-in-out infinite 0s;">linkedin.com/in/AdamKhanBM</a>
+              </li>
+              <li class="flex items-center justify-center md:justify-start gap-2">
+                <i class="fab fa-github text-blue-400 w-5 h-5"></i>
+                <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener noreferrer"
+                   style="animation: glowLink 5s ease-in-out infinite .4s;">github.com/AdamKhanBM</a>
+              </li>
+              <li class="flex items-center justify-center md:justify-start gap-2">
+                <i class="fas fa-envelope text-blue-400 w-5 h-5"></i>
+                <a href="mailto:adamkhan.navarro@gmail.com"
+                   style="animation: glowLink 5s ease-in-out infinite .8s;">adamkhan.navarro@gmail.com</a>
+              </li>
+              <li class="flex items-center justify-center md:justify-start gap-2">
+                <i class="fas fa-phone text-blue-400 w-5 h-5"></i>
+                <span style="animation: glowLink 5s ease-in-out infinite 1.2s;">+34 609 418 872 · Spain</span>
+              </li>
+            </ul>
+          </div>
       </div>
     </div>
     <div class="px-6 sm:px-8 py-10">
@@ -294,7 +319,9 @@
         <footer class="text-center text-sm text-gray-500 mt-12 border-t pt-6 js-animate-on-scroll" data-animation="animate__fadeInUp" style="animation-delay: 0.8s;">
           © 2025 Adam Khan Navarro · <a href="https://github.com/AdamKhanBM" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i>GitHub</a> · <a href="https://www.linkedin.com/feed/" class="text-blue-600 hover:underline"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a>
         </footer>
-    </div> </div> <script>
+    </div>
+  </div>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
       const elementsToAnimate = document.querySelectorAll('.js-animate-on-scroll');
       if ('IntersectionObserver' in window) {
