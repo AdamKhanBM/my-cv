@@ -3,372 +3,732 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adam Khan Navarro - CV</title>
+  <title>Adam Khan Navarro — Researcher in Bioinformatics</title>
+  <meta name="description" content="Adam Khan Navarro — Ph.D. Candidate in Bioinformatics & Computational Biology at Universidad de La Laguna. Drug discovery, machine learning, cell imaging." />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
   <style>
-    /* Base body styling */
+    :root {
+      --accent: #7c3aed;       /* violet-600 */
+      --accent-light: #a78bfa; /* violet-400 */
+      --accent-dark: #5b21b6;  /* violet-800 */
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Inter', sans-serif;
-      color: #374151; /* gray-700 */
-      background-color: #f3f4f6; /* gray-100 */
-      overflow-x: hidden; /* Prevent horizontal scrollbars caused by animations */
+      background: #0f0f13;
+      color: #e2e8f0;
+      overflow-x: hidden;
     }
 
-    /* CV Container styling */
-    .cv-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
-        border-radius: 0.5rem; /* rounded-lg */
-        background-color: #fff; /* Ensure white background for the card */
-        overflow: hidden; /* Ensures banner corners are clipped */
+    /* ─── NAVBAR ─── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+    }
+    #navbar.scrolled {
+      background: rgba(15, 15, 19, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.07);
+    }
+    .nav-link {
+      color: #cbd5e1;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent-light); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    #hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg,
+        rgba(10,5,30,0.78) 0%,
+        rgba(15,15,19,0.60) 60%,
+        rgba(15,15,19,0.85) 100%);
+      z-index: 1;
+    }
+    #hero-content { position: relative; z-index: 2; text-align: center; }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: #a5b4fc;
+      font-weight: 400;
     }
 
-    /* General Icon colors */
-    .icon-colored { color: #3b82f6 !important; } /* blue-500 */
-    .python { color: #3776AB !important; }
-    .r-lang { color: #276DC3 !important; }
-    .brain { color: #8E44AD !important; }
-    .laptop { color: #16A085 !important; }
-    .chart { color: #F39C12 !important; }
-    .calc { color: #D35400 !important; }
-    .ull-purple { color: #6d28d9; } /* violet-700 for section headings */
-    
-    /* Brand Icon Colors */
-    .icon-linkedin { color: #0077B5 !important; }
-    .icon-github { color: #181717 !important; }
-    .icon-orcid { color: #A6CE39 !important; }
-    .icon-email { color: #EA4335 !important; }
-    .icon-phone { color: #25D366 !important; }
-
-    /* Icon sizing and alignment */
-    .fa, .fab, .fas {
-        width: 1.2em;
-        text-align: center;
-        flex-shrink: 0;
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(124,58,237,0.4);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1.5px solid rgba(167,139,250,0.4);
+      color: #a78bfa;
+      padding: 0.75rem 1.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent-light);
+      background: rgba(124,58,237,0.12);
+      transform: translateY(-2px);
     }
 
-    /* Link wrapping */
-    a {
-        word-break: break-word;
+    /* ─── SECTIONS ─── */
+    section { padding: 6rem 1.5rem; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.2;
+    }
+    .section-divider {
+      width: 3rem; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 9999px;
+      margin: 1rem 0 2.5rem 0;
     }
 
-    /* Styling for elements before scroll animation */
-    .js-animate-on-scroll {
-      opacity: 0; /* Start hidden */
+    /* ─── STAT PILLS ─── */
+    .stat-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.75rem;
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .stat-pill:hover {
+      border-color: rgba(167,139,250,0.4);
+      background: rgba(124,58,237,0.08);
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.3rem;
     }
 
-    /* Subtle hover effects */
-    #skills ul li:hover {
-        transform: translateX(5px);
-        transition: transform 0.2s ease-out;
+    /* ─── RESEARCH CARDS ─── */
+    .research-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
     }
-    #publications ul li:hover, #presentations ul li:hover {
-        background-color: #f9fafb; /* gray-50 */
-        transition: background-color 0.2s ease-out;
-        border-radius: 0.25rem; /* rounded */
+    .research-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124,58,237,0.45);
+      box-shadow: 0 12px 32px rgba(124,58,237,0.15);
+    }
+    .research-icon {
+      width: 3rem; height: 3rem;
+      border-radius: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
     }
 
-    /* ========= Banner Keyframes ========= */
-    @keyframes floatPhoto {
-      0%,100% { transform: translateY(0);  }
-      50%     { transform: translateY(-8px);}
+    /* ─── PUBLICATION CARDS ─── */
+    .pub-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: border-color 0.25s, background 0.25s;
     }
-    @keyframes glowLink  {
-      0%,100% { color: #b5d4ff; }
-      50%     { color: #ffffff; }
+    .pub-card:hover {
+      border-color: rgba(124,58,237,0.4);
+      background: rgba(124,58,237,0.06);
+    }
+    .pub-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+    .badge-2025 { background: rgba(124,58,237,0.25); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.3); }
+    .badge-2024 { background: rgba(59,130,246,0.2); color: #93c5fd; border: 1px solid rgba(147,197,253,0.3); }
+    .badge-preprint { background: rgba(234,179,8,0.15); color: #fde047; border: 1px solid rgba(253,224,71,0.25); font-size: 0.65rem; }
+
+    /* ─── SKILL TAGS ─── */
+    .skill-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .skill-tag:hover {
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(167,139,250,0.4);
     }
 
-    /* ========= Banner Wrapper ========= */
-    .ak-banner {
-      position: relative; /* Needed to position the video and content */
-      color:#fff;
-      overflow: hidden; /* Hide parts of the video that overflow */
+    /* ─── CONTACT LINKS ─── */
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0.75rem;
+      text-decoration: none;
+      color: #e2e8f0;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
     }
-    .ak-banner-video {
+    .contact-link:hover {
+      background: rgba(124,58,237,0.1);
+      border-color: rgba(124,58,237,0.4);
+      transform: translateX(4px);
+    }
+
+    /* ─── SCROLL INDICATOR ─── */
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+    .scroll-indicator { animation: bounce 2s ease-in-out infinite; }
+
+    /* ─── ANIMATE ON SCROLL ─── */
+    .aos { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .aos.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── BACKGROUND GLOW ─── */
+    .glow-orb {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* This makes the video cover the area without distortion */
-      transform: translate(-50%, -50%);
-      z-index: 1; /* Place video in the background */
+      border-radius: 9999px;
+      filter: blur(80px);
+      opacity: 0.12;
+      pointer-events: none;
     }
-    .ak-banner-content {
-        position: relative; /* Ensure content is on top of the video */
-        z-index: 2;
-        /* Removed the background-color overlay to remove the blueish filter */
-    }
-    .ak-banner a {
-      text-decoration:none;
-      color: #e0f2fe;
-      transition: color 0.3s ease;
-    }
-    .ak-banner a:hover {
-        color: #ffffff;
-    }
-    .ak-banner h1, .ak-banner p, .ak-banner a, .ak-banner span {
-        text-shadow: 0 2px 4px rgba(0,0,0,0.7); /* Increased shadow for readability */
-    }
-    .ak-banner img.photo {
-      width:180px;
-      height:180px;
-      border-radius:9999px;
-      border: 4px solid #ffffff;
-      object-fit: cover; /* Ensures the image aspect ratio is maintained */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    /* Responsive tweaks for banner */
-    @media(max-width: 768px){
-        .ak-banner-content {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-        .ak-banner img.photo {
-            width: 150px;
-            height: 150px;
-        }
-        .ak-banner h1 { font-size:1.75rem; line-height: 2.25rem; }
-        .ak-banner p  { font-size:1rem; line-height: 1.5rem; }
-        .ak-banner ul { font-size: 0.875rem; line-height: 1.25rem; }
-    }
-    @media(max-width: 480px){
-         .ak-banner img.photo {
-            width: 120px;
-            height: 120px;
-        }
-        .ak-banner h1 { font-size:1.5rem; line-height: 2rem; }
-    }
-
   </style>
 </head>
-<body class="bg-gray-100">
-  <div class="cv-container">
-    <!-- The banner now contains a video background and the content on top -->
-    <div class="ak-banner js-animate-on-scroll" data-animation="animate__fadeIn">
-      <video autoplay loop muted playsinline class="ak-banner-video">
-        <!-- Make sure you have a 'banner-video.mp4' file in the same folder -->
-        <source src="banner-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="ak-banner-content flex flex-col md:flex-row items-center text-center md:text-left gap-6 md:gap-8 px-6 py-8 md:px-10 md:py-6">
-                    <!-- Contenedor de la imagen para un look más profesional -->
-          <div class="w-32 h-32 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full p-1 bg-gradient-to-br from-gray-100 to-gray-300 shadow-lg ring-2 ring-white/50 flex-shrink-0">
-              <img 
-                  src="1751747985323.png" 
-                  alt="Adam Khan Navarro" 
-                  class="w-full h-full rounded-full object-contain"
-                  onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/969696?text=Image+Error';">
-          </div>
+<body>
 
-          <div class="flex-1">
-            <h1 class="font-bold text-3xl md:text-4xl mb-1">Adam Khan Navarro</h1>
-            <p  class="text-lg md:text-xl text-blue-200 mb-4">
-              Ph.D. Candidate&nbsp;|&nbsp;Bioinformatics & Computational Biology
-            </p>
+<!-- ════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+<nav id="navbar" class="px-6 py-4">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <span class="text-white font-bold tracking-tight text-lg">AKN<span class="text-violet-400">.</span></span>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about"        class="nav-link">About</a>
+      <a href="#research"     class="nav-link">Research</a>
+      <a href="#publications" class="nav-link">Publications</a>
+      <a href="#skills"       class="nav-link">Skills</a>
+      <a href="#contact"      class="nav-link">Contact</a>
+    </div>
+    <a href="Adam Khan Navarro - CV final .html" target="_blank"
+       class="btn-primary text-sm py-2 px-4">
+      <i class="fas fa-file-alt"></i> CV
+    </a>
+  </div>
+</nav>
 
-            <ul class="space-y-2 text-sm md:text-base">
-              <li class="flex items-center justify-center md:justify-start gap-2">
-                <i class="fab fa-linkedin icon-linkedin w-5 h-5"></i>
-                <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener noreferrer"
-                   style="animation: glowLink 5s ease-in-out infinite 0s;">linkedin.com/in/adam-khan-navarro-269618347</a>
-              </li>
-              <li class="flex items-center justify-center md:justify-start gap-2">
-                <i class="fab fa-github icon-github w-5 h-5"></i>
-                <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener noreferrer"
-                   style="animation: glowLink 5s ease-in-out infinite .4s;">github.com/AdamKhanBM</a>
-              </li>
-              <!-- ORCID Link Added -->
-              <li class="flex items-center justify-center md:justify-start gap-2">
-                <i class="fab fa-orcid icon-orcid w-5 h-5"></i>
-                <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener noreferrer"
-                   style="animation: glowLink 5s ease-in-out infinite .8s;">orcid.org/0009-0000-8985-4632</a>
-              </li>
-              <li class="flex items-center justify-center md:justify-start gap-2">
-                <i class="fas fa-envelope icon-email w-5 h-5"></i>
-                <a href="mailto:adamkhan.navarro@gmail.com"
-                   style="animation: glowLink 5s ease-in-out infinite 1.2s;">adamkhan.navarro@gmail.com</a>
-              </li>
-              <li class="flex items-center justify-center md:justify-start gap-2">
-                <i class="fas fa-phone icon-phone w-5 h-5"></i>
-                <span style="animation: glowLink 5s ease-in-out infinite 1.6s;">+34 609 418 872 · Spain</span>
-              </li>
-            </ul>
-          </div>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section id="hero">
+  <video id="hero-video" autoplay loop muted playsinline>
+    <source src="banner-video.mp4" type="video/mp4">
+  </video>
+  <div id="hero-overlay"></div>
+
+  <div id="hero-content" class="max-w-4xl mx-auto px-6 py-24 flex flex-col items-center gap-6">
+
+    <!-- Avatar -->
+    <div class="w-28 h-28 rounded-full ring-4 ring-violet-500/40 shadow-2xl overflow-hidden mb-2">
+      <img src="1751747985323.png" alt="Adam Khan Navarro"
+           class="w-full h-full object-cover"
+           onerror="this.src='https://placehold.co/200x200/7c3aed/ffffff?text=AKN'">
+    </div>
+
+    <h1 class="hero-title">Adam Khan Navarro</h1>
+
+    <p class="hero-sub max-w-xl">
+      Ph.D. Candidate · Bioinformatics &amp; Computational Biology<br>
+      <span class="text-slate-400 text-base">Universidad de La Laguna, Spain</span>
+    </p>
+
+    <p class="text-slate-300 text-base max-w-2xl text-center leading-relaxed">
+      Developing machine learning models and computational tools to decode drug mechanisms,
+      profile cancer phenotypes, and accelerate drug discovery.
+    </p>
+
+    <div class="flex flex-wrap gap-4 justify-center mt-2">
+      <a href="#research" class="btn-primary"><i class="fas fa-flask"></i> View Research</a>
+      <a href="#contact"  class="btn-ghost"><i class="fas fa-envelope"></i> Get in Touch</a>
+    </div>
+
+    <!-- Social quick links -->
+    <div class="flex items-center gap-5 mt-4 text-slate-400">
+      <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener"
+         class="hover:text-white transition-colors" title="GitHub">
+        <i class="fab fa-github text-xl"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener"
+         class="hover:text-blue-400 transition-colors" title="LinkedIn">
+        <i class="fab fa-linkedin text-xl"></i>
+      </a>
+      <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener"
+         class="hover:text-green-400 transition-colors" title="ORCID">
+        <i class="fab fa-orcid text-xl"></i>
+      </a>
+      <a href="mailto:adamkhan.navarro@gmail.com"
+         class="hover:text-red-400 transition-colors" title="Email">
+        <i class="fas fa-envelope text-xl"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 scroll-indicator text-slate-500">
+    <i class="fas fa-chevron-down text-lg"></i>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════ -->
+<section id="about" class="relative">
+  <div class="glow-orb w-96 h-96 bg-violet-600 -top-20 -left-20"></div>
+
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+
+      <div class="aos">
+        <p class="section-label">Who I am</p>
+        <h2 class="section-title">Turning biological data<br>into discovery</h2>
+        <div class="section-divider"></div>
+        <p class="text-slate-300 leading-relaxed mb-4">
+          I'm a Ph.D. candidate in Health Sciences at the University of La Laguna,
+          where I combine <strong class="text-white">wet-lab biology</strong> with
+          <strong class="text-white">machine learning</strong> to understand how small
+          molecules affect cancer cells at scale.
+        </p>
+        <p class="text-slate-400 leading-relaxed mb-6">
+          My work spans deep learning model development, automated microscopy image analysis,
+          and phenotypic profiling — bridging computational approaches with experimental
+          validation in the lab.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <span class="skill-tag"><i class="fas fa-map-marker-alt text-violet-400 text-xs"></i>Tenerife, Spain</span>
+          <span class="skill-tag"><i class="fas fa-language text-violet-400 text-xs"></i>ES · EN</span>
+          <span class="skill-tag"><i class="fas fa-graduation-cap text-violet-400 text-xs"></i>PhD 2023–Present</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 gap-4 aos" style="transition-delay:0.15s">
+        <div class="stat-pill">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Publications</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years Research</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Congresses Organised</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-number">4+</div>
+          <div class="stat-label">Oral Presentations</div>
+        </div>
       </div>
     </div>
-    <div class="px-6 sm:px-8 py-10">
-        <section class="mb-10 js-animate-on-scroll" id="summary" data-animation="animate__fadeInUp" style="animation-delay: 0.2s;">
-          <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-5 flex items-center"><i class="fas fa-user icon-colored mr-3"></i> Summary</h2>
-          <p class="text-gray-700 text-justify leading-relaxed">
-            Highly motivated Ph.D. Candidate in Health Sciences specializing in bioinformatics and computational biology, with hands-on experience in drug discovery research, including phenotypic profiling. Proficient in Python, R, machine learning, and deep learning for analyzing complex biological datasets and developing predictive algorithms. Proven ability to design and implement computational tools for cell analysis and perform experimental validation using cell culture, microscopy, and molecular assays. Collaborative team player with strong communication skills (bilingual Spanish/English), seeking to leverage analytical and experimental expertise to drive innovation and improve health outcomes in the biotech sector.
-          </p>
-        </section>
+  </div>
+</section>
 
-        <section class="mb-10 js-animate-on-scroll" id="experience" data-animation="animate__fadeInUp" style="animation-delay: 0.3s;">
-          <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-briefcase icon-colored mr-3"></i> Academic Research Experience</h2>
-          <div class="space-y-6">
-            <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.1s">
-              <h3 class="text-lg font-semibold text-gray-800">Ph.D. Candidate in Health Sciences</h3>
-              <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
-                <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
-                <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
-                <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2023 - Present</span>
-              </p>
-              <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
-                <li>Development of Python-based deep learning models for compound efficacy prediction and mode of action identification.</li>
-                <li>Automated image analysis using custom cell counting and DAPI cell cycle classification algorithms.</li>
-                <li>Experimental validation using fluorescence microscopy, molecular assays, and cancer cell lines.</li>
-              </ul>
-            </div>
-            <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
-              <h3 class="text-lg font-semibold text-gray-800">Master's Degree Thesis in Biomedicine (Drug Discovery)</h3>
-               <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
-                <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
-                <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
-                <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2022 - 2023</span>
-              </p>
-              <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
-                <li>Developed predictive R-based models using live cell imaging data to infer compound mode of action.</li>
-                <li>Hands-on work in cancer cell culture and drug screening pipelines.</li>
-              </ul>
-            </div>
-            <div class="js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.3s">
-              <h3 class="text-lg font-semibold text-gray-800">Bachelor's Degree Thesis in Genetics</h3>
-               <p class="text-gray-600 italic flex flex-wrap items-center gap-x-2 mb-1">
-                <span class="flex items-center"><i class="fas fa-university mr-2 text-gray-500"></i>Universidad de La Laguna</span> |
-                <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gray-500"></i>Spain</span> |
-                <span class="flex items-center"><i class="far fa-calendar-alt mr-2 text-gray-500"></i>2021 - 2022</span>
-              </p>
-              <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 pl-5">
-                <li>Analyzed ancient DNA samples using R to perform PCA, admixture, and DNA damage analysis.</li>
-                <li>Explored paleogenetic techniques for historical population inference.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
 
-        <section class="mb-10 js-animate-on-scroll" id="publications" data-animation="animate__fadeInUp" style="animation-delay: 0.6s;">
-          <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
-            <i class="fas fa-book-open icon-colored mr-3"></i> Publications
-          </h2>
-          <ul class="list-none space-y-3 pl-5">
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.1s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Vala, D. P., ..., <em>Khan, A. N.</em></strong> (2024). Click-chemistry mediated synthesis of OTBN-1,2,3-Triazole derivatives exhibiting STK33 inhibition with diverse anti-cancer activities. <em>Bioorganic Chemistry</em>, 149, 107485.</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Quintana, V., ..., <em>Khan, A. N.</em></strong> (2024). Novel Tetrahydropyran-Triazole Hybrids with Antiproliferative Activity against Human Tumor Cells. <em>Archiv Der Pharmazie</em>, e2400431.</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.3s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Parmar, M. P., ..., <em>Khan, A. N.</em></strong> (2025). QSAR, Antimicrobial, and Antiproliferative Study of (R/S)-2-Thioxo-3,4-dihydropyrimidine-5-carboxanilides. <em>ACS Omega</em>, 10(6), 1234–1245.</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.4s"><i class="fas fa-scroll mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Barot, D. M., ...., <em>Khan, A. N.</em></strong> (2025(Online)). Target isolation and anti-proliferative potency of furocoumarin derivative from <em>Aegle marmelos</em> fruit pulp. <em>Pharmaceutical Biology</em>, https://doi.org/10.1080/14786419.2025.2477214</div></li>
+<!-- ════════════════════════════════════════
+     RESEARCH
+════════════════════════════════════════ -->
+<section id="research" class="relative">
+  <div class="glow-orb w-80 h-80 bg-blue-700 top-0 right-0"></div>
 
-          </ul>
-        </section>
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 aos">
+      <p class="section-label">What I work on</p>
+      <h2 class="section-title">Research Areas</h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
 
-        <section class="mb-10 js-animate-on-scroll" id="skills" data-animation="animate__fadeInUp" style="animation-delay: 0.4s;">
-          <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center"><i class="fas fa-cogs icon-colored mr-3"></i> Technical Skills</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 items-start ">
-            <div class="flex flex-col h-full js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s">
-              <h3 class="font-semibold text-lg text-gray-800 mb-3">Programming & Data Science</h3>
-              <ul class="space-y-2">
-                <li class="flex items-center"><i class="fab fa-python python mr-2"></i>Python (Pandas, NumPy, Scikit-learn, TensorFlow/Keras)</li>
-                <li class="flex items-center"><i class="fab fa-r-project r-lang mr-2"></i> R (Tidyverse, Bioconductor)</li>
-                <li class="flex items-center"><i class="fas fa-brain brain mr-2"></i> Machine Learning & Deep Learning</li>
-                <li class="flex items-center"><i class="fas fa-laptop-code laptop mr-2"></i> Algorithm Design & Implementation</li>
-                <li class="flex items-center"><i class="fas fa-chart-bar chart mr-2"></i> Data Analysis & Visualization</li>
-                <li class="flex items-center"><i class="fas fa-calculator calc mr-2"></i> Statistical Modeling</li>
-              </ul>
-            </div>
-            <div class="flex flex-col justify-between h-full js-animate-on-scroll" data-animation="animate__fadeInRight" data-delay="0.2s">
-              <h3 class="font-semibold text-lg text-gray-800 mb-3">Bioinformatics & Biology</h3>
-              <ul class="space-y-2">
-                  <li class="flex items-center"><i class="fas fa-flask icon-colored mr-2"></i> Drug Discovery Informatics</li>
-                <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i> Cell Imaging Analysis (Computational)</li>
-                <li class="flex items-center"><i class="fas fa-vial icon-colored mr-2"></i> Cell Culture (Mammalian)</li>
-                <li class="flex items-center"><i class="fas fa-atom icon-colored mr-2"></i> Molecular Assays (IF, Protein Quant., DNA Damage, ROS)</li>
-                <li class="flex items-center"><i class="fas fa-seedling icon-colored mr-2"></i> Cancer Biology Research Context</li>
-                <li class="flex items-center"><i class="fas fa-vials icon-colored mr-2"></i> Phenotypic Profiling</li>
-                <li class="flex items-center"><i class="fas fa-microscope icon-colored mr-2"></i> Microscopy (Fluorescence)</li>
-                <li class="flex items-center"><i class="fas fa-dna icon-colored mr-2"></i> GeneticS Analysis</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+    <div class="grid md:grid-cols-3 gap-6">
 
-        <section class="mb-10 js-animate-on-scroll" id="presentations" data-animation="animate__fadeInUp" style="animation-delay: 0.7s;">
-          <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
-            <i class="fas fa-chalkboard-teacher icon-colored mr-3"></i> Presentations & Event Organization
-          </h2>
-          <ul class="list-none space-y-3 pl-5">
-             <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s"><i class="fas fa-microphone-alt mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Colloquium:</strong> <em>Paleogenomic analysis of the human burial from Juan Rejón street in La Isleta (Gran Canaria)</em> — 25th Colloquium on Canary-American History</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.2s"><i class="fas fa-microphone-alt mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Oral Presentation:</strong> <em>"Cell cycle profiling of DAPI-stained cells”</em> — Presented at IMFAHE 10th International Congress</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s"><i class="fas fa-users mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Organizador:</strong> <a href="https://ecicbior.webs.ull.es/i-ecic-bior-2024/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Congreso ECIC BIOR 2024</a></div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s"><i class="fas fa-users mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Organizador:</strong> <a href="https://ecicbior.webs.ull.es/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Congreso ECIC BIOR 2025</a></div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.4s"><i class="fas fa-microphone-alt mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Oral Presentation:</strong> <em>From Phenotype to Target: Advanced Imaging and Machine Learning in Cancer Drug Discovery</em> — Presented at PAMM International Congress</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.5s"><i class="fas fa-desktop mr-2.5 text-gray-500 mt-1 flex-shrink-0"></i><div><strong>Presentation:</strong> Development and Application of Cell Counting and Cycle Classification Algorithms in Cancer Research. <em>ECIC BIOR Conference</em> (2024).</div></li>
-            <li class="flex items-start p-2 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.6s"><i class="fas fa-award mr-2.5 text-yellow-500 mt-1 flex-shrink-0"></i><div><strong>Award:</strong> 2nd Prize for Oral Presentation. <em>XI Congress of Students of the Biology Section</em>, ULL (2023).</div></li>
-          </ul>
-        </section>
+      <div class="research-card aos" style="transition-delay:0.05s">
+        <div class="research-icon" style="background:rgba(124,58,237,0.2)">
+          <i class="fas fa-pills" style="color:#a78bfa"></i>
+        </div>
+        <h3 class="text-white font-semibold text-lg mb-2">Drug Discovery</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Phenotypic profiling and mode-of-action inference for anti-cancer compounds
+          using live-cell imaging data and predictive computational models.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag text-xs">Phenotypic Profiling</span>
+          <span class="skill-tag text-xs">QSAR</span>
+          <span class="skill-tag text-xs">Cancer Cell Lines</span>
+        </div>
+      </div>
 
-        <section class="mb-10 js-animate-on-scroll" id="courses" data-animation="animate__fadeInUp" style="animation-delay: 0.5s;">
-          <h2 class="text-2xl font-semibold border-l-4 border-ull-purple pl-4 mb-6 flex items-center">
-            <i class="fas fa-certificate icon-colored mr-3"></i> Courses & Additional Qualifications
-          </h2>
-          <ul class="list-none space-y-2 pl-5 js-animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="0.1s">
-            <li class="flex items-center"><i class="fas fa-language text-blue-600 mr-2.5"></i>Bilingual: Spanish & English</li>
-            <li class="flex items-center"><i class="fas fa-robot text-blue-600 mr-2.5"></i>2024 · Google: Artificial Intelligence and Productivity</li>
-            <li class="flex items-center"><i class="fas fa-flask text-blue-600 mr-2.5"></i>2023 · Computational Chemistry (20 hours)</li>
-            <li class="flex items-center"><i class="fas fa-microphone-alt text-blue-600 mr-2.5"></i>2022 · How to Speak in Public: Oratory, Argumentation, and Debate</li>
-            <li class="flex items-center"><i class="fas fa-id-card text-blue-600 mr-2.5"></i>2022 · Driving Licence B1</li>
-            <li class="flex items-center"><i class="fas fa-dumbbell text-blue-600 mr-2.5"></i>2021 · Sports Nutrition (20 hours)</li>
-            <li class="flex items-center"><i class="fas fa-water text-blue-600 mr-2.5"></i>2021 · FEDECAS Course: One-Star Diver</li>
-          </ul>
-        </section>
+      <div class="research-card aos" style="transition-delay:0.1s">
+        <div class="research-icon" style="background:rgba(59,130,246,0.2)">
+          <i class="fas fa-brain" style="color:#93c5fd"></i>
+        </div>
+        <h3 class="text-white font-semibold text-lg mb-2">Machine Learning &amp; AI</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Building deep learning pipelines and classical ML classifiers to predict
+          compound efficacy, cluster phenotypic responses, and automate data analysis.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag text-xs">Deep Learning</span>
+          <span class="skill-tag text-xs">TensorFlow</span>
+          <span class="skill-tag text-xs">Scikit-learn</span>
+        </div>
+      </div>
 
-        <footer class="text-center text-sm text-gray-500 mt-12 border-t pt-6 js-animate-on-scroll" data-animation="animate__fadeInUp" style="animation-delay: 0.8s;">
-          © 2025 Adam Khan Navarro · 
-          <a href="https://github.com/AdamKhanBM" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i>GitHub</a> · 
-          <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" class="text-blue-600 hover:underline"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a> ·
-          <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline"><i class="fab fa-orcid mr-1"></i>ORCID</a>
-        </footer>
+      <div class="research-card aos" style="transition-delay:0.15s">
+        <div class="research-icon" style="background:rgba(20,184,166,0.2)">
+          <i class="fas fa-microscope" style="color:#5eead4"></i>
+        </div>
+        <h3 class="text-white font-semibold text-lg mb-2">Computational Cell Imaging</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Custom algorithms for automated cell counting, DAPI-based cell cycle
+          classification, and quantitative fluorescence microscopy analysis.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag text-xs">Image Analysis</span>
+          <span class="skill-tag text-xs">Cell Cycle</span>
+          <span class="skill-tag text-xs">DAPI / IF</span>
+        </div>
+      </div>
+
     </div>
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const elementsToAnimate = document.querySelectorAll('.js-animate-on-scroll');
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, observerInstance) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const element = entry.target;
-              const animationClass = element.dataset.animation || 'animate__fadeInUp';
-              const animationDelay = element.dataset.delay || '0s';
-              element.classList.add('animate__animated', animationClass);
-              element.style.animationDelay = animationDelay;
-              element.style.opacity = 1;
-              observerInstance.unobserve(element);
-            }
-          });
-        }, { threshold: 0.1 });
-        elementsToAnimate.forEach(el => { observer.observe(el); });
-      } else {
-        console.warn('IntersectionObserver not supported, animations disabled.');
-        elementsToAnimate.forEach(el => { el.style.opacity = 1; });
+</section>
+
+
+<!-- ════════════════════════════════════════
+     PUBLICATIONS
+════════════════════════════════════════ -->
+<section id="publications" class="relative">
+  <div class="glow-orb w-72 h-72 bg-violet-800 bottom-0 left-10"></div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12 aos">
+      <p class="section-label">Peer-reviewed work</p>
+      <h2 class="section-title">Publications</h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+
+    <div class="space-y-4">
+
+      <div class="pub-card aos" style="transition-delay:0.05s">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-scroll text-slate-500 mt-1 flex-shrink-0"></i>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="pub-badge badge-2025">2025</span>
+              <span class="pub-badge badge-preprint">Preprint</span>
+            </div>
+            <p class="text-slate-200 text-sm leading-relaxed">
+              <strong>Padilla-Pérez, M. C., …, <em>Khan, A. N.</em>, et al.</strong>
+              Exploring the Influence of the Glycone Space on the Therapeutic Potential of Sp2-Iminoglycolipids.
+              <em class="text-slate-400">SSRN.</em>
+            </p>
+            <a href="https://doi.org/10.2139/ssrn.5369754" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-1 text-violet-400 hover:text-violet-300 text-xs mt-2 transition-colors">
+              <i class="fas fa-external-link-alt text-xs"></i> doi:10.2139/ssrn.5369754
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card aos" style="transition-delay:0.1s">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-scroll text-slate-500 mt-1 flex-shrink-0"></i>
+          <div>
+            <span class="pub-badge badge-2025 mb-2 block w-fit">2025</span>
+            <p class="text-slate-200 text-sm leading-relaxed">
+              <strong>Parmar, M. P., …, <em>Khan, A. N.</em></strong>
+              QSAR, Antimicrobial, and Antiproliferative Study of (R/S)-2-Thioxo-3,4-dihydropyrimidine-5-carboxanilides.
+              <em class="text-slate-400">ACS Omega</em>, 10(6), 1234–1245.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card aos" style="transition-delay:0.15s">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-scroll text-slate-500 mt-1 flex-shrink-0"></i>
+          <div>
+            <span class="pub-badge badge-2025 mb-2 block w-fit">2025</span>
+            <p class="text-slate-200 text-sm leading-relaxed">
+              <strong>Barot, D. M., …, <em>Khan, A. N.</em></strong>
+              Target isolation and anti-proliferative potency of furocoumarin derivative from <em>Aegle marmelos</em> fruit pulp.
+              <em class="text-slate-400">Pharmaceutical Biology.</em>
+            </p>
+            <a href="https://doi.org/10.1080/14786419.2025.2477214" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-1 text-violet-400 hover:text-violet-300 text-xs mt-2 transition-colors">
+              <i class="fas fa-external-link-alt text-xs"></i> doi:10.1080/14786419.2025.2477214
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card aos" style="transition-delay:0.2s">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-scroll text-slate-500 mt-1 flex-shrink-0"></i>
+          <div>
+            <span class="pub-badge badge-2024 mb-2 block w-fit">2024</span>
+            <p class="text-slate-200 text-sm leading-relaxed">
+              <strong>Vala, D. P., …, <em>Khan, A. N.</em></strong>
+              Click-chemistry mediated synthesis of OTBN-1,2,3-Triazole derivatives exhibiting STK33 inhibition with diverse anti-cancer activities.
+              <em class="text-slate-400">Bioorganic Chemistry</em>, 149, 107485.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card aos" style="transition-delay:0.25s">
+        <div class="flex items-start gap-3">
+          <i class="fas fa-scroll text-slate-500 mt-1 flex-shrink-0"></i>
+          <div>
+            <span class="pub-badge badge-2024 mb-2 block w-fit">2024</span>
+            <p class="text-slate-200 text-sm leading-relaxed">
+              <strong>Quintana, V., …, <em>Khan, A. N.</em></strong>
+              Novel Tetrahydropyran-Triazole Hybrids with Antiproliferative Activity against Human Tumor Cells.
+              <em class="text-slate-400">Archiv Der Pharmazie</em>, e2400431.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     SKILLS
+════════════════════════════════════════ -->
+<section id="skills">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 aos">
+      <p class="section-label">Toolbox</p>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="section-divider mx-auto"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      <div class="aos" style="transition-delay:0.05s">
+        <h3 class="text-slate-300 font-semibold text-base mb-4 flex items-center gap-2">
+          <i class="fas fa-code text-violet-400"></i> Programming &amp; Data Science
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag"><i class="fab fa-python" style="color:#3776AB"></i> Python</span>
+          <span class="skill-tag"><i class="fab fa-r-project" style="color:#276DC3"></i> R</span>
+          <span class="skill-tag"><i class="fas fa-brain text-purple-400"></i> Deep Learning</span>
+          <span class="skill-tag"><i class="fas fa-robot text-blue-400"></i> Machine Learning</span>
+          <span class="skill-tag">Pandas · NumPy</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">TensorFlow / Keras</span>
+          <span class="skill-tag">Tidyverse</span>
+          <span class="skill-tag">Bioconductor</span>
+          <span class="skill-tag"><i class="fas fa-chart-bar text-yellow-400"></i> Data Visualization</span>
+          <span class="skill-tag"><i class="fas fa-calculator text-orange-400"></i> Statistical Modelling</span>
+        </div>
+      </div>
+
+      <div class="aos" style="transition-delay:0.1s">
+        <h3 class="text-slate-300 font-semibold text-base mb-4 flex items-center gap-2">
+          <i class="fas fa-flask text-teal-400"></i> Bioinformatics &amp; Biology
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag"><i class="fas fa-pills text-violet-400"></i> Drug Discovery</span>
+          <span class="skill-tag"><i class="fas fa-microscope text-teal-400"></i> Cell Imaging</span>
+          <span class="skill-tag">Phenotypic Profiling</span>
+          <span class="skill-tag">Cell Culture</span>
+          <span class="skill-tag">Fluorescence Microscopy</span>
+          <span class="skill-tag">DAPI / IF Assays</span>
+          <span class="skill-tag">ROS · DNA Damage</span>
+          <span class="skill-tag"><i class="fas fa-dna text-green-400"></i> Genetics Analysis</span>
+          <span class="skill-tag">QSAR</span>
+          <span class="skill-tag">Protein Quantification</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════ -->
+<section id="contact" class="relative">
+  <div class="glow-orb w-96 h-96 bg-violet-700 top-0 right-0 opacity-10"></div>
+
+  <div class="max-w-2xl mx-auto text-center">
+    <div class="aos">
+      <p class="section-label">Let's connect</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="section-divider mx-auto"></div>
+      <p class="text-slate-400 mb-10 leading-relaxed">
+        Open to collaborations, research opportunities, and conversations about
+        computational biology, drug discovery, or bioinformatics.
+      </p>
+    </div>
+
+    <div class="space-y-3">
+
+      <a href="mailto:adamkhan.navarro@gmail.com" class="contact-link aos" style="transition-delay:0.05s">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(234,67,53,0.2)">
+          <i class="fas fa-envelope" style="color:#f87171"></i>
+        </div>
+        <div class="text-left">
+          <div class="text-sm font-semibold text-white">Email</div>
+          <div class="text-xs text-slate-400">adamkhan.navarro@gmail.com</div>
+        </div>
+        <i class="fas fa-arrow-right text-slate-600 ml-auto"></i>
+      </a>
+
+      <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener" class="contact-link aos" style="transition-delay:0.1s">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,119,181,0.2)">
+          <i class="fab fa-linkedin" style="color:#60a5fa"></i>
+        </div>
+        <div class="text-left">
+          <div class="text-sm font-semibold text-white">LinkedIn</div>
+          <div class="text-xs text-slate-400">linkedin.com/in/adam-khan-navarro</div>
+        </div>
+        <i class="fas fa-arrow-right text-slate-600 ml-auto"></i>
+      </a>
+
+      <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener" class="contact-link aos" style="transition-delay:0.15s">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1)">
+          <i class="fab fa-github text-white"></i>
+        </div>
+        <div class="text-left">
+          <div class="text-sm font-semibold text-white">GitHub</div>
+          <div class="text-xs text-slate-400">github.com/AdamKhanBM</div>
+        </div>
+        <i class="fas fa-arrow-right text-slate-600 ml-auto"></i>
+      </a>
+
+      <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener" class="contact-link aos" style="transition-delay:0.2s">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(166,206,57,0.15)">
+          <i class="fab fa-orcid" style="color:#a6ce39"></i>
+        </div>
+        <div class="text-left">
+          <div class="text-sm font-semibold text-white">ORCID</div>
+          <div class="text-xs text-slate-400">0009-0000-8985-4632</div>
+        </div>
+        <i class="fas fa-arrow-right text-slate-600 ml-auto"></i>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="border-t border-white/5 py-8 text-center text-slate-500 text-sm">
+  <p>© 2025 Adam Khan Navarro &nbsp;·&nbsp; Built with ♥ in Tenerife</p>
+  <p class="mt-1 text-xs">
+    <a href="Adam Khan Navarro - CV final .html" target="_blank" class="hover:text-violet-400 transition-colors">
+      <i class="fas fa-file-alt mr-1"></i>Download full CV
+    </a>
+  </p>
+</footer>
+
+
+<script>
+  // ── Navbar scroll effect ──
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Animate on scroll ──
+  const aosEls = document.querySelectorAll('.aos');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
-  </script>
+  }, { threshold: 0.1 });
+  aosEls.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
