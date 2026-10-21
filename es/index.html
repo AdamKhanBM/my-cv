@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam Khan Navarro · Biólogo computacional</title>
+  <meta name="description" content="Adam Khan Navarro, biólogo computacional y doctorando en la Universidad de La Laguna. Herramientas para el cribado de fármacos contra el cáncer: imagen, dosis-respuesta, ciclo celular y RNA-seq." />
+  <link rel="alternate" hreflang="en" href="https://adamkhanbm.github.io/my-cv/">
+  <link rel="alternate" hreflang="es" href="https://adamkhanbm.github.io/my-cv/es/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/cv.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="top-name" href="#">A. Khan Navarro</a>
+    <nav class="top-nav" aria-label="Secciones">
+      <a href="#approach"><span>01</span> Enfoque</a>
+      <a href="#problems"><span>02</span> Problemas resueltos</a>
+      <a href="#papers"><span>03</span> Publicaciones</a>
+      <a href="#tools"><span>04</span> Herramientas</a>
+      <a href="#contact"><span>05</span> Contacto</a>
+      <!-- TODO: Adam_Khan_Navarro_CV.pdf is not in the repo yet; this link 404s until it is added. -->
+      <a href="../Adam_Khan_Navarro_CV.pdf" target="_blank" rel="noopener">CV.pdf ↗</a>
+    </nav>
+    <p class="lang" aria-label="Idioma">
+      <a href="../" hreflang="en" lang="en">EN</a>
+      <a href="./" class="on" aria-current="page">ES</a>
+    </p>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" aria-labelledby="name">
+    <div>
+      <div class="hero-meta">
+        <span class="label">Biólogo computacional</span>
+        <span class="label">Doctorado · Universidad de La Laguna</span>
+      </div>
+      <h1 id="name">Adam <em>Khan Navarro</em></h1>
+      <p class="hero-claim">
+        Construyo las herramientas computacionales que necesita un laboratorio de cáncer,
+        <mark>desde imágenes de microscopio hasta datos de secuenciación.</mark>
+      </p>
+      <div class="hero-links">
+        <a class="main" href="#problems">Cuatro problemas del laboratorio ↓</a>
+        <a href="mailto:adamkhan.navarro@gmail.com">Email</a>
+        <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">ORCID</a>
+        <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <figure>
+      <div class="scope" id="scope">
+        <canvas id="scope-canvas" role="img" aria-label="Campo simulado de núcleos celulares fluorescentes. Al mover el puntero se marcan y se cuentan los núcleos que hay debajo."></canvas>
+        <div class="scope-tools">
+          <button class="chip" type="button" id="seg-all" aria-pressed="false">segmentar todo</button>
+          <button class="chip" type="button" id="seg-new">nuevo campo</button>
+        </div>
+        <div class="scope-hud" aria-live="polite">
+          <span>DAPI · 20× · <b id="seg-count">0</b> / <span id="seg-total">0</span> núcleos</span>
+          <span class="scope-bar"><i></i>50 µm</span>
+        </div>
+      </div>
+      <figcaption>
+        <b>Fig. 1</b> Antes de sacar cualquier número de una imagen de microscopio,
+        algo tiene que encontrar cada núcleo. Mueve el puntero para hacerlo.<span class="sim">simulado</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══ 01 ENFOQUE ═══ -->
+  <section class="entry" id="approach" aria-labelledby="approach-h">
+    <div class="entry-margin">
+      <p class="num">01</p>
+      <p class="note">Enfoque</p>
+    </div>
+    <div>
+      <h2 id="approach-h">Trabajo entre la poyata <em>y la terminal.</em></h2>
+      <p class="lede">
+        Hago el doctorado en la Universidad de La Laguna, en un grupo que ensaya
+        moléculas pequeñas contra líneas celulares tumorales humanas. Hago los
+        experimentos y trabajo como un data scientist o un ingeniero en todo lo que
+        los rodea: el conteo, el ajuste de curvas, el análisis de imagen, la secuenciación.
+      </p>
+      <p class="lede">
+        Mi trabajo es encontrar el paso que es lento, subjetivo o imposible de escalar,
+        y sustituirlo por algo reproducible.
+      </p>
+
+      <ol class="steps">
+        <li><b>Encontrar el cuello de botella</b><span>¿Qué lleva horas, o cambia según quién lo haga?</span></li>
+        <li><b>Sacar los datos</b><span>Imágenes, lecturas de placa y secuencias, en un formato con el que se pueda trabajar.</span></li>
+        <li><b>Modelarlo</b><span>Estadística, visión por computador o machine learning, lo que sea más sencillo.</span></li>
+        <li><b>Hacer una herramienta</b><span>Un script, un pipeline o una pequeña app que el resto del laboratorio pueda usar.</span></li>
+        <li><b>Volver a la poyata</b><span>Contrastarlo con la biología y usarlo en el siguiente experimento.</span></li>
+      </ol>
+
+      <p class="bridge">
+        Todo laboratorio, y todo equipo, tiene un paso que se sigue haciendo a mano,
+        igual, cada semana. <em>Ahí es donde suelo empezar.</em>
+      </p>
+
+      <p class="note-box">
+        <b>Sobre las figuras</b>
+        Todas las figuras y demos de esta página se simulan en tu navegador. Muestran
+        el tipo de problema y el tipo de solución, no datos, código ni resultados sin publicar.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 02 PROBLEMAS ═══ -->
+  <section class="entry" id="problems" aria-labelledby="problems-h">
+    <div class="entry-margin">
+      <p class="num">02</p>
+      <p class="note">Problemas resueltos<br>prueba cada uno</p>
+    </div>
+    <div>
+      <h2 id="problems-h">Cuatro problemas <em>del laboratorio</em></h2>
+
+      <!-- ── P1 · Contar colonias ── -->
+      <article class="problem" aria-labelledby="p1-h">
+        <div>
+          <p class="problem-tag">Problema 01 · visión por computador</p>
+          <h3 id="p1-h">Contar colonias <em>a ojo</em> no escala</h3>
+          <dl>
+            <dt>El problema</dt>
+            <dd>Los ensayos de colonias acaban con alguien contando puntos en decenas de placas. Es lento, cansa, y dos personas casi nunca sacan el mismo número.</dd>
+            <dt>Lo que hice</dt>
+            <dd>Un pipeline de imagen que encuentra y cuenta las colonias a partir de una foto de la placa, y da las estadísticas por condición.</dd>
+            <dt>Pruébalo</dt>
+            <dd>Cuenta tú las colonias haciendo clic y luego deja que cuente el algoritmo. Compara.</dd>
+          </dl>
+          <p class="stack">Python · segmentación tipo OpenCV · estadística</p>
+          <p class="transfer"><span>Fuera de la biología</span>Detección y conteo de objetos, control de calidad visual.</p>
+        </div>
+        <figure>
+          <div class="demo-bar">
+            <button class="btn primary" type="button" id="col-auto">Contar automáticamente</button>
+            <button class="btn" type="button" id="col-new">Nueva placa</button>
+          </div>
+          <div class="plate-wrap">
+            <div class="plate"><canvas id="col-canvas" role="img" aria-label="Placa de cultivo simulada con colonias. Haz clic en las colonias para contarlas a mano."></canvas></div>
+            <div class="tally" aria-live="polite">
+              <div><span>Tú</span><b id="col-you">0</b><span id="col-time">haz clic para empezar</span></div>
+              <div class="auto"><span>Algoritmo</span><b id="col-algo">?</b><span id="col-algo-note">aún sin ejecutar</span></div>
+              <div><span>Se te escaparon</span><b id="col-miss">?</b><span id="col-miss-note">&nbsp;</span></div>
+            </div>
+          </div>
+          <figcaption><b>Fig. 2</b> Una placa simulada. Las colonias que se tocan son las que hacen poco fiable el conteo a ojo.<span class="sim">simulado</span></figcaption>
+        </figure>
+      </article>
+
+      <!-- ── P2 · Dosis-respuesta ── -->
+      <article class="problem" aria-labelledby="p2-h">
+        <div>
+          <p class="problem-tag">Problema 02 · pipeline de datos</p>
+          <h3 id="p2-h">Una placa llena de números, <em>una decisión</em></h3>
+          <dl>
+            <dt>El problema</dt>
+            <dd>Una placa de cribado son 96 valores de absorbancia en una hoja de cálculo. Alguien tiene que convertirlos en una potencia para cada compuesto y decidir cuáles siguen adelante.</dd>
+            <dt>Lo que hice</dt>
+            <dd>Un pipeline que va de las lecturas de la placa a curvas dosis-respuesta ajustadas y a un ranking por GI<sub>50</sub>, la dosis que reduce el crecimiento a la mitad.</dd>
+            <dt>Pruébalo</dt>
+            <dd>Haz clic en una fila de la placa para ver la curva de ese compuesto. El ranking se ordena solo.</dd>
+          </dl>
+          <p class="stack">Python / R · ajustes logísticos de cuatro parámetros · ensayo SRB</p>
+          <p class="transfer"><span>Fuera de la biología</span>Convertir hojas de cálculo en bruto en informes y rankings automáticos.</p>
+        </div>
+        <figure class="wells-wrap">
+          <div class="frame wells">
+            <svg id="wells" viewBox="0 0 520 268" role="group" aria-label="Placa simulada de 96 pocillos. Las filas son los compuestos A a H; las columnas van de dosis baja a alta y terminan con dos pocillos control."></svg>
+          </div>
+          <div class="dr-grid">
+            <div class="frame"><svg id="dr" viewBox="0 0 400 260" role="img" aria-label="Curva dosis-respuesta del compuesto seleccionado."></svg></div>
+            <div>
+              <p class="label" style="margin-bottom:.4rem">Ranking por GI<sub>50</sub></p>
+              <ol class="rank" id="rank"></ol>
+            </div>
+          </div>
+          <figcaption><b>Fig. 3</b> Pocillo más oscuro = más células vivas. Cada fila es un compuesto; la dosis sube hacia la derecha.<span class="sim">simulado</span></figcaption>
+        </figure>
+      </article>
+
+      <!-- ── P3 · Ciclo celular ── -->
+      <article class="problem" aria-labelledby="p3-h">
+        <div>
+          <p class="problem-tag">Problema 03 · análisis de imagen</p>
+          <h3 id="p3-h">¿El fármaco <em>frena</em> las células o las <em>mata</em>?</h3>
+          <dl>
+            <dt>El problema</dt>
+            <dd>Un compuesto reduce el crecimiento. Pero ¿está pausando el ciclo celular o causando muerte? Responder a eso solía requerir ensayos adicionales.</dd>
+            <dt>Lo que hice</dt>
+            <dd>Un análisis que mide el contenido de ADN de cada núcleo a partir de una sola tinción con DAPI, y lee en el histograma las fases del ciclo y la apoptosis.</dd>
+            <dt>Pruébalo</dt>
+            <dd>Elige un tipo de fármaco y sube la dosis. Mira dónde se acumulan las células.</dd>
+          </dl>
+          <p class="stack">Python · segmentación nuclear · perfiles de intensidad</p>
+          <p class="transfer"><span>Fuera de la biología</span>Leer una distribución para distinguir entre dos causas posibles.</p>
+        </div>
+        <figure>
+          <div class="cc-grid">
+            <div class="frame"><svg id="cc" viewBox="0 0 400 260" role="img" aria-label="Histograma del contenido de ADN por núcleo, coloreado por fase del ciclo celular."></svg></div>
+            <div class="cc-ctl">
+              <div class="seg" role="group" aria-label="Tipo de fármaco">
+                <button type="button" data-mech="g2" aria-pressed="true">Bloqueador de G2/M</button>
+                <button type="button" data-mech="g1" aria-pressed="false">Bloqueador de G1</button>
+              </div>
+              <div class="control">
+                <label for="cc-dose">Dosis <output id="cc-dose-out" for="cc-dose">control</output></label>
+                <input id="cc-dose" type="range" min="0" max="100" step="1" value="0">
+              </div>
+              <div class="readout" id="cc-read" aria-live="polite"></div>
+            </div>
+          </div>
+          <figcaption><b>Fig. 4</b> Contenido de ADN por núcleo. 2N = antes de copiar el genoma, 4N = lista para dividirse, por debajo de 2N = células fragmentadas que están muriendo.<span class="sim">simulado</span></figcaption>
+        </figure>
+      </article>
+
+      <!-- ── P4 · RNA-seq ── -->
+      <article class="problem" aria-labelledby="p4-h">
+        <div>
+          <p class="problem-tag">Problema 04 · estadística · ómicas</p>
+          <h3 id="p4-h">Veinte mil genes, <em>un mecanismo</em></h3>
+          <dl>
+            <dt>El problema</dt>
+            <dd>Sabemos que un compuesto funciona, pero no cómo. Secuenciar las células tratadas da un cambio para cada gen, demasiado para leerlo a mano.</dd>
+            <dt>Lo que hice</dt>
+            <dd>Un flujo de RNA-seq reproducible: expresión diferencial, umbrales con sentido y después enriquecimiento de rutas para apuntar a un mecanismo.</dd>
+            <dt>Pruébalo</dt>
+            <dd>Mueve los umbrales. Si son muy laxos todo parece importante; si son muy estrictos pierdes la señal.</dd>
+          </dl>
+          <p class="stack">R · DESeq2 · Bioconductor · Snakemake</p>
+          <p class="transfer"><span>Fuera de la biología</span>Contrastar miles de hipótesis a la vez sin engañarte.</p>
+        </div>
+        <figure>
+          <div class="frame volcano" id="vo-box">
+            <svg id="vo" viewBox="0 0 440 300" role="img" aria-label="Volcano plot de genes simulados: cambio de expresión frente a significación."></svg>
+          </div>
+          <div class="vo-ctl">
+            <div class="control">
+              <label for="vo-fc">Fold change mínimo <output id="vo-fc-out" for="vo-fc">2×</output></label>
+              <input id="vo-fc" type="range" min="0" max="3" step="0.1" value="1">
+            </div>
+            <div class="control">
+              <label for="vo-p">p-valor máximo <output id="vo-p-out" for="vo-p">0.01</output></label>
+              <input id="vo-p" type="range" min="1" max="8" step="0.1" value="2">
+            </div>
+          </div>
+          <div class="readout" id="vo-read" style="margin-top:1rem" aria-live="polite"></div>
+          <figcaption><b>Fig. 5</b> Cada punto es un gen: a la derecha, sube en las células tratadas; a la izquierda, baja; cuanto más arriba, más seguro.<span class="sim">simulado</span></figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══ 03 PUBLICACIONES ═══ -->
+  <section class="entry" id="papers" aria-labelledby="papers-h">
+    <div class="entry-margin">
+      <p class="num">03</p>
+      <p class="note">Publicaciones<br>revisadas por pares</p>
+    </div>
+    <div>
+      <h2 id="papers-h">Dónde acabaron las herramientas</h2>
+      <p class="lede">Trabajos publicados a los que he aportado análisis y cribado.</p>
+      <div class="pub-head">
+        <div class="filters" role="group" aria-label="Filtrar por año">
+          <button type="button" data-year="all" aria-pressed="true">todas</button>
+          <button type="button" data-year="2026" aria-pressed="false">2026</button>
+          <button type="button" data-year="2025" aria-pressed="false">2025</button>
+          <button type="button" data-year="2024" aria-pressed="false">2024</button>
+        </div>
+        <span class="mono" id="pub-shown" aria-live="polite"></span>
+      </div>
+
+      <table class="pubs">
+        <thead><tr><th>Año</th><th>Título</th><th>Revista</th></tr></thead>
+        <tbody>
+          <tr data-year="2026">
+            <td>2026</td>
+            <td><p class="t"><a href="https://doi.org/10.1002/psc.70128" target="_blank" rel="noopener">Sequence Inversion Dictates the Antiproliferative Activity of Bidirectional Tryptophan-Containing Dipeptide Libraries</a></p>
+                <p class="a">Díaz, J. B., <b>Khan, A. N.</b>, González-Bakker, A., Padrón, J. M.</p></td>
+            <td class="j">Journal of Peptide Science, 32(10), e70128</td>
+          </tr>
+          <tr data-year="2026">
+            <td>2026</td>
+            <td><p class="t"><a href="https://doi.org/10.1016/j.bioorg.2026.110538" target="_blank" rel="noopener">Oleanolic acid–selenocyanate hybrids trigger replication-associated DNA damage responses and suppress tumour growth <i>in vitro</i> and <i>in vivo</i></a></p>
+                <p class="a">Martínez-Lara, R. I., González-Bakker, A., <b>Khan, A. N.</b>, et al.</p></td>
+            <td class="j">Bioorganic Chemistry, 110538</td>
+          </tr>
+          <tr data-year="2026">
+            <td>2026</td>
+            <td><p class="t"><a href="https://doi.org/10.1016/j.ejmech.2025.118337" target="_blank" rel="noopener">Exploring the Influence of the Glycone Space on the Therapeutic Potential of sp2-Iminoglycolipids</a></p>
+                <p class="a">Padilla-Pérez, M. C., …, <b>Khan, A. N.</b>, et al.</p></td>
+            <td class="j">European Journal of Medicinal Chemistry, 302, 118337</td>
+          </tr>
+          <tr data-year="2026">
+            <td>2026</td>
+            <td><p class="t"><a href="https://doi.org/10.1080/14786419.2025.2477214" target="_blank" rel="noopener">Target isolation and anti-proliferative potency of furocoumarin derivative from <i>Aegle marmelos</i> fruit pulp</a></p>
+                <p class="a">Barot, D. M., …, <b>Khan, A. N.</b>, et al.</p></td>
+            <td class="j">Natural Product Research, 40(12), 3564–3570</td>
+          </tr>
+          <tr data-year="2025">
+            <td>2025</td>
+            <td><p class="t"><a href="https://doi.org/10.3390/plants14243779" target="_blank" rel="noopener">Antiproliferative Effects of Polar Extracts of the Aerial Parts of <i>Fuchsia standishii</i> J.Harrison</a></p>
+                <p class="a">Ramírez, M. I., González-Bakker, A., <b>Khan, A. N.</b>, Puerta, A., Padrón, J. M.</p></td>
+            <td class="j">Plants, 14(24), 3779</td>
+          </tr>
+          <tr data-year="2025">
+            <td>2025</td>
+            <td><p class="t"><a href="https://doi.org/10.1021/acsomega.4c09899" target="_blank" rel="noopener">QSAR, Antimicrobial, and Antiproliferative Study of (R/S)-2-Thioxo-3,4-dihydropyrimidine-5-carboxanilides</a></p>
+                <p class="a">Parmar, M. P., …, <b>Khan, A. N.</b>, et al.</p></td>
+            <td class="j">ACS Omega, 10(7), 7013</td>
+          </tr>
+          <tr data-year="2024">
+            <td>2024</td>
+            <td><p class="t"><a href="https://doi.org/10.1016/j.bioorg.2024.107485" target="_blank" rel="noopener">Click-chemistry mediated synthesis of OTBN-1,2,3-Triazole derivatives exhibiting STK33 inhibition with diverse anti-cancer activities</a></p>
+                <p class="a">Vala, D. P., …, <b>Khan, A. N.</b>, et al.</p></td>
+            <td class="j">Bioorganic Chemistry, 149, 107485</td>
+          </tr>
+          <tr data-year="2024">
+            <td>2024</td>
+            <td><p class="t"><a href="https://doi.org/10.1002/ardp.202400431" target="_blank" rel="noopener">Novel Tetrahydropyran-Triazole Hybrids with Antiproliferative Activity against Human Tumor Cells</a></p>
+                <p class="a">Quintana, V., González-Bakker, A., <b>Khan, A. N.</b>, et al.</p></td>
+            <td class="j">Archiv der Pharmazie, 357(11), e2400431</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="pub-more">Lista completa en <a href="https://scholar.google.com/citations?user=bemt14AAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a> y <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">ORCID ↗</a></p>
+    </div>
+  </section>
+
+  <!-- ═══ 04 HERRAMIENTAS ═══ -->
+  <section class="entry" id="tools" aria-labelledby="tools-h">
+    <div class="entry-margin">
+      <p class="num">04</p>
+      <p class="note">Herramientas</p>
+    </div>
+    <div>
+      <h2 id="tools-h">Herramientas, <em>según para qué sirven</em></h2>
+      <dl class="tools">
+        <div><dt>Python · PyTorch · scikit-learn</dt><dd>Machine learning para predecir bioactividad y segmentar imágenes.</dd></div>
+        <div><dt>ImageJ · CellProfiler</dt><dd>Análisis de fluorescencia de alto contenido, conteo de células y colonias.</dd></div>
+        <div><dt>R · DESeq2 · Bioconductor</dt><dd>RNA-seq, expresión diferencial, redes moleculares.</dd></div>
+        <div><dt>RDKit · ChEMBL · PubChem</dt><dd>Descriptores químicos y modelos QSAR.</dd></div>
+        <div><dt>Snakemake · Bash · Git</dt><dd>Pipelines que funcionan igual dos veces, de los datos en bruto a la figura.</dd></div>
+        <div><dt>Ensayo SRB · microscopía</dt><dd>La parte de laboratorio: cribado antiproliferativo en líneas celulares tumorales.</dd></div>
+        <div><dt><span class="spark" aria-hidden="true"></span>Claude · Claude Code</dt><dd>Mi compañero de programación con IA: escribir y revisar código de análisis, y construir herramientas como esta página más rápido. La ciencia y las decisiones son mías.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ═══ 05 CONTACTO ═══ -->
+  <section class="entry" id="contact" aria-labelledby="contact-h">
+    <div class="entry-margin">
+      <p class="num">05</p>
+      <p class="note">Contacto</p>
+    </div>
+    <div>
+      <h2 id="contact-h">Casi todos los equipos tienen una tarea <em>que podría hacer un script.</em></h2>
+      <p class="lede">
+        Si tienes una, me gustaría conocerla. Estoy abierto a colaboraciones de
+        investigación y a puestos en la industria, en biotecnología y ciencia de datos.
+      </p>
+      <ul class="contact-list">
+        <li><span>Email</span><a href="mailto:adamkhan.navarro@gmail.com">adamkhan.navarro@gmail.com</a></li>
+        <li><span>ORCID</span><a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">0009-0000-8985-4632</a></li>
+        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener">adam-khan-navarro</a></li>
+        <li><span>Código</span><a href="mailto:adamkhan.navarro@gmail.com?subject=Solicitud%20de%20c%C3%B3digo">El código de investigación es privado · disponible bajo petición</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="mono">© 2026 Adam Khan Navarro · todos los derechos reservados. No se permite reutilizar textos, figuras ni código sin permiso.</span>
+  <span class="mono">Todas las figuras son simuladas · sin rastreadores</span>
+</footer>
+
+<script src="../assets/cv.js"></script>
+
+</body>
+</html>
