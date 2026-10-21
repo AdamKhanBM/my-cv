@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adam Khan Navarro — Data science for the lab</title>
-  <meta name="description" content="Adam Khan Navarro — Ph.D. candidate at Universidad de La Laguna. I turn slow, manual lab work in cancer drug screening into data tools: imaging, dose–response, cell cycle and RNA-seq." />
+  <title>Adam Khan Navarro · Computational biologist</title>
+  <meta name="description" content="Adam Khan Navarro, computational biologist and Ph.D. candidate at Universidad de La Laguna. Tools for cancer drug screening: imaging, dose-response, cell cycle and RNA-seq." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -46,6 +46,7 @@
       font-weight: 400;
       background: var(--paper);
       color: var(--ink);
+      overflow-x: clip;   /* 100vw in the hero bleed includes the scrollbar */
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: .18em; }
@@ -92,13 +93,19 @@
       border-top: 1px solid var(--rule);
     }
     .entry-margin { padding-top: .45rem; }
-    .entry-margin .num { font-family: var(--mono); font-size: .8rem; color: var(--dapi); }
-    .entry-margin .note { margin-top: .5rem; font-family: var(--mono); font-size: .78rem; line-height: 1.5; color: var(--ink-3); }
+    .entry-margin .num {
+      font-family: var(--mono);
+      font-size: clamp(2.2rem, 1.6rem + 1.8vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: var(--ink);
+    }
+    .entry-margin .note { margin-top: .7rem; font-family: var(--mono); font-size: .78rem; line-height: 1.5; color: var(--ink-3); }
     h2 {
-      font-weight: 400;
-      font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.4rem);
-      line-height: 1.15;
-      letter-spacing: -.01em;
+      font-weight: 500;
+      font-size: clamp(1.8rem, 1.2rem + 1.9vw, 2.7rem);
+      line-height: 1.12;
+      letter-spacing: -.015em;
       max-width: 24ch;
     }
     h2 em, h3 em { font-style: italic; color: var(--dapi); }
@@ -107,20 +114,25 @@
     /* ─── HERO ─── */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.25fr);
       gap: 3rem;
       align-items: center;
       padding: 3.5rem 0 4.5rem;
     }
+    /* The microscope field runs off the right edge of the page, like a cover photo. */
+    .hero .scope {
+      margin-right: calc(-1 * (max(0px, (100vw - 1180px) / 2) + 1.5rem));
+      border-radius: 2px 0 0 2px;
+    }
     .hero-meta { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
     .hero h1 {
       margin-top: 1.4rem;
-      font-weight: 300;
-      font-size: clamp(2.6rem, 1.6rem + 4vw, 4.6rem);
-      line-height: 1;
-      letter-spacing: -.025em;
+      font-weight: 500;
+      font-size: clamp(2.9rem, 1.6rem + 4.6vw, 5.4rem);
+      line-height: .98;
+      letter-spacing: -.03em;
     }
-    .hero h1 em { font-style: italic; font-weight: 300; }
+    .hero h1 em { font-style: italic; font-weight: 400; color: var(--dapi); }
     .hero-claim {
       margin-top: 1.6rem;
       font-size: clamp(1.2rem, 1.05rem + .5vw, 1.45rem);
@@ -225,6 +237,12 @@
     }
     .steps b { display: block; font-weight: 500; font-size: 1.05rem; line-height: 1.3; }
     .steps span { display: block; margin-top: .3rem; font-size: .95rem; line-height: 1.45; color: var(--ink-2); }
+    .bridge {
+      margin-top: 2.8rem; max-width: 34ch;
+      font-size: clamp(1.35rem, 1.1rem + .9vw, 1.75rem);
+      line-height: 1.35;
+    }
+    .bridge em { color: var(--dapi); }
     .note-box {
       margin-top: 2.5rem; max-width: var(--measure);
       border-left: 2px solid var(--dapi); padding: .2rem 0 .2rem 1.1rem;
@@ -243,11 +261,21 @@
     }
     .problem:first-of-type { margin-top: 2.2rem; }
     .problem-tag { font-family: var(--mono); font-size: .8rem; color: var(--dapi); }
-    .problem h3 { margin-top: .4rem; font-weight: 400; font-size: clamp(1.35rem, 1.1rem + .9vw, 1.8rem); line-height: 1.2; }
+    .problem h3 { margin-top: .4rem; font-weight: 500; font-size: clamp(1.35rem, 1.1rem + .9vw, 1.8rem); line-height: 1.2; }
     .problem dl { margin-top: 1.2rem; }
     .problem dt { margin-top: .9rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
     .problem dd { margin-top: .15rem; font-size: 1.02rem; color: var(--ink-2); }
     .problem .stack { margin-top: 1.1rem; font-family: var(--mono); font-size: .78rem; color: var(--ink-3); }
+    .transfer {
+      margin-top: 1rem; padding-top: .7rem; max-width: 40ch;
+      border-top: 1px solid var(--rule);
+      font-size: 1rem; color: var(--ink);
+    }
+    .transfer span {
+      display: block; margin-bottom: .15rem;
+      font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--dapi);
+    }
     .demo-bar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .7rem; }
     .demo-bar .mono { margin-left: auto; }
 
@@ -353,6 +381,8 @@
     }
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; gap: 2.2rem; padding-top: 2.2rem; }
+      .hero .scope { margin: 0 -1.5rem; border-radius: 0; }
+      .hero figcaption { margin-top: .9rem; }
       .entry { grid-template-columns: 1fr; padding: 3.2rem 0; }
       .entry-margin { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 1rem; padding-top: 0; }
       .entry-margin .note { margin-top: 0; }
@@ -397,16 +427,16 @@
   <section class="hero" aria-labelledby="name">
     <div>
       <div class="hero-meta">
-        <span class="label">Data scientist in a cancer lab</span>
+        <span class="label">Computational biologist</span>
         <span class="label">Ph.D. · Universidad de La Laguna</span>
       </div>
       <h1 id="name">Adam <em>Khan Navarro</em></h1>
       <p class="hero-claim">
-        When something in the lab is slow, manual or hard to trust,
-        <mark>I turn it into data and build the tool that fixes it.</mark>
+        I build the computational tools a cancer lab needs,
+        <mark>from microscope images to sequencing data.</mark>
       </p>
       <div class="hero-links">
-        <a class="main" href="#problems">See four problems I've solved ↓</a>
+        <a class="main" href="#problems">Four problems from the lab ↓</a>
         <a href="mailto:adamkhan.navarro@gmail.com">Email</a>
         <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">ORCID</a>
         <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener">LinkedIn</a>
@@ -442,7 +472,7 @@
       <h2 id="approach-h">I sit between the bench <em>and the terminal.</em></h2>
       <p class="lede">
         I'm doing my Ph.D. at the Universidad de La Laguna, in a group that screens
-        small molecules against human tumour cell lines. I do the experiments — and
+        small molecules against human tumour cell lines. I run the experiments, and
         I work like a data scientist or an engineer on everything around them:
         the counting, the curve fitting, the image analysis, the sequencing.
       </p>
@@ -453,16 +483,21 @@
 
       <ol class="steps">
         <li><b>Find the bottleneck</b><span>What takes hours, or changes depending on who does it?</span></li>
-        <li><b>Get the data out</b><span>Images, plate readings, sequencing reads — into a usable form.</span></li>
+        <li><b>Get the data out</b><span>Images, plate readings and sequencing reads, in a form you can work with.</span></li>
         <li><b>Model it</b><span>Statistics, computer vision or machine learning, whichever is simplest.</span></li>
         <li><b>Ship a tool</b><span>A script, a pipeline or a small app that others in the lab can run.</span></li>
         <li><b>Back to the bench</b><span>Check it against the biology, then use it on the next experiment.</span></li>
       </ol>
 
+      <p class="bridge">
+        Every lab, and every team, has a step that is still done by hand, the same
+        way, every week. <em>That is usually where I start.</em>
+      </p>
+
       <p class="note-box">
         <b>About the figures</b>
         Every figure and demo on this page is simulated in your browser. They show
-        the kind of problem and the kind of solution — not unpublished data, code or results.
+        the kind of problem and the kind of solution, not unpublished data, code or results.
       </p>
     </div>
   </section>
@@ -474,7 +509,7 @@
       <p class="note">Problems solved<br>try each one</p>
     </div>
     <div>
-      <h2 id="problems-h">Four lab problems, <em>and what I did about them</em></h2>
+      <h2 id="problems-h">Four problems <em>from the lab</em></h2>
 
       <!-- ── P1 · Counting colonies ── -->
       <article class="problem" aria-labelledby="p1-h">
@@ -490,6 +525,7 @@
             <dd>Click the colonies yourself, then let the algorithm count. Compare.</dd>
           </dl>
           <p class="stack">Python · OpenCV-style segmentation · statistics</p>
+          <p class="transfer"><span>Outside biology</span>Object detection and counting, visual quality control.</p>
         </div>
         <figure>
           <div class="demo-bar">
@@ -500,8 +536,8 @@
             <div class="plate"><canvas id="col-canvas" role="img" aria-label="Simulated culture plate with colonies. Click colonies to count them by hand."></canvas></div>
             <div class="tally" aria-live="polite">
               <div><span>You</span><b id="col-you">0</b><span id="col-time">click to start</span></div>
-              <div class="auto"><span>Algorithm</span><b id="col-algo">–</b><span id="col-algo-note">not run yet</span></div>
-              <div><span>You missed</span><b id="col-miss">–</b><span id="col-miss-note">&nbsp;</span></div>
+              <div class="auto"><span>Algorithm</span><b id="col-algo">?</b><span id="col-algo-note">not run yet</span></div>
+              <div><span>You missed</span><b id="col-miss">?</b><span id="col-miss-note">&nbsp;</span></div>
             </div>
           </div>
           <figcaption><b>Fig. 2</b> A simulated plate. Touching colonies are what make counting by eye unreliable.<span class="sim">simulated</span></figcaption>
@@ -517,18 +553,19 @@
             <dt>The problem</dt>
             <dd>A screening plate is 96 absorbance values in a spreadsheet. Someone has to turn them into a potency for every compound and decide which ones go forward.</dd>
             <dt>What I built</dt>
-            <dd>A pipeline from raw plate reads to fitted dose–response curves and a ranking by GI<sub>50</sub> — the dose that halves growth.</dd>
+            <dd>A pipeline from raw plate reads to fitted dose-response curves and a ranking by GI<sub>50</sub>, the dose that halves growth.</dd>
             <dt>Try it</dt>
             <dd>Click a row of the plate to see that compound's curve. The ranking updates itself.</dd>
           </dl>
           <p class="stack">Python / R · four-parameter logistic fits · SRB assay</p>
+          <p class="transfer"><span>Outside biology</span>Turning raw spreadsheets into automated reports and rankings.</p>
         </div>
         <figure class="wells-wrap">
           <div class="frame wells">
             <svg id="wells" viewBox="0 0 520 268" role="group" aria-label="Simulated 96-well plate. Rows are compounds A to H; columns go from low to high dose, then two control wells."></svg>
           </div>
           <div class="dr-grid">
-            <div class="frame"><svg id="dr" viewBox="0 0 400 260" role="img" aria-label="Dose–response curve of the selected compound."></svg></div>
+            <div class="frame"><svg id="dr" viewBox="0 0 400 260" role="img" aria-label="Dose-response curve of the selected compound."></svg></div>
             <div>
               <p class="label" style="margin-bottom:.4rem">Ranked by GI<sub>50</sub></p>
               <ol class="rank" id="rank"></ol>
@@ -545,13 +582,14 @@
           <h3 id="p3-h">Did the drug <em>stop</em> the cells, or <em>kill</em> them?</h3>
           <dl>
             <dt>The problem</dt>
-            <dd>A compound reduces growth — but is it pausing the cell cycle or causing death? Answering that used to need extra assays.</dd>
+            <dd>A compound reduces growth. But is it pausing the cell cycle or causing death? Answering that used to need extra assays.</dd>
             <dt>What I built</dt>
             <dd>An analysis that measures the DNA content of every nucleus from a single DAPI stain and reads cycle phases and apoptosis off the histogram.</dd>
             <dt>Try it</dt>
             <dd>Pick a type of drug and raise the dose. Watch where the cells pile up.</dd>
           </dl>
           <p class="stack">Python · nuclear segmentation · intensity profiling</p>
+          <p class="transfer"><span>Outside biology</span>Reading a distribution to tell two possible causes apart.</p>
         </div>
         <figure>
           <div class="cc-grid">
@@ -579,13 +617,14 @@
           <h3 id="p4-h">Twenty thousand genes, <em>one mechanism</em></h3>
           <dl>
             <dt>The problem</dt>
-            <dd>We know a compound works, but not how. Sequencing treated cells gives a change for every gene — far too much to read by hand.</dd>
+            <dd>We know a compound works, but not how. Sequencing treated cells gives a change for every gene, far too much to read by hand.</dd>
             <dt>What I built</dt>
             <dd>A reproducible RNA-seq workflow: differential expression, sensible thresholds, then pathway enrichment to point at a mechanism.</dd>
             <dt>Try it</dt>
             <dd>Move the thresholds. Too loose and everything looks important; too strict and you lose the signal.</dd>
           </dl>
           <p class="stack">R · DESeq2 · Bioconductor · Snakemake</p>
+          <p class="transfer"><span>Outside biology</span>Testing thousands of hypotheses at once without fooling yourself.</p>
         </div>
         <figure>
           <div class="frame volcano" id="vo-box">
@@ -711,7 +750,11 @@
       <p class="note">Contact</p>
     </div>
     <div>
-      <h2 id="contact-h">Is something in your lab eating your week? <em>Tell me about it.</em></h2>
+      <h2 id="contact-h">Most teams have a task <em>a script could do for them.</em></h2>
+      <p class="lede">
+        If you have one, I'd like to hear about it. I'm open to research collaborations
+        and to industry roles in biotech and data science.
+      </p>
       <ul class="contact-list">
         <li><span>Email</span><a href="mailto:adamkhan.navarro@gmail.com">adamkhan.navarro@gmail.com</a></li>
         <li><span>ORCID</span><a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">0009-0000-8985-4632</a></li>
@@ -725,7 +768,7 @@
 
 <footer>
   <span class="mono">© 2026 Adam Khan Navarro · all rights reserved. Text, figures and code may not be reused without permission.</span>
-  <span class="mono">All figures simulated · no trackers · built with <span class="spark" aria-hidden="true"></span>Claude</span>
+  <span class="mono">All figures simulated · no trackers</span>
 </footer>
 
 <script>
@@ -910,8 +953,8 @@
       started = 0; autoShown = 0;
       clearInterval(tick);
       youEl.textContent = '0'; timeEl.textContent = 'click to start';
-      algoEl.textContent = '–'; algoNote.textContent = 'not run yet';
-      missEl.textContent = '–'; missNote.innerHTML = '&nbsp;';
+      algoEl.textContent = '?'; algoNote.textContent = 'not run yet';
+      missEl.textContent = '?'; missNote.innerHTML = '&nbsp;';
       draw();
     }
 
@@ -1094,7 +1137,7 @@
         giLine.style.display = 'none';
         giText.style.display = '';
         giText.setAttribute('x', P.l + 8); giText.setAttribute('y', sy(50) - 6);
-        giText.textContent = 'never reaches 50 % — inactive';
+        giText.textContent = 'never reaches 50 %: inactive';
       }
       title.textContent = c.name;
       rowBg.forEach(function (rb, k) { rb.setAttribute('opacity', k === i ? 1 : 0); });
