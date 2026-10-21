@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adam Khan Navarro — Bioinformatics Researcher</title>
-  <meta name="description" content="Adam Khan Navarro — Ph.D. candidate at Universidad de La Laguna. Phenotypic drug screening, cell imaging and the code that runs them at scale." />
+  <title>Adam Khan Navarro — Data science for the lab</title>
+  <meta name="description" content="Adam Khan Navarro — Ph.D. candidate at Universidad de La Laguna. I turn slow, manual lab work in cancer drug screening into data tools: imaging, dose–response, cell cycle and RNA-seq." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,12 +18,16 @@
       --paper: #f5f2ea;
       --paper-2: #ece7db;
       --ink: #191917;
-      --ink-2: #57544c;
-      --ink-3: #8a867b;
+      /* Secondary inks kept dark enough for long reading: ink-2 ≈ 10:1,
+         ink-3 ≈ 5.5:1 on the paper colour. */
+      --ink-2: #3b3934;
+      --ink-3: #66625a;
+      --claude: #d97757;
       --rule: #d6d0c2;
       --dapi: #2f4bd8;
       --dapi-soft: rgba(47,75,216,.09);
       --scope: #07080d;           /* the microscope's black, only inside figures */
+      --agar: #efe3bf;
 
       --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
       --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
@@ -37,8 +41,9 @@
 
     body {
       font-family: var(--serif);
-      font-size: 1.125rem;
-      line-height: 1.6;
+      font-size: 1.2rem;
+      line-height: 1.62;
+      font-weight: 400;
       background: var(--paper);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
@@ -46,10 +51,11 @@
     a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: .18em; }
     a:hover { color: var(--dapi); text-decoration-color: currentColor; }
     :focus-visible { outline: 2px solid var(--dapi); outline-offset: 3px; }
+    sub { font-size: .7em; }
 
     .mono, .label {
       font-family: var(--mono);
-      font-size: .74rem;
+      font-size: .8rem;
       letter-spacing: .02em;
       color: var(--ink-3);
     }
@@ -70,7 +76,7 @@
     .top-name { font-family: var(--mono); font-size: .8rem; text-decoration: none; color: var(--ink); white-space: nowrap; }
     .top-nav { display: flex; gap: 1.3rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
     .top-nav::-webkit-scrollbar { display: none; }
-    .top-nav a { font-family: var(--mono); font-size: .74rem; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+    .top-nav a { font-family: var(--mono); font-size: .8rem; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
     .top-nav a:hover, .top-nav a[aria-current="true"] { color: var(--dapi); }
     .top-nav a span { color: var(--ink-3); }
 
@@ -87,7 +93,7 @@
     }
     .entry-margin { padding-top: .45rem; }
     .entry-margin .num { font-family: var(--mono); font-size: .8rem; color: var(--dapi); }
-    .entry-margin .note { margin-top: .5rem; font-family: var(--mono); font-size: .7rem; line-height: 1.5; color: var(--ink-3); }
+    .entry-margin .note { margin-top: .5rem; font-family: var(--mono); font-size: .78rem; line-height: 1.5; color: var(--ink-3); }
     h2 {
       font-weight: 400;
       font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.4rem);
@@ -95,7 +101,7 @@
       letter-spacing: -.01em;
       max-width: 24ch;
     }
-    h2 em { font-style: italic; color: var(--dapi); }
+    h2 em, h3 em { font-style: italic; color: var(--dapi); }
     .lede { margin-top: 1.2rem; max-width: var(--measure); color: var(--ink-2); }
 
     /* ─── HERO ─── */
@@ -119,7 +125,7 @@
       margin-top: 1.6rem;
       font-size: clamp(1.2rem, 1.05rem + .5vw, 1.45rem);
       line-height: 1.45;
-      max-width: 30ch;
+      max-width: 32ch;
     }
     .hero-claim mark { background: none; color: var(--dapi); font-style: italic; }
     .hero-links { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; font-family: var(--mono); font-size: .8rem; }
@@ -141,7 +147,7 @@
     .scope-hud {
       position: absolute; left: .8rem; right: .8rem; bottom: .7rem;
       display: flex; justify-content: space-between; align-items: end; gap: 1rem;
-      font-family: var(--mono); font-size: .7rem; color: rgba(255,255,255,.72);
+      font-family: var(--mono); font-size: .78rem; color: rgba(255,255,255,.72);
       pointer-events: none;
     }
     .scope-hud b { color: #fff; font-weight: 500; }
@@ -149,72 +155,44 @@
     .scope-bar i { display: block; width: 48px; height: 3px; background: rgba(255,255,255,.85); }
     .scope-tools { position: absolute; top: .7rem; right: .7rem; display: flex; gap: .4rem; }
     .chip {
-      font-family: var(--mono); font-size: .68rem;
+      font-family: var(--mono); font-size: .78rem;
       background: rgba(255,255,255,.08); color: rgba(255,255,255,.85);
       border: 1px solid rgba(255,255,255,.18);
       padding: .25rem .55rem; border-radius: 2px; cursor: pointer;
     }
     .chip:hover, .chip[aria-pressed="true"] { background: rgba(255,255,255,.18); color: #fff; }
     figcaption { margin-top: .7rem; font-size: .92rem; line-height: 1.5; color: var(--ink-2); max-width: 60ch; }
-    figcaption b { font-family: var(--mono); font-size: .74rem; font-weight: 500; color: var(--ink); margin-right: .35rem; }
+    figcaption b { font-family: var(--mono); font-size: .8rem; font-weight: 500; color: var(--ink); margin-right: .35rem; }
+    .sim {
+      display: inline-block; margin-left: .35rem;
+      font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-3); border: 1px solid var(--rule); padding: 0 .35rem; border-radius: 2px;
+      vertical-align: .1em;
+    }
 
-    /* ─── ABOUT ─── */
-    .about-text p { max-width: var(--measure); }
-    .about-text p + p { margin-top: 1rem; }
-    .facts {
-      margin-top: 2.2rem;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      border-top: 1px solid var(--ink);
+    /* Light figure frame and controls shared by the problem demos */
+    .frame { background: #fff; border: 1px solid var(--rule); padding: .6rem; }
+    .frame svg { display: block; width: 100%; height: auto; font-family: var(--mono); }
+    .frame text { font-size: 13px; fill: var(--ink-2); }
+    .axis, .tick { stroke: var(--ink); stroke-width: 1; }
+    .grid { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 3; }
+    .btn {
+      font-family: var(--mono); font-size: .8rem;
+      background: none; border: 1px solid var(--ink); color: var(--ink);
+      padding: .4rem .8rem; border-radius: 2px; cursor: pointer;
     }
-    .facts div { padding: .8rem 1rem .8rem 0; border-bottom: 1px solid var(--rule); }
-    .facts dt { font-family: var(--mono); font-size: .7rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .08em; }
-    .facts dd { margin-top: .2rem; }
-
-    /* ─── PROJECTS ─── */
-    .cases { margin-top: 2.5rem; display: grid; gap: 0; }
-    .case {
-      display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      gap: 2rem;
-      padding: 1.8rem 0;
-      border-top: 1px solid var(--rule);
+    .btn:hover { background: var(--ink); color: var(--paper); }
+    .btn.primary { background: var(--dapi); border-color: var(--dapi); color: #fff; }
+    .btn.primary:hover { background: #2238ad; }
+    .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 2px; }
+    .seg button {
+      font-family: var(--mono); font-size: .78rem;
+      background: none; border: 0; color: var(--ink-2);
+      padding: .35rem .7rem; cursor: pointer;
     }
-    .case:last-child { border-bottom: 1px solid var(--rule); }
-    .case-fig {
-      aspect-ratio: 4 / 3;
-      background: var(--paper-2);
-      border: 1px solid var(--rule);
-      display: grid; place-items: center;
-      overflow: hidden;
-    }
-    .case-fig svg { width: 100%; height: 100%; }
-    .case h3 { font-weight: 500; font-size: 1.3rem; line-height: 1.25; }
-    .case h3 .mono { margin-left: .5rem; }
-    .case dl { margin-top: .8rem; display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .35rem 1rem; font-size: 1rem; }
-    .case dt { font-family: var(--mono); font-size: .7rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; padding-top: .3rem; }
-    .case dd { color: var(--ink-2); max-width: 58ch; }
-    .case .repo { display: inline-block; margin-top: .9rem; font-family: var(--mono); font-size: .76rem; color: var(--dapi); text-decoration: none; }
-    .case .repo:hover { text-decoration: underline; }
-
-    /* ─── DOSE–RESPONSE ─── */
-    .lab {
-      margin-top: 2.5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-      gap: 2.5rem;
-      align-items: start;
-    }
-    .plot { background: #fff; border: 1px solid var(--rule); padding: .6rem .6rem .2rem; }
-    .plot svg { display: block; width: 100%; height: auto; font-family: var(--mono); }
-    .plot .axis { stroke: var(--ink); stroke-width: 1; }
-    .plot .tick { stroke: var(--ink); stroke-width: 1; }
-    .plot .grid { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 3; }
-    .plot text { font-size: 11px; fill: var(--ink-2); }
-    .plot .curve { fill: none; stroke: var(--dapi); stroke-width: 2.2; }
-    .plot .pt { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
-    .plot .gi { stroke: var(--dapi); stroke-width: 1; stroke-dasharray: 4 3; }
-    .controls { display: grid; gap: 1.4rem; }
-    .control label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .76rem; color: var(--ink-2); }
+    .seg button + button { border-left: 1px solid var(--rule); }
+    .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+    .control label { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--mono); font-size: .82rem; color: var(--ink-2); }
     .control output { color: var(--ink); font-weight: 500; }
     input[type="range"] { width: 100%; margin-top: .5rem; accent-color: var(--dapi); }
     .readout {
@@ -223,20 +201,119 @@
       font-family: var(--mono); font-size: .8rem; color: var(--ink-2);
       display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem;
     }
-    .readout b { color: var(--dapi); font-weight: 500; font-size: 1.05rem; }
-    .verdict { grid-column: 1 / -1; margin-top: .4rem; font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--ink); }
+    .readout b { color: var(--dapi); font-weight: 500; }
+    .verdict { grid-column: 1 / -1; margin-top: .4rem; font-family: var(--serif); font-size: 1.02rem; font-style: italic; color: var(--ink); }
+
+    /* ─── 01 APPROACH ─── */
+    .steps {
+      margin-top: 2.5rem;
+      list-style: none;
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: 1px solid var(--ink);
+      counter-reset: step;
+    }
+    .steps li { padding: 1rem 1.2rem 0 0; position: relative; }
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: var(--mono); font-size: .78rem; color: var(--dapi);
+      margin-bottom: .4rem;
+    }
+    .steps li::after {
+      content: ''; position: absolute; top: -4px; left: 0;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--ink);
+    }
+    .steps b { display: block; font-weight: 500; font-size: 1.05rem; line-height: 1.3; }
+    .steps span { display: block; margin-top: .3rem; font-size: .95rem; line-height: 1.45; color: var(--ink-2); }
+    .note-box {
+      margin-top: 2.5rem; max-width: var(--measure);
+      border-left: 2px solid var(--dapi); padding: .2rem 0 .2rem 1.1rem;
+      font-size: 1rem; color: var(--ink-2);
+    }
+    .note-box b { font-family: var(--mono); font-size: .78rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); display: block; margin-bottom: .2rem; }
+
+    /* ─── 02 PROBLEMS ─── */
+    .problem {
+      padding: 3rem 0;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .problem:first-of-type { margin-top: 2.2rem; }
+    .problem-tag { font-family: var(--mono); font-size: .8rem; color: var(--dapi); }
+    .problem h3 { margin-top: .4rem; font-weight: 400; font-size: clamp(1.35rem, 1.1rem + .9vw, 1.8rem); line-height: 1.2; }
+    .problem dl { margin-top: 1.2rem; }
+    .problem dt { margin-top: .9rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+    .problem dd { margin-top: .15rem; font-size: 1.02rem; color: var(--ink-2); }
+    .problem .stack { margin-top: 1.1rem; font-family: var(--mono); font-size: .78rem; color: var(--ink-3); }
+    .demo-bar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .7rem; }
+    .demo-bar .mono { margin-left: auto; }
+
+    /* P1 · colonies */
+    .plate-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 9.5rem; gap: 1.2rem; align-items: center; }
+    .plate { aspect-ratio: 1; width: 100%; max-width: 380px; }
+    .plate canvas { display: block; width: 100%; height: 100%; cursor: pointer; touch-action: manipulation; }
+    .tally { font-family: var(--mono); font-size: .78rem; color: var(--ink-2); display: grid; gap: .9rem; }
+    .tally div { border-top: 1px solid var(--rule); padding-top: .5rem; }
+    .tally b { display: block; font-size: 1.6rem; font-weight: 400; font-family: var(--serif); color: var(--ink); line-height: 1.1; }
+    .tally .auto b { color: var(--dapi); }
+
+    /* P2 · 96-well plate */
+    .wells-wrap { display: grid; gap: 1rem; }
+    .wells svg .well { cursor: pointer; stroke: var(--rule); stroke-width: 1; }
+    .wells svg .row-hit { fill: transparent; cursor: pointer; }
+    .wells svg .row-on { fill: var(--dapi-soft); }
+    .wells svg .row-label { font-size: 14px; fill: var(--ink); }
+    .dr-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+    .rank { columns: 2; column-gap: 1.5rem; }
+    .rank li { break-inside: avoid; }
+    .curve { fill: none; stroke: var(--dapi); stroke-width: 2.2; }
+    .pt { fill: #fff; stroke: var(--ink); stroke-width: 1.2; }
+    .gi-line { stroke: var(--dapi); stroke-width: 1; stroke-dasharray: 4 3; }
+    .rank { list-style: none; font-family: var(--mono); font-size: .8rem; }
+    .rank li { border-bottom: 1px solid var(--rule); }
+    .rank button {
+      width: 100%; display: grid; grid-template-columns: 1.6rem 2.2rem minmax(0, 1fr) 4.4rem; gap: .4rem; align-items: center;
+      background: none; border: 0; padding: .32rem 0; cursor: pointer; text-align: left;
+      font: inherit; color: var(--ink-2);
+    }
+    .rank button[aria-pressed="true"] { color: var(--ink); background: var(--dapi-soft); }
+    .rank .bar { height: 6px; background: var(--rule); position: relative; }
+    .rank .bar i { position: absolute; inset: 0 auto 0 0; background: var(--dapi); }
+    .rank .v { text-align: right; }
+
+    /* P3 · cell cycle */
+    .cc-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+    .cc-ctl { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+    .cc-ctl .readout { grid-column: 1 / -1; }
+    .cc-ctl { display: grid; gap: 1.2rem; }
+    .phase-key { display: inline-block; width: .7em; height: .7em; margin-right: .35rem; vertical-align: -.05em; }
+
+    /* P4 · volcano */
+    .volcano { position: relative; }
+    .volcano circle { transition: fill .15s; }
+    .tip {
+      position: absolute; pointer-events: none;
+      background: var(--ink); color: var(--paper);
+      font-family: var(--mono); font-size: .78rem; line-height: 1.4;
+      padding: .3rem .5rem; border-radius: 2px; white-space: nowrap;
+      transform: translate(-50%, calc(-100% - 10px));
+    }
+    .vo-ctl { margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
 
     /* ─── PUBLICATIONS ─── */
     .pub-head { margin-top: 2.2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
     .filters { display: flex; gap: .3rem; flex-wrap: wrap; }
     .filters button {
-      font-family: var(--mono); font-size: .74rem;
+      font-family: var(--mono); font-size: .8rem;
       background: none; border: 1px solid var(--rule); color: var(--ink-2);
       padding: .3rem .7rem; border-radius: 2px; cursor: pointer;
     }
     .filters button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
     .pubs { width: 100%; margin-top: 1rem; border-collapse: collapse; }
-    .pubs th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); padding: .5rem 1rem .5rem 0; border-bottom: 1px solid var(--ink); }
+    .pubs th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); padding: .5rem 1rem .5rem 0; border-bottom: 1px solid var(--ink); }
     .pubs td { vertical-align: top; padding: 1rem 1rem 1rem 0; border-bottom: 1px solid var(--rule); }
     .pubs td:first-child { font-family: var(--mono); font-size: .8rem; color: var(--ink-3); width: 4rem; padding-top: 1.15rem; }
     .pubs .t { font-size: 1.05rem; line-height: 1.4; }
@@ -246,37 +323,49 @@
     .pubs .a b { font-weight: 600; color: var(--ink); }
     .pubs .j { font-style: italic; font-size: .92rem; color: var(--ink-2); width: 30%; padding-top: 1.1rem; }
     .pubs tr[hidden] { display: none; }
-    .pub-more { margin-top: 1.2rem; font-family: var(--mono); font-size: .76rem; color: var(--ink-3); }
+    .pub-more { margin-top: 1.2rem; font-family: var(--mono); font-size: .82rem; color: var(--ink-3); }
 
     /* ─── TOOLS ─── */
     .tools { margin-top: 2rem; border-top: 1px solid var(--ink); }
     .tools div { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 1.5rem; padding: .8rem 0; border-bottom: 1px solid var(--rule); }
     .tools dt { font-family: var(--mono); font-size: .82rem; }
-    .tools dd { color: var(--ink-2); font-size: 1rem; }
+    .tools dd { color: var(--ink-2); font-size: 1.05rem; }
+
+    /* A hand-drawn eight-point spark in Claude's orange, not the official mark. */
+    .spark {
+      display: inline-block; width: 1em; height: 1em; margin-right: .4em; vertical-align: -.15em;
+      background: var(--claude);
+      clip-path: polygon(50% 0, 57% 36%, 85% 15%, 64% 43%, 100% 50%, 64% 57%, 85% 85%, 57% 64%,
+                         50% 100%, 43% 64%, 15% 85%, 36% 57%, 0 50%, 36% 43%, 15% 15%, 43% 36%);
+    }
 
     /* ─── CONTACT ─── */
     .contact-list { margin-top: 2rem; list-style: none; border-top: 1px solid var(--ink); }
     .contact-list li { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1.5rem; padding: .8rem 0; border-bottom: 1px solid var(--rule); }
-    .contact-list span { font-family: var(--mono); font-size: .74rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .08em; padding-top: .2rem; }
+    .contact-list span { font-family: var(--mono); font-size: .8rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .08em; padding-top: .2rem; }
 
     footer { max-width: 1180px; margin: 0 auto; padding: 2rem 1.5rem 3rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--rule); }
 
     /* ─── RESPONSIVE ─── */
+    @media (max-width: 980px) {
+      .problem { grid-template-columns: 1fr; gap: 1.6rem; }
+      .steps { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); row-gap: 1.6rem; }
+    }
     @media (max-width: 900px) {
-      .hero, .lab { grid-template-columns: 1fr; }
-      .hero { gap: 2.2rem; padding-top: 2.2rem; }
+      .hero { grid-template-columns: 1fr; gap: 2.2rem; padding-top: 2.2rem; }
       .entry { grid-template-columns: 1fr; padding: 3.2rem 0; }
       .entry-margin { display: flex; gap: 1rem; align-items: baseline; margin-bottom: 1rem; padding-top: 0; }
       .entry-margin .note { margin-top: 0; }
-      .case { grid-template-columns: 1fr; gap: 1rem; }
-      .case-fig { max-width: 320px; }
     }
     @media (max-width: 600px) {
       body { font-size: 1.05rem; }
       .top-name { display: none; }
       .top-nav { margin-left: 0; }
-      .case dl, .tools div, .contact-list li { grid-template-columns: 1fr; gap: .1rem; }
-      .case dt { padding-top: .5rem; }
+      .plate-wrap, .vo-ctl, .cc-ctl { grid-template-columns: 1fr; }
+      .rank { columns: 1; }
+      .tally { grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
+      .tally b { font-size: 1.3rem; }
+      .tools div, .contact-list li { grid-template-columns: 1fr; gap: .1rem; }
       .pubs thead { display: none; }
       .pubs tr { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); border-bottom: 1px solid var(--rule); padding: .8rem 0; }
       .pubs td { border: 0; padding: 0; }
@@ -291,12 +380,11 @@
   <div class="top-inner">
     <a class="top-name" href="#">A. Khan Navarro</a>
     <nav class="top-nav" aria-label="Sections">
-      <a href="#about"><span>01</span> About</a>
-      <a href="#work"><span>02</span> Work</a>
-      <a href="#lab"><span>03</span> Try it</a>
-      <a href="#papers"><span>04</span> Papers</a>
-      <a href="#tools"><span>05</span> Tools</a>
-      <a href="#contact"><span>06</span> Contact</a>
+      <a href="#approach"><span>01</span> Approach</a>
+      <a href="#problems"><span>02</span> Problems solved</a>
+      <a href="#papers"><span>03</span> Papers</a>
+      <a href="#tools"><span>04</span> Toolbox</a>
+      <a href="#contact"><span>05</span> Contact</a>
       <!-- TODO: Adam_Khan_Navarro_CV.pdf is not in the repo yet; this link 404s until it is added. -->
       <a href="Adam_Khan_Navarro_CV.pdf" target="_blank" rel="noopener">CV.pdf ↗</a>
     </nav>
@@ -309,19 +397,17 @@
   <section class="hero" aria-labelledby="name">
     <div>
       <div class="hero-meta">
-        <span class="label">Ph.D. candidate</span>
-        <span class="label">Universidad de La Laguna</span>
-        <span class="label">Tenerife, ES</span>
+        <span class="label">Data scientist in a cancer lab</span>
+        <span class="label">Ph.D. · Universidad de La Laguna</span>
       </div>
       <h1 id="name">Adam <em>Khan Navarro</em></h1>
       <p class="hero-claim">
-        I measure how cancer cells respond to new molecules — and
-        <mark>write the code that does it at scale.</mark>
+        When something in the lab is slow, manual or hard to trust,
+        <mark>I turn it into data and build the tool that fixes it.</mark>
       </p>
       <div class="hero-links">
-        <a class="main" href="#work">See the work ↓</a>
+        <a class="main" href="#problems">See four problems I've solved ↓</a>
         <a href="mailto:adamkhan.navarro@gmail.com">Email</a>
-        <a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener">GitHub</a>
         <a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">ORCID</a>
         <a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
@@ -340,211 +426,197 @@
         </div>
       </div>
       <figcaption>
-        <b>Fig. 1</b> A simulated DAPI field. Move the pointer over it to segment
-        the nuclei — the first step of every imaging assay I run.
-        <!-- TODO: swap the simulation for one of your own fluorescence images. -->
+        <b>Fig. 1</b> Before any number comes out of a microscope image, something
+        has to find every nucleus. Move the pointer to do it.<span class="sim">simulated</span>
       </figcaption>
     </figure>
   </section>
 
-  <!-- ═══ 01 ABOUT ═══ -->
-  <section class="entry" id="about" aria-labelledby="about-h">
+  <!-- ═══ 01 APPROACH ═══ -->
+  <section class="entry" id="approach" aria-labelledby="approach-h">
     <div class="entry-margin">
       <p class="num">01</p>
-      <p class="note">About</p>
+      <p class="note">Approach</p>
     </div>
-    <div class="about-text">
-      <h2 id="about-h">Half my week is at the bench, <em>half is in a terminal.</em></h2>
+    <div>
+      <h2 id="approach-h">I sit between the bench <em>and the terminal.</em></h2>
       <p class="lede">
-        I'm doing my Ph.D. at the Universidad de La Laguna. We screen small molecules
-        against human tumour cell lines, and I build the pipelines that turn plates,
-        images and sequencing reads into a decision: which compounds are worth
-        another round, and why they work.
+        I'm doing my Ph.D. at the Universidad de La Laguna, in a group that screens
+        small molecules against human tumour cell lines. I do the experiments — and
+        I work like a data scientist or an engineer on everything around them:
+        the counting, the curve fitting, the image analysis, the sequencing.
       </p>
       <p class="lede">
-        That means SRB assays and fluorescence microscopy on one side, and Python,
-        R, deep learning and transcriptomics on the other. I've worked on anticancer
-        compounds with groups in Europe, Asia and Latin America.
+        My job is to find the step that is slow, subjective or impossible to scale,
+        and replace it with something reproducible.
       </p>
-      <dl class="facts">
-        <div><dt>Now</dt><dd>Ph.D., ULL</dd></div>
-        <div><dt>Focus</dt><dd>Phenotypic screening · MoA</dd></div>
-        <div><dt>Papers</dt><dd><span data-pub-count>8</span> selected below</dd></div>
-        <div><dt>Talks</dt><dd>3 oral communications</dd></div>
-      </dl>
+
+      <ol class="steps">
+        <li><b>Find the bottleneck</b><span>What takes hours, or changes depending on who does it?</span></li>
+        <li><b>Get the data out</b><span>Images, plate readings, sequencing reads — into a usable form.</span></li>
+        <li><b>Model it</b><span>Statistics, computer vision or machine learning, whichever is simplest.</span></li>
+        <li><b>Ship a tool</b><span>A script, a pipeline or a small app that others in the lab can run.</span></li>
+        <li><b>Back to the bench</b><span>Check it against the biology, then use it on the next experiment.</span></li>
+      </ol>
+
+      <p class="note-box">
+        <b>About the figures</b>
+        Every figure and demo on this page is simulated in your browser. They show
+        the kind of problem and the kind of solution — not unpublished data, code or results.
+      </p>
     </div>
   </section>
 
-  <!-- ═══ 02 WORK ═══ -->
-  <section class="entry" id="work" aria-labelledby="work-h">
+  <!-- ═══ 02 PROBLEMS ═══ -->
+  <section class="entry" id="problems" aria-labelledby="problems-h">
     <div class="entry-margin">
       <p class="num">02</p>
-      <p class="note">Work<br>problem → method → output</p>
+      <p class="note">Problems solved<br>try each one</p>
     </div>
     <div>
-      <h2 id="work-h">Things I've built <em>to answer real questions</em></h2>
-      <!-- TODO: each figure is a placeholder sketch. Replace with a real figure or a screenshot of the tool. Check the one-line results. -->
-      <div class="cases">
+      <h2 id="problems-h">Four lab problems, <em>and what I did about them</em></h2>
 
-        <article class="case">
-          <div class="case-fig" aria-hidden="true">
-            <svg viewBox="0 0 220 165">
-              <rect width="220" height="165" fill="#07080d"/>
-              <g fill="none" stroke="#e7e7e7" stroke-width="1.2" opacity=".85">
-                <circle cx="52" cy="48" r="13"/><circle cx="92" cy="40" r="9"/><circle cx="140" cy="56" r="16"/>
-                <circle cx="70" cy="98" r="11"/><circle cx="120" cy="108" r="8"/><circle cx="168" cy="110" r="12"/>
-                <circle cx="40" cy="132" r="7"/><circle cx="104" cy="142" r="10"/><circle cx="186" cy="40" r="7"/>
-              </g>
-              <g fill="#2f4bd8" opacity=".55">
-                <circle cx="52" cy="48" r="13"/><circle cx="92" cy="40" r="9"/><circle cx="140" cy="56" r="16"/>
-                <circle cx="70" cy="98" r="11"/><circle cx="120" cy="108" r="8"/><circle cx="168" cy="110" r="12"/>
-                <circle cx="40" cy="132" r="7"/><circle cx="104" cy="142" r="10"/><circle cx="186" cy="40" r="7"/>
-              </g>
-            </svg>
-          </div>
-          <div>
-            <h3>ColonyVision <span class="mono">Python · computer vision</span></h3>
-            <dl>
-              <dt>Problem</dt><dd>Counting colonies on plates by hand is slow and changes from one person to the next.</dd>
-              <dt>Method</dt><dd>Image segmentation pipeline that detects and counts colonies from plate photos.</dd>
-              <dt>Output</dt><dd>Reproducible counts and stats per condition, ready for the figure.</dd>
-            </dl>
-            <a class="repo" href="mailto:adamkhan.navarro@gmail.com">Code private · available on request →</a>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="case-fig" aria-hidden="true">
-            <svg viewBox="0 0 220 165">
-              <g fill="none" stroke="#191917" stroke-width="1"><path d="M20 145 H205 M20 145 V15"/></g>
-              <path d="M24 145 C44 145 50 30 66 30 C82 30 86 120 104 120 C118 120 120 70 134 70 C148 70 154 140 200 142" fill="rgba(47,75,216,.12)" stroke="#2f4bd8" stroke-width="1.8"/>
-              <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#57544c">
-                <text x="56" y="24">G1</text><text x="96" y="114">S</text><text x="126" y="64">G2/M</text>
-              </g>
-            </svg>
-          </div>
-          <div>
-            <h3>Cell cycle &amp; apoptosis from DAPI <span class="mono">Python · imaging</span></h3>
-            <dl>
-              <dt>Problem</dt><dd>Telling whether a compound arrests the cycle or kills cells, from one stain.</dd>
-              <dt>Method</dt><dd>Nuclear segmentation and DNA-content profiles from DAPI images.</dd>
-              <dt>Output</dt><dd>Cycle phase and apoptosis fractions per treatment.</dd>
-            </dl>
-            <a class="repo" href="mailto:adamkhan.navarro@gmail.com">Code private · available on request →</a>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="case-fig" aria-hidden="true">
-            <svg viewBox="0 0 220 165">
-              <g stroke="#8a867b" stroke-width=".9">
-                <line x1="110" y1="82" x2="50" y2="40"/><line x1="110" y1="82" x2="170" y2="36"/><line x1="110" y1="82" x2="180" y2="112"/>
-                <line x1="110" y1="82" x2="60" y2="130"/><line x1="50" y1="40" x2="30" y2="90"/><line x1="170" y1="36" x2="196" y2="70"/>
-                <line x1="60" y1="130" x2="118" y2="148"/><line x1="180" y1="112" x2="118" y2="148"/>
-              </g>
-              <g fill="#f5f2ea" stroke="#191917" stroke-width="1.1">
-                <circle cx="50" cy="40" r="6"/><circle cx="170" cy="36" r="6"/><circle cx="180" cy="112" r="6"/><circle cx="60" cy="130" r="6"/>
-                <circle cx="30" cy="90" r="4"/><circle cx="196" cy="70" r="4"/><circle cx="118" cy="148" r="4"/>
-              </g>
-              <circle cx="110" cy="82" r="11" fill="#2f4bd8"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Melanoma molecular network <span class="mono">R · networks</span></h3>
-            <dl>
-              <dt>Problem</dt><dd>Finding which genes and pathways hold melanoma's signalling together.</dd>
-              <dt>Method</dt><dd>Construction and analysis of a molecular interaction network.</dd>
-              <dt>Output</dt><dd>Hub genes and modules to prioritise as targets.</dd>
-            </dl>
-            <a class="repo" href="mailto:adamkhan.navarro@gmail.com">Code private · available on request →</a>
-          </div>
-        </article>
-
-        <article class="case">
-          <div class="case-fig" aria-hidden="true">
-            <svg viewBox="0 0 220 165">
-              <g>
-                <rect x="20" y="20" width="22" height="18" fill="#2f4bd8"/><rect x="42" y="20" width="22" height="18" fill="#7e90e6"/><rect x="64" y="20" width="22" height="18" fill="#e9e5dc"/><rect x="86" y="20" width="22" height="18" fill="#e7b9a8"/>
-                <rect x="20" y="38" width="22" height="18" fill="#7e90e6"/><rect x="42" y="38" width="22" height="18" fill="#2f4bd8"/><rect x="64" y="38" width="22" height="18" fill="#e7b9a8"/><rect x="86" y="38" width="22" height="18" fill="#c0614a"/>
-                <rect x="20" y="56" width="22" height="18" fill="#e9e5dc"/><rect x="42" y="56" width="22" height="18" fill="#e7b9a8"/><rect x="64" y="56" width="22" height="18" fill="#2f4bd8"/><rect x="86" y="56" width="22" height="18" fill="#7e90e6"/>
-                <rect x="20" y="74" width="22" height="18" fill="#c0614a"/><rect x="42" y="74" width="22" height="18" fill="#e9e5dc"/><rect x="64" y="74" width="22" height="18" fill="#7e90e6"/><rect x="86" y="74" width="22" height="18" fill="#2f4bd8"/>
-              </g>
-              <g fill="none" stroke="#191917" stroke-width="1"><path d="M130 145 H205 M130 145 V30"/></g>
-              <g fill="#191917">
-                <circle cx="140" cy="120" r="2"/><circle cx="148" cy="60" r="2.6" fill="#2f4bd8"/><circle cx="156" cy="128" r="2"/><circle cx="162" cy="110" r="2"/>
-                <circle cx="170" cy="50" r="2.6" fill="#2f4bd8"/><circle cx="178" cy="132" r="2"/><circle cx="186" cy="74" r="2.6" fill="#2f4bd8"/><circle cx="194" cy="124" r="2"/>
-              </g>
-            </svg>
-          </div>
-          <div>
-            <h3>RNA-seq for mechanism of action <span class="mono">R · DESeq2</span></h3>
-            <dl>
-              <dt>Problem</dt><dd>A compound kills cells — but through which pathway?</dd>
-              <dt>Method</dt><dd>Differential expression and enrichment on treated vs. control cells.</dd>
-              <dt>Output</dt><dd>A transcriptional signature that points to a mechanism.</dd>
-            </dl>
-            <a class="repo" href="mailto:adamkhan.navarro@gmail.com">Code private · available on request →</a>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 03 TRY IT ═══ -->
-  <section class="entry" id="lab" aria-labelledby="lab-h">
-    <div class="entry-margin">
-      <p class="num">03</p>
-      <p class="note">Try it<br>simulated SRB assay</p>
-    </div>
-    <div>
-      <h2 id="lab-h">How potent is it? <em>Move the sliders.</em></h2>
-      <p class="lede">
-        Every compound we test ends up as a curve like this. Cells are exposed to
-        increasing doses, we measure how much they grow, and the GI<sub>50</sub> — the
-        dose that halves growth — tells us whether it is worth pursuing.
-      </p>
-
-      <div class="lab">
-        <figure>
-          <div class="plot">
-            <svg id="dr" viewBox="0 0 560 340" role="img" aria-label="Dose–response curve. Growth falls as the dose rises; the dashed line marks the GI50."></svg>
-          </div>
-          <figcaption><b>Fig. 2</b> Four-parameter logistic fit to simulated
-            triplicate points. Concentrations in µM, log scale.</figcaption>
-        </figure>
-
-        <div class="controls">
-          <div class="control">
-            <label for="gi">Curve midpoint <output id="gi-out" for="gi">1.0 µM</output></label>
-            <input id="gi" type="range" min="-2" max="2" step="0.05" value="0">
-          </div>
-          <div class="control">
-            <label for="hill">Hill slope <output id="hill-out" for="hill">1.5</output></label>
-            <input id="hill" type="range" min="0.5" max="4" step="0.1" value="1.5">
-          </div>
-          <div class="control">
-            <label for="floor">Bottom plateau <output id="floor-out" for="floor">−20 %</output></label>
-            <input id="floor" type="range" min="-60" max="40" step="5" value="-20">
-          </div>
-          <div class="readout" aria-live="polite">
-            <span>GI<sub>50</sub></span><b id="r-gi">1.0 µM</b>
-            <span>Below 0 %</span><span id="r-kill">cells are dying, not just stopping</span>
-            <p class="verdict" id="r-verdict">Promising: low micromolar.</p>
-          </div>
+      <!-- ── P1 · Counting colonies ── -->
+      <article class="problem" aria-labelledby="p1-h">
+        <div>
+          <p class="problem-tag">Problem 01 · computer vision</p>
+          <h3 id="p1-h">Counting colonies <em>by eye</em> doesn't scale</h3>
+          <dl>
+            <dt>The problem</dt>
+            <dd>Colony assays end with someone counting dots on dozens of plates. It is slow, tiring, and two people rarely get the same number.</dd>
+            <dt>What I built</dt>
+            <dd>An image pipeline that finds and counts colonies from a photo of the plate, and outputs the stats per condition.</dd>
+            <dt>Try it</dt>
+            <dd>Click the colonies yourself, then let the algorithm count. Compare.</dd>
+          </dl>
+          <p class="stack">Python · OpenCV-style segmentation · statistics</p>
         </div>
-      </div>
+        <figure>
+          <div class="demo-bar">
+            <button class="btn primary" type="button" id="col-auto">Count automatically</button>
+            <button class="btn" type="button" id="col-new">New plate</button>
+          </div>
+          <div class="plate-wrap">
+            <div class="plate"><canvas id="col-canvas" role="img" aria-label="Simulated culture plate with colonies. Click colonies to count them by hand."></canvas></div>
+            <div class="tally" aria-live="polite">
+              <div><span>You</span><b id="col-you">0</b><span id="col-time">click to start</span></div>
+              <div class="auto"><span>Algorithm</span><b id="col-algo">–</b><span id="col-algo-note">not run yet</span></div>
+              <div><span>You missed</span><b id="col-miss">–</b><span id="col-miss-note">&nbsp;</span></div>
+            </div>
+          </div>
+          <figcaption><b>Fig. 2</b> A simulated plate. Touching colonies are what make counting by eye unreliable.<span class="sim">simulated</span></figcaption>
+        </figure>
+      </article>
+
+      <!-- ── P2 · Dose–response ── -->
+      <article class="problem" aria-labelledby="p2-h">
+        <div>
+          <p class="problem-tag">Problem 02 · data pipeline</p>
+          <h3 id="p2-h">A plate full of numbers, <em>one decision</em></h3>
+          <dl>
+            <dt>The problem</dt>
+            <dd>A screening plate is 96 absorbance values in a spreadsheet. Someone has to turn them into a potency for every compound and decide which ones go forward.</dd>
+            <dt>What I built</dt>
+            <dd>A pipeline from raw plate reads to fitted dose–response curves and a ranking by GI<sub>50</sub> — the dose that halves growth.</dd>
+            <dt>Try it</dt>
+            <dd>Click a row of the plate to see that compound's curve. The ranking updates itself.</dd>
+          </dl>
+          <p class="stack">Python / R · four-parameter logistic fits · SRB assay</p>
+        </div>
+        <figure class="wells-wrap">
+          <div class="frame wells">
+            <svg id="wells" viewBox="0 0 520 268" role="group" aria-label="Simulated 96-well plate. Rows are compounds A to H; columns go from low to high dose, then two control wells."></svg>
+          </div>
+          <div class="dr-grid">
+            <div class="frame"><svg id="dr" viewBox="0 0 400 260" role="img" aria-label="Dose–response curve of the selected compound."></svg></div>
+            <div>
+              <p class="label" style="margin-bottom:.4rem">Ranked by GI<sub>50</sub></p>
+              <ol class="rank" id="rank"></ol>
+            </div>
+          </div>
+          <figcaption><b>Fig. 3</b> Darker well = more cells left. Each row is one compound; dose rises to the right.<span class="sim">simulated</span></figcaption>
+        </figure>
+      </article>
+
+      <!-- ── P3 · Cell cycle ── -->
+      <article class="problem" aria-labelledby="p3-h">
+        <div>
+          <p class="problem-tag">Problem 03 · image analysis</p>
+          <h3 id="p3-h">Did the drug <em>stop</em> the cells, or <em>kill</em> them?</h3>
+          <dl>
+            <dt>The problem</dt>
+            <dd>A compound reduces growth — but is it pausing the cell cycle or causing death? Answering that used to need extra assays.</dd>
+            <dt>What I built</dt>
+            <dd>An analysis that measures the DNA content of every nucleus from a single DAPI stain and reads cycle phases and apoptosis off the histogram.</dd>
+            <dt>Try it</dt>
+            <dd>Pick a type of drug and raise the dose. Watch where the cells pile up.</dd>
+          </dl>
+          <p class="stack">Python · nuclear segmentation · intensity profiling</p>
+        </div>
+        <figure>
+          <div class="cc-grid">
+            <div class="frame"><svg id="cc" viewBox="0 0 400 260" role="img" aria-label="Histogram of DNA content per nucleus, coloured by cell-cycle phase."></svg></div>
+            <div class="cc-ctl">
+              <div class="seg" role="group" aria-label="Type of drug">
+                <button type="button" data-mech="g2" aria-pressed="true">G2/M blocker</button>
+                <button type="button" data-mech="g1" aria-pressed="false">G1 blocker</button>
+              </div>
+              <div class="control">
+                <label for="cc-dose">Dose <output id="cc-dose-out" for="cc-dose">control</output></label>
+                <input id="cc-dose" type="range" min="0" max="100" step="1" value="0">
+              </div>
+              <div class="readout" id="cc-read" aria-live="polite"></div>
+            </div>
+          </div>
+          <figcaption><b>Fig. 4</b> DNA content per nucleus. 2N = before copying the genome, 4N = ready to divide, below 2N = fragmented, dying cells.<span class="sim">simulated</span></figcaption>
+        </figure>
+      </article>
+
+      <!-- ── P4 · RNA-seq ── -->
+      <article class="problem" aria-labelledby="p4-h">
+        <div>
+          <p class="problem-tag">Problem 04 · statistics · omics</p>
+          <h3 id="p4-h">Twenty thousand genes, <em>one mechanism</em></h3>
+          <dl>
+            <dt>The problem</dt>
+            <dd>We know a compound works, but not how. Sequencing treated cells gives a change for every gene — far too much to read by hand.</dd>
+            <dt>What I built</dt>
+            <dd>A reproducible RNA-seq workflow: differential expression, sensible thresholds, then pathway enrichment to point at a mechanism.</dd>
+            <dt>Try it</dt>
+            <dd>Move the thresholds. Too loose and everything looks important; too strict and you lose the signal.</dd>
+          </dl>
+          <p class="stack">R · DESeq2 · Bioconductor · Snakemake</p>
+        </div>
+        <figure>
+          <div class="frame volcano" id="vo-box">
+            <svg id="vo" viewBox="0 0 440 300" role="img" aria-label="Volcano plot of simulated genes: fold change against significance."></svg>
+          </div>
+          <div class="vo-ctl">
+            <div class="control">
+              <label for="vo-fc">Min. fold change <output id="vo-fc-out" for="vo-fc">2×</output></label>
+              <input id="vo-fc" type="range" min="0" max="3" step="0.1" value="1">
+            </div>
+            <div class="control">
+              <label for="vo-p">Max. p-value <output id="vo-p-out" for="vo-p">0.01</output></label>
+              <input id="vo-p" type="range" min="1" max="8" step="0.1" value="2">
+            </div>
+          </div>
+          <div class="readout" id="vo-read" style="margin-top:1rem" aria-live="polite"></div>
+          <figcaption><b>Fig. 5</b> Each dot is a gene: right = up in treated cells, left = down, higher = more certain.<span class="sim">simulated</span></figcaption>
+        </figure>
+      </article>
     </div>
   </section>
 
-  <!-- ═══ 04 PAPERS ═══ -->
+  <!-- ═══ 03 PAPERS ═══ -->
   <section class="entry" id="papers" aria-labelledby="papers-h">
     <div class="entry-margin">
-      <p class="num">04</p>
+      <p class="num">03</p>
       <p class="note">Papers<br>peer-reviewed</p>
     </div>
     <div>
-      <h2 id="papers-h">Selected publications</h2>
+      <h2 id="papers-h">Where the tools ended up</h2>
+      <p class="lede">Published work I've contributed analysis and screening to.</p>
       <div class="pub-head">
         <div class="filters" role="group" aria-label="Filter by year">
           <button type="button" data-year="all" aria-pressed="true">all</button>
@@ -612,38 +684,39 @@
     </div>
   </section>
 
-  <!-- ═══ 05 TOOLS ═══ -->
+  <!-- ═══ 04 TOOLBOX ═══ -->
   <section class="entry" id="tools" aria-labelledby="tools-h">
     <div class="entry-margin">
-      <p class="num">05</p>
-      <p class="note">Tools<br>and where I used them</p>
+      <p class="num">04</p>
+      <p class="note">Toolbox</p>
     </div>
     <div>
-      <h2 id="tools-h">Tools, <em>by what they were for</em></h2>
+      <h2 id="tools-h">Tools, <em>by what they're for</em></h2>
       <dl class="tools">
-        <div><dt>Python · PyTorch · scikit-learn</dt><dd>Bioactivity prediction and image segmentation models.</dd></div>
-        <div><dt>RDKit · ChEMBL · PubChem</dt><dd>Descriptors and QSAR for the dihydropyrimidine series.</dd></div>
-        <div><dt>R · DESeq2 · Bioconductor</dt><dd>RNA-seq for mechanism of action; the melanoma network.</dd></div>
-        <div><dt>ImageJ · CellProfiler</dt><dd>High-content fluorescence analysis and cell counting.</dd></div>
-        <div><dt>Snakemake · Bash · Git</dt><dd>Keeping pipelines reproducible from raw data to figure.</dd></div>
+        <div><dt>Python · PyTorch · scikit-learn</dt><dd>Machine learning for bioactivity prediction and image segmentation.</dd></div>
+        <div><dt>ImageJ · CellProfiler</dt><dd>High-content fluorescence analysis, cell and colony counting.</dd></div>
+        <div><dt>R · DESeq2 · Bioconductor</dt><dd>RNA-seq, differential expression, molecular networks.</dd></div>
+        <div><dt>RDKit · ChEMBL · PubChem</dt><dd>Chemical descriptors and QSAR models.</dd></div>
+        <div><dt>Snakemake · Bash · Git</dt><dd>Pipelines that run the same way twice, from raw data to figure.</dd></div>
         <div><dt>SRB assay · microscopy</dt><dd>The wet-lab side: antiproliferative screening in tumour cell lines.</dd></div>
+        <div><dt><span class="spark" aria-hidden="true"></span>Claude · Claude Code</dt><dd>My AI pair-programmer: drafting and reviewing analysis code, building tools like this page faster. The science and the decisions stay mine.</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- ═══ 06 CONTACT ═══ -->
+  <!-- ═══ 05 CONTACT ═══ -->
   <section class="entry" id="contact" aria-labelledby="contact-h">
     <div class="entry-margin">
-      <p class="num">06</p>
+      <p class="num">05</p>
       <p class="note">Contact</p>
     </div>
     <div>
-      <h2 id="contact-h">Got a compound, a dataset or a question? <em>Write to me.</em></h2>
+      <h2 id="contact-h">Is something in your lab eating your week? <em>Tell me about it.</em></h2>
       <ul class="contact-list">
         <li><span>Email</span><a href="mailto:adamkhan.navarro@gmail.com">adamkhan.navarro@gmail.com</a></li>
-        <li><span>GitHub</span><a href="https://github.com/AdamKhanBM" target="_blank" rel="noopener">AdamKhanBM</a></li>
         <li><span>ORCID</span><a href="https://orcid.org/0009-0000-8985-4632" target="_blank" rel="noopener">0009-0000-8985-4632</a></li>
         <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/adam-khan-navarro-269618347/" target="_blank" rel="noopener">adam-khan-navarro</a></li>
+        <li><span>Code</span><a href="mailto:adamkhan.navarro@gmail.com?subject=Code%20request">Research code is private · available on request</a></li>
       </ul>
     </div>
   </section>
@@ -652,279 +725,566 @@
 
 <footer>
   <span class="mono">© 2026 Adam Khan Navarro · all rights reserved. Text, figures and code may not be reused without permission.</span>
-  <span class="mono">Set in Newsreader &amp; IBM Plex Mono · no trackers</span>
+  <span class="mono">All figures simulated · no trackers · built with <span class="spark" aria-hidden="true"></span>Claude</span>
 </footer>
 
 <script>
 (function () {
   'use strict';
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ── Fig. 1: simulated DAPI field ──────────────────────────────
-     Nuclei are ellipses with a soft glow. The pointer acts as a
-     segmentation brush: nuclei under it get outlined and counted. */
-
-  var box = document.getElementById('scope');
-  var cv = document.getElementById('scope-canvas');
-  var ctx = cv.getContext('2d');
-  var countEl = document.getElementById('seg-count');
-  var totalEl = document.getElementById('seg-total');
-  var allBtn = document.getElementById('seg-all');
-  var nuclei = [], W = 0, H = 0, dpr = 1, ptr = null, showAll = false, base = null;
-
-  function rand(a, b) { return a + Math.random() * (b - a); }
-
-  function makeField() {
-    nuclei = [];
-    var target = Math.round((W * H) / 2600), tries = 0;
-    while (nuclei.length < target && tries < target * 40) {
-      tries++;
-      var r = rand(9, 17), n = {
-        x: rand(r, W - r), y: rand(r, H - r),
-        rx: r * rand(.85, 1.15), ry: r * rand(.7, 1),
-        rot: rand(0, Math.PI), b: rand(.55, 1),
-        dividing: Math.random() < .06, seen: false
-      };
-      var ok = nuclei.every(function (m) {
-        var dx = m.x - n.x, dy = m.y - n.y;
-        return dx * dx + dy * dy > Math.pow((m.rx + n.rx) * .95, 2);
-      });
-      if (ok) nuclei.push(n);
-    }
-    totalEl.textContent = nuclei.length;
-    renderBase();
-    draw();
-  }
-
-  /* The fluorescence itself never changes, so it is painted once to an
-     offscreen canvas; each frame only adds outlines on top. */
-  function renderBase() {
-    base = document.createElement('canvas');
-    base.width = cv.width; base.height = cv.height;
-    var b = base.getContext('2d');
-    b.scale(dpr, dpr);
-    b.fillStyle = '#07080d';
-    b.fillRect(0, 0, W, H);
-    b.globalCompositeOperation = 'lighter';
-    nuclei.forEach(function (n) {
-      b.save();
-      b.translate(n.x, n.y);
-      b.rotate(n.rot);
-      b.scale(1, n.ry / n.rx);
-      var g = b.createRadialGradient(0, 0, 0, 0, 0, n.rx * 1.35);
-      var a = n.dividing ? 1 : n.b;
-      g.addColorStop(0, 'rgba(120,150,255,' + (.95 * a) + ')');
-      g.addColorStop(.55, 'rgba(60,90,235,' + (.75 * a) + ')');
-      g.addColorStop(1, 'rgba(30,50,200,0)');
-      b.fillStyle = g;
-      b.beginPath();
-      b.arc(0, 0, n.rx * 1.35, 0, Math.PI * 2);
-      b.fill();
-      /* chromatin texture */
-      for (var i = 0; i < 5; i++) {
-        b.fillStyle = 'rgba(190,205,255,' + (.18 * a) + ')';
-        b.beginPath();
-        b.arc(rand(-n.rx * .5, n.rx * .5), rand(-n.rx * .5, n.rx * .5), rand(1, 2.6), 0, Math.PI * 2);
-        b.fill();
-      }
-      b.restore();
-    });
-  }
-
-  function draw() {
-    if (!base) return;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.drawImage(base, 0, 0);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var R = Math.max(70, W * .16), seen = 0;
-    nuclei.forEach(function (n, i) {
-      var near = ptr && Math.hypot(n.x - ptr.x, n.y - ptr.y) < R;
-      if (near) n.seen = true;
-      if (n.seen) seen++;
-      if (!(near || n.seen || showAll)) return;
-      ctx.save();
-      ctx.translate(n.x, n.y);
-      ctx.rotate(n.rot);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, n.rx + 1.5, n.ry + 1.5, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = near ? 'rgba(255,236,150,.95)' : 'rgba(255,255,255,.45)';
-      ctx.lineWidth = near ? 1.4 : 1;
-      ctx.stroke();
-      ctx.restore();
-      if (near && W > 380) {
-        ctx.fillStyle = 'rgba(255,236,150,.9)';
-        ctx.font = '9px "IBM Plex Mono", monospace';
-        ctx.fillText(i + 1, n.x + n.rx + 3, n.y - n.ry);
-      }
-    });
-    if (ptr) {
-      ctx.beginPath();
-      ctx.arc(ptr.x, ptr.y, R, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255,255,255,.22)';
-      ctx.setLineDash([3, 5]);
-      ctx.stroke();
-      ctx.setLineDash([]);
-    }
-    countEl.textContent = showAll ? nuclei.length : seen;
-  }
-
-  function size() {
-    var r = box.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = r.width; H = r.height;
-    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-    makeField();
-  }
-
-  var queued = false;
-  function queueDraw() {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(function () { queued = false; draw(); });
-  }
-  cv.addEventListener('pointermove', function (e) {
-    var r = cv.getBoundingClientRect();
-    ptr = { x: e.clientX - r.left, y: e.clientY - r.top };
-    queueDraw();
-  });
-  cv.addEventListener('pointerleave', function () { ptr = null; queueDraw(); });
-  allBtn.addEventListener('click', function () {
-    showAll = !showAll;
-    allBtn.setAttribute('aria-pressed', showAll);
-    draw();
-  });
-  document.getElementById('seg-new').addEventListener('click', function () {
-    showAll = false;
-    allBtn.setAttribute('aria-pressed', 'false');
-    makeField();
-  });
-
-  var lastW = 0;
-  window.addEventListener('resize', function () {
-    var w = box.getBoundingClientRect().width;
-    if (Math.abs(w - lastW) > 4) { lastW = w; size(); }
-  });
-  lastW = box.getBoundingClientRect().width;
-  size();
-
-  /* ── Fig. 2: dose–response ─────────────────────────────────────
-     y = bottom + (100 − bottom) / (1 + (x / GI50)^h), x in µM.     */
-
-  var svg = document.getElementById('dr');
   var NS = 'http://www.w3.org/2000/svg';
-  var gi = document.getElementById('gi');
-  var hill = document.getElementById('hill');
-  var floor = document.getElementById('floor');
-  var P = { l: 52, r: 18, t: 16, b: 44 }, SW = 560, SH = 340;
-  var xmin = -3, xmax = 3, ymin = -60, ymax = 120;
-  var doses = [-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5];
-  var jitter = doses.map(function () { return [rand(-6, 6), rand(-6, 6), rand(-6, 6)]; });
 
-  function sx(lx) { return P.l + (lx - xmin) / (xmax - xmin) * (SW - P.l - P.r); }
-  function sy(y) { return SH - P.b - (y - ymin) / (ymax - ymin) * (SH - P.t - P.b); }
-  function el(name, attrs, text) {
+  /* Seeded random numbers, so each figure looks the same on every visit
+     until someone asks for a new one. */
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function gauss(r) { return Math.sqrt(-2 * Math.log(r() || 1e-9)) * Math.cos(2 * Math.PI * r()); }
+
+  function svgEl(parent, name, attrs, text) {
     var e = document.createElementNS(NS, name);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
     if (text != null) e.textContent = text;
-    svg.appendChild(e);
+    parent.appendChild(e);
     return e;
   }
-  function model(lx, lg, h, bot) { return bot + (100 - bot) / (1 + Math.pow(10, (lx - lg) * h)); }
-  function fmtDose(lg) {
-    var v = Math.pow(10, lg);
-    if (v < 1) return (v * 1000).toFixed(0) + ' nM';
-    return v.toFixed(v < 10 ? 1 : 0) + ' µM';
+  function clear(svg) { while (svg.firstChild) svg.removeChild(svg.firstChild); }
+
+  /* A canvas sized to its box at the device's pixel ratio. */
+  function fitCanvas(cv) {
+    var r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+    var c = cv.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: c, w: r.width, h: r.height, dpr: dpr };
   }
 
-  /* static frame */
-  [-50, 0, 50, 100].forEach(function (y) {
-    el('line', { class: 'grid', x1: P.l, x2: SW - P.r, y1: sy(y), y2: sy(y) });
-    el('text', { x: P.l - 8, y: sy(y) + 4, 'text-anchor': 'end' }, y + '%');
-  });
-  for (var lx = xmin; lx <= xmax; lx++) {
-    el('line', { class: 'tick', x1: sx(lx), x2: sx(lx), y1: SH - P.b, y2: SH - P.b + 5 });
-    el('text', { x: sx(lx), y: SH - P.b + 18, 'text-anchor': 'middle' }, String(Math.pow(10, lx)).replace('0.', '.'));
+  function onWidthChange(el, fn) {
+    var last = el.getBoundingClientRect().width;
+    window.addEventListener('resize', function () {
+      var w = el.getBoundingClientRect().width;
+      if (Math.abs(w - last) > 4) { last = w; fn(); }
+    });
   }
-  el('line', { class: 'axis', x1: P.l, x2: SW - P.r, y1: SH - P.b, y2: SH - P.b });
-  el('line', { class: 'axis', x1: P.l, x2: P.l, y1: P.t, y2: SH - P.b });
-  el('text', { x: (P.l + SW - P.r) / 2, y: SH - 6, 'text-anchor': 'middle' }, 'concentration (µM)');
-  el('text', { x: 14, y: (P.t + SH - P.b) / 2, 'text-anchor': 'middle', transform: 'rotate(-90 14 ' + (P.t + SH - P.b) / 2 + ')' }, 'growth');
 
-  var giLine = el('line', { class: 'gi' });
-  var giLabel = el('text', { fill: 'var(--dapi)' });
-  var curve = el('path', { class: 'curve' });
-  var pts = [];
-  doses.forEach(function () { for (var k = 0; k < 3; k++) pts.push(el('circle', { class: 'pt', r: 3.2 })); });
+  /* ════════ Fig. 1 · simulated DAPI field ════════
+     The pointer acts as a segmentation brush: nuclei under it get
+     outlined and counted. */
+  (function () {
+    var box = document.getElementById('scope');
+    var cv = document.getElementById('scope-canvas');
+    var countEl = document.getElementById('seg-count');
+    var totalEl = document.getElementById('seg-total');
+    var allBtn = document.getElementById('seg-all');
+    var nuclei = [], view, base, ptr = null, showAll = false, seed = 7;
 
-  function update() {
-    var lg = +gi.value, h = +hill.value, bot = +floor.value;
-    var d = '';
-    for (var i = 0; i <= 120; i++) {
-      var x = xmin + (xmax - xmin) * i / 120;
-      d += (i ? 'L' : 'M') + sx(x).toFixed(1) + ' ' + sy(model(x, lg, h, bot)).toFixed(1);
-    }
-    curve.setAttribute('d', d);
-    doses.forEach(function (x, i) {
-      for (var k = 0; k < 3; k++) {
-        var c = pts[i * 3 + k];
-        c.setAttribute('cx', sx(x) + (k - 1) * 3);
-        c.setAttribute('cy', sy(model(x, lg, h, bot) + jitter[i][k]));
+    function makeField() {
+      view = fitCanvas(cv);
+      var W = view.w, H = view.h, r = rng(seed);
+      nuclei = [];
+      var target = Math.round((W * H) / 2600), tries = 0;
+      while (nuclei.length < target && tries < target * 40) {
+        tries++;
+        var rad = 9 + r() * 8, n = {
+          x: rad + r() * (W - 2 * rad), y: rad + r() * (H - 2 * rad),
+          rx: rad * (.85 + r() * .3), ry: rad * (.7 + r() * .3),
+          rot: r() * Math.PI, b: .55 + r() * .45, seen: false, dots: []
+        };
+        for (var i = 0; i < 5; i++) n.dots.push([(r() - .5) * n.rx, (r() - .5) * n.rx, 1 + r() * 1.6]);
+        var ok = nuclei.every(function (m) {
+          var dx = m.x - n.x, dy = m.y - n.y;
+          return dx * dx + dy * dy > Math.pow((m.rx + n.rx) * .95, 2);
+        });
+        if (ok) nuclei.push(n);
       }
-    });
-    /* GI50 is where growth crosses 50 %, which only equals the inflection
-       point when the bottom plateau sits at 0. Solve for it directly. */
-    var g50 = bot < 50 ? lg + Math.log10((100 - bot) / (50 - bot) - 1) / h : null;
-    if (g50 !== null && g50 >= xmin && g50 <= xmax) {
-      giLine.setAttribute('x1', sx(g50)); giLine.setAttribute('x2', sx(g50));
-      giLine.setAttribute('y1', sy(50)); giLine.setAttribute('y2', SH - P.b);
-      giLabel.setAttribute('x', sx(g50) + 6); giLabel.setAttribute('y', sy(50) - 6);
-      giLabel.textContent = 'GI50';
-      giLine.style.display = giLabel.style.display = '';
-    } else {
-      giLine.style.display = giLabel.style.display = 'none';
+      totalEl.textContent = nuclei.length;
+      renderBase();
+      draw();
     }
 
-    document.getElementById('gi-out').textContent = fmtDose(lg);
-    document.getElementById('hill-out').textContent = h.toFixed(1);
-    document.getElementById('floor-out').textContent = (bot > 0 ? '+' : bot < 0 ? '−' : '') + Math.abs(bot) + ' %';
+    /* The fluorescence never changes, so it is painted once offscreen;
+       each frame only adds outlines on top. */
+    function renderBase() {
+      base = document.createElement('canvas');
+      base.width = cv.width; base.height = cv.height;
+      var b = base.getContext('2d');
+      b.scale(view.dpr, view.dpr);
+      b.fillStyle = '#07080d';
+      b.fillRect(0, 0, view.w, view.h);
+      b.globalCompositeOperation = 'lighter';
+      nuclei.forEach(function (n) {
+        b.save();
+        b.translate(n.x, n.y); b.rotate(n.rot); b.scale(1, n.ry / n.rx);
+        var g = b.createRadialGradient(0, 0, 0, 0, 0, n.rx * 1.35);
+        g.addColorStop(0, 'rgba(120,150,255,' + (.95 * n.b) + ')');
+        g.addColorStop(.55, 'rgba(60,90,235,' + (.75 * n.b) + ')');
+        g.addColorStop(1, 'rgba(30,50,200,0)');
+        b.fillStyle = g;
+        b.beginPath(); b.arc(0, 0, n.rx * 1.35, 0, Math.PI * 2); b.fill();
+        b.fillStyle = 'rgba(190,205,255,' + (.18 * n.b) + ')';
+        n.dots.forEach(function (d) { b.beginPath(); b.arc(d[0], d[1], d[2], 0, Math.PI * 2); b.fill(); });
+        b.restore();
+      });
+    }
 
-    var giText = g50 === null ? 'not reached' : fmtDose(g50);
-    document.getElementById('r-gi').textContent = giText;
-    document.getElementById('r-kill').textContent = bot < 0
-      ? 'cells are dying, not just stopping'
-      : 'growth slows, cells survive';
-    var v = g50 === null ? 'Inactive: growth never halves.'
-      : g50 <= -1 ? 'Very potent: sub-micromolar.'
-      : g50 <= .7 ? 'Promising: low micromolar.'
-      : g50 <= 1.5 ? 'Weak: needs optimisation.'
-      : 'Likely inactive at useful doses.';
-    document.getElementById('r-verdict').textContent = v;
-  }
-  [gi, hill, floor].forEach(function (i) { i.addEventListener('input', update); });
-  update();
+    function draw() {
+      var ctx = view.ctx, W = view.w;
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(base, 0, 0); ctx.restore();
+      var R = Math.max(70, W * .16), seen = 0;
+      nuclei.forEach(function (n, i) {
+        var near = ptr && Math.hypot(n.x - ptr.x, n.y - ptr.y) < R;
+        if (near) n.seen = true;
+        if (n.seen) seen++;
+        if (!(near || n.seen || showAll)) return;
+        ctx.save();
+        ctx.translate(n.x, n.y); ctx.rotate(n.rot);
+        ctx.beginPath(); ctx.ellipse(0, 0, n.rx + 1.5, n.ry + 1.5, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = near ? 'rgba(255,236,150,.95)' : 'rgba(255,255,255,.45)';
+        ctx.lineWidth = near ? 1.4 : 1;
+        ctx.stroke();
+        ctx.restore();
+        if (near && W > 380) {
+          ctx.fillStyle = 'rgba(255,236,150,.9)';
+          ctx.font = '9px "IBM Plex Mono", monospace';
+          ctx.fillText(i + 1, n.x + n.rx + 3, n.y - n.ry);
+        }
+      });
+      if (ptr) {
+        ctx.beginPath(); ctx.arc(ptr.x, ptr.y, R, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255,255,255,.22)'; ctx.setLineDash([3, 5]); ctx.stroke(); ctx.setLineDash([]);
+      }
+      countEl.textContent = showAll ? nuclei.length : seen;
+    }
 
-  /* ── Publications filter ── */
-  var rows = Array.prototype.slice.call(document.querySelectorAll('.pubs tbody tr'));
-  var shown = document.getElementById('pub-shown');
-  document.querySelectorAll('[data-pub-count]').forEach(function (e) { e.textContent = rows.length; });
-  function filter(year) {
-    var n = 0;
-    rows.forEach(function (r) {
-      var on = year === 'all' || r.dataset.year === year;
-      r.hidden = !on;
-      if (on) n++;
+    var queued = false;
+    function queueDraw() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; draw(); });
+    }
+    cv.addEventListener('pointermove', function (e) {
+      var r = cv.getBoundingClientRect();
+      ptr = { x: e.clientX - r.left, y: e.clientY - r.top };
+      queueDraw();
     });
-    shown.textContent = n + ' of ' + rows.length;
-  }
-  document.querySelectorAll('.filters button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      document.querySelectorAll('.filters button').forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
-      filter(b.dataset.year);
+    cv.addEventListener('pointerleave', function () { ptr = null; queueDraw(); });
+    allBtn.addEventListener('click', function () {
+      showAll = !showAll; allBtn.setAttribute('aria-pressed', showAll); draw();
     });
-  });
-  filter('all');
+    document.getElementById('seg-new').addEventListener('click', function () {
+      showAll = false; allBtn.setAttribute('aria-pressed', 'false'); seed++; makeField();
+    });
+    onWidthChange(box, makeField);
+    makeField();
+  })();
 
-  /* ── Current section in the top bar ── */
+  /* ════════ Fig. 2 · colony counting ════════
+     Clicking marks a colony by hand; the button reveals every colony
+     the "algorithm" finds, and which ones the visitor missed. */
+  (function () {
+    var cv = document.getElementById('col-canvas');
+    var youEl = document.getElementById('col-you'), timeEl = document.getElementById('col-time');
+    var algoEl = document.getElementById('col-algo'), algoNote = document.getElementById('col-algo-note');
+    var missEl = document.getElementById('col-miss'), missNote = document.getElementById('col-miss-note');
+    var view, cols = [], started = 0, autoShown = 0, seed = 21, tick = null;
+
+    function make() {
+      view = fitCanvas(cv);
+      var S = view.w, c = S / 2, R = S / 2 - 6, r = rng(seed);
+      cols = [];
+      var target = 55 + Math.floor(r() * 45), tries = 0;
+      while (cols.length < target && tries < 4000) {
+        tries++;
+        var a = r() * Math.PI * 2, d = Math.sqrt(r()) * (R - 14);
+        var rad = S * (.008 + r() * .013);
+        var p = { x: c + Math.cos(a) * d, y: c + Math.sin(a) * d, r: rad, mine: false };
+        /* allow some touching pairs: that is what makes it hard */
+        var ok = cols.every(function (q) { return Math.hypot(q.x - p.x, q.y - p.y) > (q.r + p.r) * .9; });
+        if (ok) cols.push(p);
+      }
+      started = 0; autoShown = 0;
+      clearInterval(tick);
+      youEl.textContent = '0'; timeEl.textContent = 'click to start';
+      algoEl.textContent = '–'; algoNote.textContent = 'not run yet';
+      missEl.textContent = '–'; missNote.innerHTML = '&nbsp;';
+      draw();
+    }
+
+    function draw() {
+      var ctx = view.ctx, S = view.w, c = S / 2, R = S / 2 - 6;
+      ctx.clearRect(0, 0, S, S);
+      /* dish */
+      ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2);
+      ctx.fillStyle = '#efe3bf'; ctx.fill();
+      ctx.lineWidth = 3; ctx.strokeStyle = '#d8ccab'; ctx.stroke();
+      ctx.beginPath(); ctx.arc(c, c, R - 6, 0, Math.PI * 2);
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(0,0,0,.06)'; ctx.stroke();
+      cols.forEach(function (p, i) {
+        var g = ctx.createRadialGradient(p.x - p.r * .3, p.y - p.r * .3, 0, p.x, p.y, p.r);
+        g.addColorStop(0, '#fffaf0'); g.addColorStop(1, '#d9c9a2');
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = g; ctx.fill();
+        ctx.lineWidth = .8; ctx.strokeStyle = 'rgba(120,100,60,.45)'; ctx.stroke();
+        var shown = i < autoShown;
+        if (shown) {
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r + 3, 0, Math.PI * 2);
+          ctx.lineWidth = 1.4; ctx.strokeStyle = p.mine ? '#2f4bd8' : '#c0392b'; ctx.stroke();
+        }
+        if (p.mine) {
+          ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(2, p.r * .45), 0, Math.PI * 2);
+          ctx.fillStyle = '#191917'; ctx.fill();
+        }
+      });
+    }
+
+    function mineCount() { return cols.filter(function (p) { return p.mine; }).length; }
+
+    cv.addEventListener('pointerdown', function (e) {
+      var rc = cv.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top;
+      var best = null, bd = 1e9;
+      cols.forEach(function (p) {
+        var d = Math.hypot(p.x - x, p.y - y);
+        if (!p.mine && d < p.r + 7 && d < bd) { bd = d; best = p; }
+      });
+      if (!best) return;
+      best.mine = true;
+      if (!started) {
+        started = performance.now();
+        tick = setInterval(function () { timeEl.textContent = ((performance.now() - started) / 1000).toFixed(1) + ' s'; }, 100);
+      }
+      youEl.textContent = mineCount();
+      draw();
+    });
+
+    document.getElementById('col-auto').addEventListener('click', function () {
+      clearInterval(tick);
+      var n = mineCount();
+      if (started) timeEl.textContent = n + ' in ' + ((performance.now() - started) / 1000).toFixed(1) + ' s';
+      else timeEl.textContent = 'you skipped it';
+      function finish() {
+        autoShown = cols.length; draw();
+        algoEl.textContent = cols.length;
+        algoNote.textContent = 'every plate, the same way';
+        missEl.textContent = cols.length - n;
+        missNote.textContent = 'red circles';
+      }
+      if (still) return finish();
+      autoShown = 0;
+      var step = Math.max(1, Math.ceil(cols.length / 30));
+      (function run() {
+        autoShown = Math.min(cols.length, autoShown + step);
+        draw();
+        algoEl.textContent = autoShown;
+        if (autoShown < cols.length) requestAnimationFrame(run); else finish();
+      })();
+    });
+    document.getElementById('col-new').addEventListener('click', function () { seed++; make(); });
+    onWidthChange(cv.parentElement, make);
+    make();
+  })();
+
+  /* ════════ Fig. 3 · 96-well plate → dose–response ════════
+     growth = bottom + (100 − bottom) / (1 + (dose / mid)^hill)        */
+  (function () {
+    var wells = document.getElementById('wells'), dr = document.getElementById('dr'), rank = document.getElementById('rank');
+    var r = rng(5);
+    var doses = []; for (var i = 0; i < 10; i++) doses.push(-2 + i * .5);   /* log10 µM, 0.01 → 316 µM */
+    var names = 'ABCDEFGH'.split('');
+    var cpds = names.map(function (n, i) {
+      var c = { name: 'Cpd ' + n, row: n, mid: -1.6 + r() * 3.4, hill: .9 + r() * 2.2, bottom: -45 + r() * 70 };
+      if (i === 6) c.bottom = 62;   /* one compound never halves growth */
+      c.vals = doses.map(function (x) { return growth(x, c) + gauss(r) * 5; });
+      c.gi = gi50(c);
+      return c;
+    });
+    var sel = 0;
+
+    function growth(x, c) { return c.bottom + (100 - c.bottom) / (1 + Math.pow(10, (x - c.mid) * c.hill)); }
+    /* GI50 is where growth crosses 50 %, which equals the midpoint only
+       when the bottom plateau sits at 0, so it is solved for directly. */
+    function gi50(c) { return c.bottom < 50 ? c.mid + Math.log10((100 - c.bottom) / (50 - c.bottom) - 1) / c.hill : null; }
+    function fmt(lg) {
+      if (lg === null) return '> 300 µM';
+      var v = Math.pow(10, lg);
+      return v < 1 ? (v * 1000).toFixed(0) + ' nM' : v.toFixed(v < 10 ? 1 : 0) + ' µM';
+    }
+
+    /* plate */
+    var X0 = 34, Y0 = 28, D = 38;
+    for (var col = 0; col < 12; col++) {
+      svgEl(wells, 'text', { x: X0 + col * D + D / 2, y: 16, 'text-anchor': 'middle' }, col < 10 ? col + 1 : 'ctl');
+    }
+    var rowBg = [], wellEls = [];
+    cpds.forEach(function (c, ri) {
+      var y = Y0 + ri * 27;
+      rowBg.push(svgEl(wells, 'rect', { x: 4, y: y - 1, width: 512, height: 27, rx: 2, class: 'row-on', opacity: 0 }));
+      svgEl(wells, 'text', { x: 14, y: y + 17, class: 'row-label' }, c.row);
+      var row = [];
+      for (var k = 0; k < 12; k++) {
+        var v = k < 10 ? c.vals[k] : 100 + gauss(r) * 3;
+        var a = Math.max(.05, Math.min(1, (v + 20) / 125));
+        row.push(svgEl(wells, 'circle', { cx: X0 + k * D + D / 2, cy: y + 12, r: 11, class: 'well', fill: 'rgba(47,75,216,' + a.toFixed(2) + ')' }));
+      }
+      wellEls.push(row);
+      var hit = svgEl(wells, 'rect', { x: 4, y: y - 1, width: 512, height: 27, class: 'row-hit', tabindex: 0, role: 'button', 'aria-label': c.name + ', GI50 ' + fmt(c.gi) });
+      hit.addEventListener('click', function () { select(ri); });
+      hit.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(ri); } });
+    });
+    svgEl(wells, 'text', { x: X0, y: 262 }, 'low dose →');
+    svgEl(wells, 'text', { x: X0 + 10 * D - 4, y: 262, 'text-anchor': 'end' }, '→ high dose');
+
+    /* curve frame */
+    var P = { l: 46, r: 12, t: 12, b: 38 }, W = 400, H = 260, xmin = -2.5, xmax = 3, ymin = -60, ymax = 120;
+    function sx(x) { return P.l + (x - xmin) / (xmax - xmin) * (W - P.l - P.r); }
+    function sy(y) { return H - P.b - (y - ymin) / (ymax - ymin) * (H - P.t - P.b); }
+    [-50, 0, 50, 100].forEach(function (y) {
+      svgEl(dr, 'line', { class: 'grid', x1: P.l, x2: W - P.r, y1: sy(y), y2: sy(y) });
+      svgEl(dr, 'text', { x: P.l - 6, y: sy(y) + 4, 'text-anchor': 'end' }, y + '%');
+    });
+    [-2, -1, 0, 1, 2, 3].forEach(function (x) {
+      svgEl(dr, 'line', { class: 'tick', x1: sx(x), x2: sx(x), y1: H - P.b, y2: H - P.b + 4 });
+      svgEl(dr, 'text', { x: sx(x), y: H - P.b + 16, 'text-anchor': 'middle' }, String(Math.pow(10, x)).replace('0.', '.'));
+    });
+    svgEl(dr, 'line', { class: 'axis', x1: P.l, x2: W - P.r, y1: H - P.b, y2: H - P.b });
+    svgEl(dr, 'line', { class: 'axis', x1: P.l, x2: P.l, y1: P.t, y2: H - P.b });
+    svgEl(dr, 'text', { x: (P.l + W - P.r) / 2, y: H - 4, 'text-anchor': 'middle' }, 'dose (µM)');
+    var title = svgEl(dr, 'text', { x: W - P.r, y: P.t + 10, 'text-anchor': 'end', fill: 'var(--ink)' });
+    var giLine = svgEl(dr, 'line', { class: 'gi-line' });
+    var giText = svgEl(dr, 'text', { fill: 'var(--dapi)' });
+    var path = svgEl(dr, 'path', { class: 'curve' });
+    var pts = doses.map(function () { return svgEl(dr, 'circle', { class: 'pt', r: 3.4 }); });
+
+    /* ranking */
+    var order = cpds.map(function (c, i) { return i; }).sort(function (a, b) {
+      var ga = cpds[a].gi, gb = cpds[b].gi;
+      return (ga === null ? 99 : ga) - (gb === null ? 99 : gb);
+    });
+    var rankBtns = [];
+    order.forEach(function (ci, pos) {
+      var c = cpds[ci], li = document.createElement('li'), b = document.createElement('button');
+      b.type = 'button';
+      var w = c.gi === null ? 0 : Math.max(4, (2.6 - c.gi) / 4.6 * 100);
+      b.innerHTML = '<span>' + (pos + 1) + '</span><span>' + c.row + '</span><span class="bar"><i style="width:' + w.toFixed(0) + '%"></i></span><span class="v">' + fmt(c.gi) + '</span>';
+      b.addEventListener('click', function () { select(ci); });
+      li.appendChild(b); rank.appendChild(li);
+      rankBtns[ci] = b;
+    });
+
+    function select(i) {
+      sel = i;
+      var c = cpds[i], d = '';
+      for (var s = 0; s <= 100; s++) {
+        var x = xmin + (xmax - xmin) * s / 100;
+        d += (s ? 'L' : 'M') + sx(x).toFixed(1) + ' ' + sy(growth(x, c)).toFixed(1);
+      }
+      path.setAttribute('d', d);
+      pts.forEach(function (p, k) { p.setAttribute('cx', sx(doses[k])); p.setAttribute('cy', sy(c.vals[k])); });
+      if (c.gi !== null) {
+        giLine.setAttribute('x1', sx(c.gi)); giLine.setAttribute('x2', sx(c.gi));
+        giLine.setAttribute('y1', sy(50)); giLine.setAttribute('y2', H - P.b);
+        giText.setAttribute('x', sx(c.gi) + 5); giText.setAttribute('y', sy(50) - 6);
+        giText.textContent = 'GI50 ' + fmt(c.gi);
+        giLine.style.display = giText.style.display = '';
+      } else {
+        giLine.style.display = 'none';
+        giText.style.display = '';
+        giText.setAttribute('x', P.l + 8); giText.setAttribute('y', sy(50) - 6);
+        giText.textContent = 'never reaches 50 % — inactive';
+      }
+      title.textContent = c.name;
+      rowBg.forEach(function (rb, k) { rb.setAttribute('opacity', k === i ? 1 : 0); });
+      rankBtns.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
+    }
+    select(order[0]);
+  })();
+
+  /* ════════ Fig. 4 · cell cycle from DNA content ════════
+     Phase fractions shift with dose; the histogram is the sum of a
+     sub-G1 smear, a G1 peak at 2N, an S plateau and a G2/M peak at 4N. */
+  (function () {
+    var svg = document.getElementById('cc'), dose = document.getElementById('cc-dose');
+    var out = document.getElementById('cc-dose-out'), read = document.getElementById('cc-read');
+    var mech = 'g2';
+    var P = { l: 36, r: 10, t: 14, b: 38 }, W = 400, H = 260, BINS = 64, XMAX = 5;
+    var COL = { sub: '#c0392b', g1: '#2f4bd8', s: '#9aa6e8', g2: '#191917' };
+
+    function fractions(d) {
+      var f = { sub: .03, g1: .58, s: .22, g2: .17 }, k = d / 100;
+      if (mech === 'g2') { f.g2 += .48 * k; f.g1 -= .40 * k; f.s -= .08 * k; }
+      else { f.g1 += .25 * k; f.s -= .14 * k; f.g2 -= .11 * k; }
+      f.sub += .32 * k * k;                       /* death only kicks in at high dose */
+      var t = f.sub + f.g1 + f.s + f.g2;
+      for (var p in f) f[p] = Math.max(0, f[p] / t);
+      return f;
+    }
+    function dens(x, f) {
+      function g(m, s) { return Math.exp(-.5 * Math.pow((x - m) / s, 2)) / (s * 2.5066); }
+      var sPlateau = x > 2.15 && x < 3.85 ? 1 / 1.7 : 0;
+      var sub = x > .3 && x < 1.8 ? Math.exp(-(1.8 - x) * 1.2) * .9 : 0;
+      return { sub: f.sub * sub, g1: f.g1 * g(2, .13), s: f.s * sPlateau, g2: f.g2 * g(4, .2) };
+    }
+
+    var bw = (W - P.l - P.r) / BINS, bars = [];
+    for (var i = 0; i < BINS; i++) {
+      var stack = {};
+      ['sub', 's', 'g1', 'g2'].forEach(function (k) { stack[k] = svgEl(svg, 'rect', { x: P.l + i * bw + .5, width: Math.max(.5, bw - 1), fill: COL[k] }); });
+      bars.push(stack);
+    }
+    svgEl(svg, 'line', { class: 'axis', x1: P.l, x2: W - P.r, y1: H - P.b, y2: H - P.b });
+    function bx(x) { return P.l + x / XMAX * (W - P.l - P.r); }
+    [[2, '2N'], [4, '4N']].forEach(function (t) {
+      svgEl(svg, 'line', { class: 'tick', x1: bx(t[0]), x2: bx(t[0]), y1: H - P.b, y2: H - P.b + 4 });
+      svgEl(svg, 'text', { x: bx(t[0]), y: H - P.b + 16, 'text-anchor': 'middle' }, t[1]);
+    });
+    svgEl(svg, 'text', { x: (P.l + W - P.r) / 2, y: H - 4, 'text-anchor': 'middle' }, 'DNA content per nucleus');
+    svgEl(svg, 'text', { x: 12, y: (P.t + H - P.b) / 2, 'text-anchor': 'middle', transform: 'rotate(-90 12 ' + (P.t + H - P.b) / 2 + ')' }, 'nuclei');
+
+    function update() {
+      var d = +dose.value, f = fractions(d), peak = 0, cols = [];
+      for (var i = 0; i < BINS; i++) {
+        var x = (i + .5) / BINS * XMAX, v = dens(x, f);
+        cols.push(v);
+        peak = Math.max(peak, v.sub + v.g1 + v.s + v.g2);
+      }
+      var scale = (H - P.t - P.b) / Math.max(peak, 1.2);
+      cols.forEach(function (v, i) {
+        var y = H - P.b;
+        ['sub', 's', 'g1', 'g2'].forEach(function (k) {
+          var h = v[k] * scale;
+          y -= h;
+          bars[i][k].setAttribute('y', y.toFixed(1));
+          bars[i][k].setAttribute('height', Math.max(0, h).toFixed(1));
+        });
+      });
+      out.textContent = d === 0 ? 'control' : d + ' %';
+      function pc(v) { return (v * 100).toFixed(0) + ' %'; }
+      function key(k) { return '<span class="phase-key" style="background:' + COL[k] + '"></span>'; }
+      var verdict = f.sub > .25 ? 'Mostly killing: a big sub-G1 population means apoptosis.'
+        : (mech === 'g2' && f.g2 > .35) ? 'Mostly stopping: cells pile up at 4N, stuck before dividing.'
+        : (mech === 'g1' && f.g1 > .70) ? 'Mostly stopping: cells are held at 2N and never copy their DNA.'
+        : 'Close to untreated: no clear effect yet.';
+      read.innerHTML =
+        '<span>' + key('sub') + 'sub-G1</span><b>' + pc(f.sub) + '</b>' +
+        '<span>' + key('g1') + 'G1</span><b>' + pc(f.g1) + '</b>' +
+        '<span>' + key('s') + 'S</span><b>' + pc(f.s) + '</b>' +
+        '<span>' + key('g2') + 'G2/M</span><b>' + pc(f.g2) + '</b>' +
+        '<p class="verdict">' + verdict + '</p>';
+    }
+    document.querySelectorAll('[data-mech]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        mech = b.dataset.mech;
+        document.querySelectorAll('[data-mech]').forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
+        update();
+      });
+    });
+    dose.addEventListener('input', update);
+    update();
+  })();
+
+  /* ════════ Fig. 5 · volcano plot ════════ */
+  (function () {
+    var svg = document.getElementById('vo'), box = document.getElementById('vo-box');
+    var fc = document.getElementById('vo-fc'), pv = document.getElementById('vo-p'), read = document.getElementById('vo-read');
+    var r = rng(11), genes = [];
+    for (var i = 0; i < 900; i++) {
+      var de = r() < .08, lfc, lp;
+      if (de) {
+        var sign = r() < .62 ? 1 : -1;   /* treatment switches on more than it switches off */
+        lfc = sign * (.8 + r() * 3);
+        lp = 2 + Math.abs(lfc) * (1 + r() * 1.6);
+      } else {
+        lfc = gauss(r) * .45;
+        lp = -Math.log10(r() || 1e-6) * (.6 + Math.abs(lfc));
+      }
+      genes.push({ id: 'gene_' + String(i + 1).padStart(4, '0'), lfc: lfc, lp: Math.min(lp, 11.5) });
+    }
+
+    var P = { l: 40, r: 12, t: 12, b: 36 }, W = 440, H = 300, XM = 4.5, YM = 12;
+    function sx(x) { return P.l + (x + XM) / (2 * XM) * (W - P.l - P.r); }
+    function sy(y) { return H - P.b - y / YM * (H - P.t - P.b); }
+    [-4, -2, 0, 2, 4].forEach(function (x) {
+      svgEl(svg, 'line', { class: 'tick', x1: sx(x), x2: sx(x), y1: H - P.b, y2: H - P.b + 4 });
+      svgEl(svg, 'text', { x: sx(x), y: H - P.b + 16, 'text-anchor': 'middle' }, x);
+    });
+    [0, 4, 8, 12].forEach(function (y) { svgEl(svg, 'text', { x: P.l - 6, y: sy(y) + 4, 'text-anchor': 'end' }, y); });
+    svgEl(svg, 'line', { class: 'axis', x1: P.l, x2: W - P.r, y1: H - P.b, y2: H - P.b });
+    svgEl(svg, 'line', { class: 'axis', x1: P.l, x2: P.l, y1: P.t, y2: H - P.b });
+    svgEl(svg, 'text', { x: (P.l + W - P.r) / 2, y: H - 4, 'text-anchor': 'middle' }, 'log2 fold change  (← down · up →)');
+    svgEl(svg, 'text', { x: 12, y: (P.t + H - P.b) / 2, 'text-anchor': 'middle', transform: 'rotate(-90 12 ' + (P.t + H - P.b) / 2 + ')' }, '−log10 p');
+    var hl = svgEl(svg, 'line', { class: 'gi-line' }), vl1 = svgEl(svg, 'line', { class: 'gi-line' }), vl2 = svgEl(svg, 'line', { class: 'gi-line' });
+    var dots = genes.map(function (g) { return svgEl(svg, 'circle', { cx: sx(g.lfc).toFixed(1), cy: sy(g.lp).toFixed(1), r: 2.6 }); });
+
+    var tip = document.createElement('div');
+    tip.className = 'tip'; tip.hidden = true; box.appendChild(tip);
+    svg.addEventListener('pointermove', function (e) {
+      var rc = svg.getBoundingClientRect(), k = W / rc.width;
+      var x = (e.clientX - rc.left) * k, y = (e.clientY - rc.top) * k, best = -1, bd = 64;
+      genes.forEach(function (g, i) {
+        var dx = sx(g.lfc) - x, dy = sy(g.lp) - y, d = dx * dx + dy * dy;
+        if (d < bd) { bd = d; best = i; }
+      });
+      if (best < 0) { tip.hidden = true; return; }
+      var g = genes[best];
+      tip.hidden = false;
+      tip.textContent = g.id + ' · ' + (g.lfc > 0 ? '+' : '') + g.lfc.toFixed(2) + ' · p=' + Math.pow(10, -g.lp).toExponential(1);
+      var br = box.getBoundingClientRect();
+      tip.style.left = (rc.left - br.left + sx(g.lfc) / k) + 'px';
+      tip.style.top = (rc.top - br.top + sy(g.lp) / k) + 'px';
+    });
+    svg.addEventListener('pointerleave', function () { tip.hidden = true; });
+
+    function update() {
+      var t = +fc.value, p = +pv.value, up = 0, down = 0;
+      genes.forEach(function (g, i) {
+        var hit = g.lp >= p && Math.abs(g.lfc) >= t;
+        if (hit) { if (g.lfc > 0) up++; else down++; }
+        dots[i].setAttribute('fill', hit ? (g.lfc > 0 ? '#2f4bd8' : '#191917') : '#d6d0c2');
+      });
+      var yy = sy(Math.min(p, YM));
+      hl.setAttribute('x1', P.l); hl.setAttribute('x2', W - P.r); hl.setAttribute('y1', yy); hl.setAttribute('y2', yy);
+      [[vl1, -t], [vl2, t]].forEach(function (v) {
+        v[0].setAttribute('x1', sx(v[1])); v[0].setAttribute('x2', sx(v[1]));
+        v[0].setAttribute('y1', P.t); v[0].setAttribute('y2', H - P.b);
+      });
+      document.getElementById('vo-fc-out').textContent = Math.pow(2, t).toFixed(t < 1 ? 1 : 0) + '×';
+      document.getElementById('vo-p-out').textContent = p < 3 ? Math.pow(10, -p).toPrecision(1) : '1e-' + p.toFixed(1);
+      var n = up + down, verdict = n > 180 ? 'Too loose: noise is being called significant.'
+        : n < 15 ? 'Too strict: real changes are being thrown away.'
+        : 'A list you can actually take to pathway analysis.';
+      read.innerHTML = '<span>Up</span><b>' + up + ' genes</b><span>Down</span><b>' + down + ' genes</b><p class="verdict">' + verdict + '</p>';
+    }
+    [fc, pv].forEach(function (el) { el.addEventListener('input', update); });
+    update();
+  })();
+
+  /* ════════ Publications filter ════════ */
+  (function () {
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.pubs tbody tr'));
+    var shown = document.getElementById('pub-shown');
+    function filter(year) {
+      var n = 0;
+      rows.forEach(function (row) {
+        var on = year === 'all' || row.dataset.year === year;
+        row.hidden = !on;
+        if (on) n++;
+      });
+      shown.textContent = n + ' of ' + rows.length;
+    }
+    document.querySelectorAll('.filters button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.filters button').forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
+        filter(b.dataset.year);
+      });
+    });
+    filter('all');
+  })();
+
+  /* ════════ Current section in the top bar ════════ */
   if ('IntersectionObserver' in window) {
     var links = {};
     document.querySelectorAll('.top-nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
