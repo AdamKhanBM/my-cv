@@ -71,13 +71,24 @@ sub { font-size: .7em; }
 
 /* Language switch: outside the scrolling nav so it stays visible on phones. */
 .lang {
-  flex-shrink: 0; display: flex; gap: .15rem;
+  flex-shrink: 0; display: flex; gap: .35rem;
   padding-left: 1rem; border-left: 1px solid var(--rule);
-  font-family: var(--mono); font-size: .8rem;
+  font-family: var(--mono); font-size: .86rem; font-weight: 500;
 }
-.lang a { padding: .1rem .35rem; border-radius: 2px; color: var(--ink-3); text-decoration: none; }
-.lang a:hover { color: var(--dapi); }
-.lang a.on { background: var(--ink); color: var(--paper); }
+.lang a {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .32rem .6rem;
+  border: 1px solid var(--rule); border-radius: 3px;
+  color: var(--ink-2); text-decoration: none;
+  transition: border-color .15s, background .15s;
+}
+.lang a:hover { border-color: var(--ink); color: var(--ink); }
+.lang a.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.lang .flag {
+  display: block; flex-shrink: 0;
+  width: 24px; height: 16px; border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.14);
+}
 
 /* ─── PAGE GRID ───
    A notebook page: a narrow margin column for entry numbers and notes,
