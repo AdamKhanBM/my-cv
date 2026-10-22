@@ -17,12 +17,16 @@
     origins: 'De dónde vienen', skills: 'Conocimientos',
     hint: 'Pasa el ratón o toca un proyecto o un conocimiento para ver cómo se conectan.',
     count: function (o, s, l) { return o + ' orígenes · ' + s + ' conocimientos · ' + l + ' conexiones'; },
-    see: 'Ver la demo ↑', papers: 'Ver las publicaciones ↓', from: 'Viene de'
+    see: 'Ver la demo ↑', papers: 'Ver las publicaciones ↓', from: 'Viene de',
+    example: 'Un ejemplo para empezar. Elige cualquier otro origen o conocimiento.',
+    sources: function (n) { return n === 1 ? '1 origen' : n + ' orígenes'; }
   } : {
     origins: 'Where they come from', skills: 'Skills',
     hint: 'Hover or tap a project or a skill to see how they connect.',
     count: function (o, s, l) { return o + ' sources · ' + s + ' skills · ' + l + ' connections'; },
-    see: 'See the demo ↑', papers: 'See the papers ↓', from: 'Comes from'
+    see: 'See the demo ↑', papers: 'See the papers ↓', from: 'Comes from',
+    example: 'An example to start with. Pick any other source or skill.',
+    sources: function (n) { return n === 1 ? '1 source' : n + ' sources'; }
   };
 
   var GROUPS = [
@@ -151,10 +155,13 @@
     box.className = 'smap-group';
     box.innerHTML = '<p class="g">' + esc(L(g, 'name')) + '</p>';
     SKILLS.filter(function (s) { return s.group === g.id; }).forEach(function (s) {
+      var n = links.filter(function (l) { return l.s === s.id; }).length;
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'smap-s';
-      b.textContent = L(s, 'name');
+      b.innerHTML = esc(L(s, 'name')) + '<span class="c" aria-hidden="true">' + new Array(n + 1).join('●') + '</span>';
+      b.setAttribute('aria-label', L(s, 'name') + ', ' + UI.sources(n));
+      b.title = UI.sources(n);
       b.setAttribute('aria-pressed', 'false');
       box.appendChild(b);
       sEl[s.id] = b;
@@ -169,16 +176,18 @@
   });
 
   /* ── Interaction ───────────────────────────────────────────────────────
-     Hover (mouse only) previews; a click or tap pins the selection. */
-  var pinned = null, hover = null;
+     Hover (mouse only) previews; a click or tap pins the selection. The map
+     opens with Problem 02 pinned, so it tells a story before anyone acts. */
+  var START = { kind: 'o', id: 'p2' };
+  var pinned = START, hover = null, untouched = true;
 
   function same(a, b) { return a && b && a.kind === b.kind && a.id === b.id; }
   function wire(el, item) {
-    el.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = item; apply(); } });
+    el.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = item; untouched = false; apply(); } });
     el.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = null; apply(); } });
-    el.addEventListener('focus', function () { hover = item; apply(); });
+    el.addEventListener('focus', function () { hover = item; untouched = false; apply(); });
     el.addEventListener('blur', function () { hover = null; apply(); });
-    el.addEventListener('click', function () { pinned = same(pinned, item) ? null : item; apply(); });
+    el.addEventListener('click', function () { pinned = same(pinned, item) ? null : item; untouched = false; apply(); });
   }
 
   function apply() {
@@ -209,10 +218,11 @@
       return;
     }
     var html, mine;
+    var intro = untouched && same(a, START) ? '<p class="smap-example">' + UI.example + '</p>' : '';
     if (a.kind === 'o') {
       var o = oById[a.id];
       mine = links.filter(function (l) { return l.o === a.id; });
-      html = '<p class="label">' + esc(L(o, 'kicker')) + '</p><h3>' + esc(L(o, 'name')) + '</h3><dl>' +
+      html = intro + '<p class="label">' + esc(L(o, 'kicker')) + '</p><h3>' + esc(L(o, 'name')) + '</h3><dl>' +
         mine.map(function (l) { return '<dt>' + esc(L(sById[l.s], 'name')) + '</dt><dd>' + esc(l.note) + '</dd>'; }).join('') + '</dl>';
       if (o.href) html += '<a class="smap-go" href="' + o.href + '">' + (o.id === 'lab' ? UI.papers : UI.see) + '</a>';
     } else {
