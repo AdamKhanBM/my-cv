@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Bump ?v= on both pages whenever cv.css or cv.js changes, so browsers drop their cached copy. -->
-  <link rel="stylesheet" href="../assets/cv.css?v=2">
+  <!-- Bump ?v= on both pages whenever a file in assets/ changes, so browsers drop their cached copy. -->
+  <link rel="stylesheet" href="../assets/cv.css?v=3">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
       <a href="#approach"><span>01</span> Enfoque</a>
       <a href="#problems"><span>02</span> Problemas resueltos</a>
       <a href="#papers"><span>03</span> Publicaciones</a>
-      <a href="#tools"><span>04</span> Herramientas</a>
+      <a href="#skills"><span>04</span> Conocimientos</a>
       <a href="#contact"><span>05</span> Contacto</a>
       <!-- TODO: Adam_Khan_Navarro_CV.pdf is not in the repo yet; this link 404s until it is added. -->
       <a href="../Adam_Khan_Navarro_CV.pdf" target="_blank" rel="noopener">CV.pdf ↗</a>
@@ -146,11 +146,11 @@
             <dt>El problema</dt>
             <dd>Los ensayos de colonias acaban con alguien contando puntos en decenas de placas. Es lento, cansa, y dos personas casi nunca sacan el mismo número.</dd>
             <dt>Lo que hice</dt>
-            <dd>Un pipeline de imagen que encuentra y cuenta las colonias a partir de una foto de la placa, y da las estadísticas por condición.</dd>
+            <dd>Un pipeline de imagen que encuentra y cuenta las colonias a partir de una foto de la placa, contrastado con un contador de colonias de referencia y empaquetado en un notebook que el laboratorio puede usar en Colab.</dd>
             <dt>Pruébalo</dt>
             <dd>Cuenta tú las colonias haciendo clic y luego deja que cuente el algoritmo. Compara.</dd>
           </dl>
-          <p class="stack">Python · segmentación tipo OpenCV · estadística</p>
+          <p class="stack">Python · segmentación con scikit-image · concordancia Bland-Altman</p>
           <p class="transfer"><span>Fuera de la biología</span>Detección y conteo de objetos, control de calidad visual.</p>
         </div>
         <figure>
@@ -179,11 +179,11 @@
             <dt>El problema</dt>
             <dd>Una placa de cribado son 96 valores de absorbancia en una hoja de cálculo. Alguien tiene que convertirlos en una potencia para cada compuesto y decidir cuáles siguen adelante.</dd>
             <dt>Lo que hice</dt>
-            <dd>Un pipeline que va de las lecturas de la placa a curvas dosis-respuesta ajustadas y a un ranking por GI<sub>50</sub>, la dosis que reduce el crecimiento a la mitad.</dd>
+            <dd>Una app en Streamlit que lee la exportación del lector de placas, calcula GI<sub>50</sub> (la dosis que reduce el crecimiento a la mitad), TGI y LC<sub>50</sub> con el método del NCI-60, ordena los compuestos y guarda cada curva en una base de datos. La cubren 89 tests automáticos.</dd>
             <dt>Pruébalo</dt>
             <dd>Haz clic en una fila de la placa para ver la curva de ese compuesto. El ranking se ordena solo.</dd>
           </dl>
-          <p class="stack">Python / R · ajustes logísticos de cuatro parámetros · ensayo SRB</p>
+          <p class="stack">Python · Streamlit · SQLite · pytest · ensayo SRB</p>
           <p class="transfer"><span>Fuera de la biología</span>Convertir hojas de cálculo en bruto en informes y rankings automáticos.</p>
         </div>
         <figure class="wells-wrap">
@@ -214,7 +214,7 @@
             <dt>Pruébalo</dt>
             <dd>Elige un tipo de fármaco y sube la dosis. Mira dónde se acumulan las células.</dd>
           </dl>
-          <p class="stack">Python · segmentación nuclear · perfiles de intensidad</p>
+          <p class="stack">Python · segmentación nuclear · mezclas de gaussianas</p>
           <p class="transfer"><span>Fuera de la biología</span>Leer una distribución para distinguir entre dos causas posibles.</p>
         </div>
         <figure>
@@ -249,7 +249,7 @@
             <dt>Pruébalo</dt>
             <dd>Mueve los umbrales. Si son muy laxos todo parece importante; si son muy estrictos pierdes la señal.</dd>
           </dl>
-          <p class="stack">R · DESeq2 · Bioconductor · Snakemake</p>
+          <p class="stack">R · DESeq2 · clusterProfiler · Bioconductor</p>
           <p class="transfer"><span>Fuera de la biología</span>Contrastar miles de hipótesis a la vez sin engañarte.</p>
         </div>
         <figure>
@@ -349,23 +349,26 @@
     </div>
   </section>
 
-  <!-- ═══ 04 HERRAMIENTAS ═══ -->
-  <section class="entry" id="tools" aria-labelledby="tools-h">
+  <!-- ═══ 04 CONOCIMIENTOS ═══ -->
+  <section class="entry" id="skills" aria-labelledby="skills-h">
     <div class="entry-margin">
       <p class="num">04</p>
-      <p class="note">Herramientas</p>
+      <p class="note">Conocimientos<br>y de dónde vienen</p>
     </div>
     <div>
-      <h2 id="tools-h">Herramientas, <em>según para qué sirven</em></h2>
-      <dl class="tools">
-        <div><dt>Python · PyTorch · scikit-learn</dt><dd>Machine learning para predecir bioactividad y segmentar imágenes.</dd></div>
-        <div><dt>ImageJ · CellProfiler</dt><dd>Análisis de fluorescencia de alto contenido, conteo de células y colonias.</dd></div>
-        <div><dt>R · DESeq2 · Bioconductor</dt><dd>RNA-seq, expresión diferencial, redes moleculares.</dd></div>
-        <div><dt>RDKit · ChEMBL · PubChem</dt><dd>Descriptores químicos y modelos QSAR.</dd></div>
-        <div><dt>Snakemake · Bash · Git</dt><dd>Pipelines que funcionan igual dos veces, de los datos en bruto a la figura.</dd></div>
-        <div><dt>Ensayo SRB · microscopía</dt><dd>La parte de laboratorio: cribado antiproliferativo en líneas celulares tumorales.</dd></div>
-        <div><dt><span class="spark" aria-hidden="true"></span>Claude · Claude Code</dt><dd>Mi compañero de programación con IA: escribir y revisar código de análisis, y construir herramientas como esta página más rápido. La ciencia y las decisiones son mías.</dd></div>
-      </dl>
+      <h2 id="skills-h">De dónde vienen <em>mis conocimientos</em></h2>
+      <p class="lede">
+        Cada conocimiento de este mapa sale de un proyecto real, de una herramienta
+        que he construido o de un artículo publicado. Elige cualquiera de los dos
+        lados para ver cómo se conectan.
+      </p>
+      <div class="smap" id="skillmap"></div>
+      <p class="smap-tools">
+        <span>En el día a día</span>
+        Python · R · Bash · Git · ImageJ / Fiji · OpenCV · scikit-learn · PyTorch ·
+        RDKit · DESeq2 · Streamlit · y <span class="spark" aria-hidden="true"></span>Claude Code,
+        mi compañero de programación con IA. La ciencia y las decisiones son mías.
+      </p>
     </div>
   </section>
 
@@ -397,7 +400,8 @@
   <span class="mono">Todas las figuras son simuladas · sin rastreadores</span>
 </footer>
 
-<script src="../assets/cv.js?v=2"></script>
+<script src="../assets/cv.js?v=3"></script>
+<script src="../assets/skills.js?v=3"></script>
 
 </body>
 </html>

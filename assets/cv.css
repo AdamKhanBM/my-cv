@@ -362,11 +362,78 @@ input[type="range"] { width: 100%; margin-top: .5rem; accent-color: var(--dapi);
 .pubs tr[hidden] { display: none; }
 .pub-more { margin-top: 1.2rem; font-family: var(--mono); font-size: .82rem; color: var(--ink-3); }
 
-/* ─── TOOLS ─── */
-.tools { margin-top: 2rem; border-top: 1px solid var(--ink); }
-.tools div { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 1.5rem; padding: .8rem 0; border-bottom: 1px solid var(--rule); }
-.tools dt { font-family: var(--mono); font-size: .82rem; }
-.tools dd { color: var(--ink-2); font-size: 1.05rem; }
+/* ─── SKILLS MAP ───
+   Sources on the left, skills on the right, curves drawn between them by
+   skills.js; the detail panel explains whichever one is selected. */
+.smap {
+  position: relative;
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) 9rem minmax(0, 15rem) minmax(0, 1fr);
+  align-items: stretch;
+}
+.smap-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.smap-lines path { fill: none; stroke: var(--rule); stroke-width: 1.2; transition: opacity .15s; }
+.smap.has-focus .smap-lines path { opacity: .2; }
+.smap.has-focus .smap-lines path.hot { opacity: 1; stroke: var(--dapi); stroke-width: 2; }
+.smap-col { position: relative; z-index: 1; display: flex; flex-direction: column; }
+.smap-col > .label { margin-bottom: .2rem; }
+.smap-origins { grid-column: 1; justify-content: space-between; gap: .6rem; }
+.smap-skills { grid-column: 3; gap: 1rem; }
+
+.smap-o, .smap-s {
+  font: inherit; color: var(--ink); text-align: left; cursor: pointer;
+  background: var(--paper); border-radius: 3px;
+  transition: opacity .15s, background .15s, border-color .15s, color .15s;
+}
+.smap-o { display: grid; gap: .1rem; padding: .6rem .8rem; border: 1px solid var(--rule); }
+.smap-o .k { font-family: var(--mono); font-size: .72rem; letter-spacing: .04em; color: var(--dapi); }
+.smap-o .n { font-size: 1.02rem; line-height: 1.25; }
+.smap-group { display: flex; flex-direction: column; align-items: flex-start; gap: .1rem; }
+.smap-group .g { margin-bottom: .15rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.smap-s { font-size: .98rem; line-height: 1.3; padding: .2rem .55rem; border: 1px solid transparent; border-left: 2px solid var(--rule); }
+.smap-o:hover, .smap-s:hover { border-color: var(--ink); }
+
+.smap.has-focus .smap-o, .smap.has-focus .smap-s { opacity: .35; }
+.smap.has-focus .smap-o.rel, .smap.has-focus .smap-s.rel,
+.smap.has-focus .smap-o.on, .smap.has-focus .smap-s.on { opacity: 1; border-color: var(--ink); }
+.smap .smap-o.on, .smap .smap-s.on { background: var(--ink); color: var(--paper); }
+.smap .smap-o.on .k { color: #c7d0ff; }
+.smap-o[aria-pressed="true"], .smap-s[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--dapi); }
+
+.smap-detail {
+  grid-column: 4; align-self: start; position: sticky; top: 5rem; z-index: 2;
+  margin-left: 2.2rem; padding: 1.1rem 1.2rem; min-height: 12rem;
+  background: #fff; border: 1px solid var(--rule); border-radius: 3px;
+}
+.smap-detail h3 { margin: .2rem 0 .7rem; font-weight: 500; font-size: 1.3rem; line-height: 1.2; }
+.smap-detail dl { display: grid; gap: .6rem; }
+.smap-detail dt { font-family: var(--mono); font-size: .78rem; color: var(--ink); }
+.smap-detail dd { margin-top: .1rem; font-size: .98rem; line-height: 1.45; color: var(--ink-2); }
+.smap-from { margin-bottom: .45rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.smap-hint { font-size: 1.05rem; color: var(--ink-2); }
+.smap-detail .mono { display: block; margin-top: .8rem; }
+.smap-go { display: inline-block; margin-top: 1rem; font-family: var(--mono); font-size: .8rem; color: var(--dapi); text-decoration: none; }
+.smap-go:hover { text-decoration: underline; }
+
+.smap-tools { margin-top: 2.4rem; padding-top: .9rem; max-width: var(--measure); border-top: 1px solid var(--rule); font-size: 1rem; color: var(--ink-2); }
+.smap-tools > span:first-child { display: block; margin-bottom: .3rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+
+/* Without room for curves: buttons that wrap, and the detail panel pinned
+   to the bottom of the screen while the map is in view. */
+@media (max-width: 1080px) {
+  .smap { display: flex; flex-direction: column; gap: 1.6rem; }
+  .smap-lines { display: none; }
+  .smap-origins, .smap-group { flex-direction: row; flex-wrap: wrap; align-items: stretch; gap: .45rem; }
+  .smap-origins > .label, .smap-group .g { flex-basis: 100%; }
+  .smap-o { padding: .45rem .65rem; }
+  .smap-s { border: 1px solid var(--rule); }
+  .smap-detail {
+    order: 3; position: sticky; top: auto; bottom: .8rem;
+    margin-left: 0; min-height: 0; max-height: 36vh; overflow-y: auto;
+    box-shadow: 0 6px 24px rgba(25, 25, 23, .14);
+  }
+}
 
 /* A hand-drawn eight-point spark in Claude's orange, not the official mark. */
 .spark {
@@ -404,7 +471,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 2rem 1.5rem 3rem; display: 
   .rank { columns: 1; }
   .tally { grid-template-columns: 1fr 1fr 1fr; gap: .6rem; }
   .tally b { font-size: 1.3rem; }
-  .tools div, .contact-list li { grid-template-columns: 1fr; gap: .1rem; }
+  .contact-list li { grid-template-columns: 1fr; gap: .1rem; }
   .pubs thead { display: none; }
   .pubs tr { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); border-bottom: 1px solid var(--rule); padding: .8rem 0; }
   .pubs td { border: 0; padding: 0; }

@@ -1,0 +1,3 @@
+# Private inputs: never publish (GitHub Pages serves every committed file)
+skills-map.json
+.claude/

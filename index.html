@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Bump ?v= on both pages whenever cv.css or cv.js changes, so browsers drop their cached copy. -->
-  <link rel="stylesheet" href="assets/cv.css?v=2">
+  <!-- Bump ?v= on both pages whenever a file in assets/ changes, so browsers drop their cached copy. -->
+  <link rel="stylesheet" href="assets/cv.css?v=3">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
       <a href="#approach"><span>01</span> Approach</a>
       <a href="#problems"><span>02</span> Problems solved</a>
       <a href="#papers"><span>03</span> Papers</a>
-      <a href="#tools"><span>04</span> Toolbox</a>
+      <a href="#skills"><span>04</span> Skills</a>
       <a href="#contact"><span>05</span> Contact</a>
       <!-- TODO: Adam_Khan_Navarro_CV.pdf is not in the repo yet; this link 404s until it is added. -->
       <a href="Adam_Khan_Navarro_CV.pdf" target="_blank" rel="noopener">CV.pdf ↗</a>
@@ -146,11 +146,11 @@
             <dt>The problem</dt>
             <dd>Colony assays end with someone counting dots on dozens of plates. It is slow, tiring, and two people rarely get the same number.</dd>
             <dt>What I built</dt>
-            <dd>An image pipeline that finds and counts colonies from a photo of the plate, and outputs the stats per condition.</dd>
+            <dd>An image pipeline that finds and counts colonies from a photo of the plate, checked against a reference colony counter and packaged as a notebook the lab can run in Colab.</dd>
             <dt>Try it</dt>
             <dd>Click the colonies yourself, then let the algorithm count. Compare.</dd>
           </dl>
-          <p class="stack">Python · OpenCV-style segmentation · statistics</p>
+          <p class="stack">Python · scikit-image segmentation · Bland-Altman agreement</p>
           <p class="transfer"><span>Outside biology</span>Object detection and counting, visual quality control.</p>
         </div>
         <figure>
@@ -179,11 +179,11 @@
             <dt>The problem</dt>
             <dd>A screening plate is 96 absorbance values in a spreadsheet. Someone has to turn them into a potency for every compound and decide which ones go forward.</dd>
             <dt>What I built</dt>
-            <dd>A pipeline from raw plate reads to fitted dose-response curves and a ranking by GI<sub>50</sub>, the dose that halves growth.</dd>
+            <dd>A Streamlit app that reads the plate reader's raw export, computes GI<sub>50</sub> (the dose that halves growth), TGI and LC<sub>50</sub> with the NCI-60 method, ranks the compounds and stores every curve in a database. It is covered by 89 automated tests.</dd>
             <dt>Try it</dt>
             <dd>Click a row of the plate to see that compound's curve. The ranking updates itself.</dd>
           </dl>
-          <p class="stack">Python / R · four-parameter logistic fits · SRB assay</p>
+          <p class="stack">Python · Streamlit · SQLite · pytest · SRB assay</p>
           <p class="transfer"><span>Outside biology</span>Turning raw spreadsheets into automated reports and rankings.</p>
         </div>
         <figure class="wells-wrap">
@@ -214,7 +214,7 @@
             <dt>Try it</dt>
             <dd>Pick a type of drug and raise the dose. Watch where the cells pile up.</dd>
           </dl>
-          <p class="stack">Python · nuclear segmentation · intensity profiling</p>
+          <p class="stack">Python · nuclear segmentation · Gaussian mixture models</p>
           <p class="transfer"><span>Outside biology</span>Reading a distribution to tell two possible causes apart.</p>
         </div>
         <figure>
@@ -249,7 +249,7 @@
             <dt>Try it</dt>
             <dd>Move the thresholds. Too loose and everything looks important; too strict and you lose the signal.</dd>
           </dl>
-          <p class="stack">R · DESeq2 · Bioconductor · Snakemake</p>
+          <p class="stack">R · DESeq2 · clusterProfiler · Bioconductor</p>
           <p class="transfer"><span>Outside biology</span>Testing thousands of hypotheses at once without fooling yourself.</p>
         </div>
         <figure>
@@ -349,23 +349,25 @@
     </div>
   </section>
 
-  <!-- ═══ 04 TOOLBOX ═══ -->
-  <section class="entry" id="tools" aria-labelledby="tools-h">
+  <!-- ═══ 04 SKILLS MAP ═══ -->
+  <section class="entry" id="skills" aria-labelledby="skills-h">
     <div class="entry-margin">
       <p class="num">04</p>
-      <p class="note">Toolbox</p>
+      <p class="note">Skills<br>and where they come from</p>
     </div>
     <div>
-      <h2 id="tools-h">Tools, <em>by what they're for</em></h2>
-      <dl class="tools">
-        <div><dt>Python · PyTorch · scikit-learn</dt><dd>Machine learning for bioactivity prediction and image segmentation.</dd></div>
-        <div><dt>ImageJ · CellProfiler</dt><dd>High-content fluorescence analysis, cell and colony counting.</dd></div>
-        <div><dt>R · DESeq2 · Bioconductor</dt><dd>RNA-seq, differential expression, molecular networks.</dd></div>
-        <div><dt>RDKit · ChEMBL · PubChem</dt><dd>Chemical descriptors and QSAR models.</dd></div>
-        <div><dt>Snakemake · Bash · Git</dt><dd>Pipelines that run the same way twice, from raw data to figure.</dd></div>
-        <div><dt>SRB assay · microscopy</dt><dd>The wet-lab side: antiproliferative screening in tumour cell lines.</dd></div>
-        <div><dt><span class="spark" aria-hidden="true"></span>Claude · Claude Code</dt><dd>My AI pair-programmer: drafting and reviewing analysis code, building tools like this page faster. The science and the decisions stay mine.</dd></div>
-      </dl>
+      <h2 id="skills-h">Where my skills <em>come from</em></h2>
+      <p class="lede">
+        Every skill on this map comes from a real project, a tool I built or a
+        published paper. Pick either side to see how they connect.
+      </p>
+      <div class="smap" id="skillmap"></div>
+      <p class="smap-tools">
+        <span>Day to day</span>
+        Python · R · Bash · Git · ImageJ / Fiji · OpenCV · scikit-learn · PyTorch ·
+        RDKit · DESeq2 · Streamlit · and <span class="spark" aria-hidden="true"></span>Claude Code,
+        my AI pair-programmer. The science and the decisions stay mine.
+      </p>
     </div>
   </section>
 
@@ -397,7 +399,8 @@
   <span class="mono">All figures simulated · no trackers</span>
 </footer>
 
-<script src="assets/cv.js?v=2"></script>
+<script src="assets/cv.js?v=3"></script>
+<script src="assets/skills.js?v=3"></script>
 
 </body>
 </html>
